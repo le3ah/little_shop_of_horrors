@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
+coverage
 /.bundle
 
 # Ignore all logfiles and tempfiles.
@@ -18,5 +19,4 @@
 
 .byebug_history
 
-coverage
 .gitignore

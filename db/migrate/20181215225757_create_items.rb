@@ -7,6 +7,8 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.integer :price
       t.integer :inventory
       t.boolean :enabled
+
+      t.timestamps
     end
   end
 end

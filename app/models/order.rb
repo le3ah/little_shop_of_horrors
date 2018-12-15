@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  validate_presence_of :status
+  validates_presence_of :status
 
-  belongs_to :user
+  # belongs_to :user
 end

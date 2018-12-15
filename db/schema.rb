@@ -36,12 +36,14 @@ ActiveRecord::Schema.define(version: 20181215225757) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "role"
+    t.integer "role", default: 0
     t.boolean "enabled"
     t.string "address"
     t.string "city"
     t.integer "zip"
     t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

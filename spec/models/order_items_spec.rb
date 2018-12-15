@@ -8,7 +8,7 @@ RSpec.describe OrderItem, type: :model do
   end
 
   describe 'relationships' do
-    xit {should belong_to(:item)}
-    xit {should belong_to(:order)}
+    it {should belong_to(:item)}
+    it {should belong_to(:order)}
   end
 end

@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   context "Validations" do
     context "relationships" do
-        xit { should have_many(:orders) } 
-        xit { should have_many(:items) } 
+        it { should have_many(:orders) }
     end
-    
-    describe 'should require all fields' do 
+
+    describe 'should require all fields' do
         it { should validate_presence_of(:name) }
         it { should validate_presence_of(:email) }
         it { should validate_presence_of(:password_digest) }
@@ -18,11 +17,11 @@ RSpec.describe User, type: :model do
         it { should validate_presence_of(:zip) }
         it { should validate_presence_of(:state) }
     end
-    
-    describe 'should require uniqueness of' do    
+
+    describe 'should require uniqueness of' do
         it { should validate_uniqueness_of(:email) }
     end
-    
+
   end
 
 end

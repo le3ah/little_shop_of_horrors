@@ -6,6 +6,6 @@ describe Order, type: :model do
   end
 
   describe 'Relationships' do
-    xit { should belong_to(:user) }
+    it { should belong_to(:user) }
   end
 end

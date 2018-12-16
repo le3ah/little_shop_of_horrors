@@ -10,10 +10,10 @@ describe Item, type: :model do
     it {should validate_presence_of(:enabled)}
   end
 
-  # describe "relationships" do
-  #   describe 'to orders' do
-  #     xit {should have_many(:order_items)}
-  #     xit {should have_many(:orders).through(:order_items)}
-  #   end
-  # end
+  describe "relationships" do
+    describe 'to orders' do
+      it {should have_many(:order_items)}
+      it {should have_many(:orders).through(:order_items)}
+    end
+  end
 end

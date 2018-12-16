@@ -1,4 +1,4 @@
-class User < ApplicationRecord 
+class User < ApplicationRecord
     validates_presence_of :name, :email, :password_digest, :role, :enabled,
                           :address, :city, :zip, :state
 
@@ -6,5 +6,6 @@ class User < ApplicationRecord
 
     enum role: ["default", "merchant", "admin"]
 
-                    
-end 
+    has_many :orders 
+
+end

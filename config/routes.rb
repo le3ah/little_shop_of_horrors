@@ -4,5 +4,12 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index]
   resources :merchants, only: [:index]
-  
+
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+
+  get '/register', to: 'sessions#new'
+  post '/register', to: 'sessions#create'
+
+  get '/cart', to: 'carts#index'
 end

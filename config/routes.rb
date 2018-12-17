@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index]
   resources :merchants, only: [:index]
+  resources :user, only: [:index]
 
   get '/register', to: 'users#new'
 end

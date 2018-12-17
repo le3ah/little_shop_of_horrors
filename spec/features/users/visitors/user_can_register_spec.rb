@@ -6,8 +6,8 @@ describe 'as a visitor' do
 
     visit root_path
 
-    click_on 'sign up'
-    expect(current_path).to eq(new_user_path)
+    click_on 'Sign Up'
+    expect(current_path).to eq('/register')
 
     fill_in :user_username, with: username
     fill_in :user_password, with: "test"

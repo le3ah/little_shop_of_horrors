@@ -8,4 +8,9 @@ Rails.application.routes.draw do
 
   get '/register', to: 'users#new'
   get '/profile', to: 'users#show'
+
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+
+  get '/cart', to: 'carts#index'
 end

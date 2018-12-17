@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     describe 'should require uniqueness of' do
         it { should validate_uniqueness_of(:email) }
     end
-
+     
   end
 
 end

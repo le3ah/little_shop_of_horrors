@@ -28,4 +28,5 @@ describe 'as a visitor' do
     expect(page).to have_content("Welcome, #{username}")
 
   end
+  
 end

@@ -13,7 +13,7 @@ describe 'Items Index Page' do
         state: "CO"
       )
 
-      i_1 = m_1.items.create(
+      @i_1 = m_1.items.create(
         name: 'Burger',
         description: 'Juicy',
         thumbnail: 'thumbnail',
@@ -21,7 +21,7 @@ describe 'Items Index Page' do
         inventory: 5
       )
 
-      i_2 = m_1.items.create(
+      @i_2 = m_1.items.create(
         name: 'Burger sauce',
         description: 'Juicy sauce',
         thumbnail: 'thumbnail',
@@ -29,22 +29,32 @@ describe 'Items Index Page' do
         inventory: 12,
         enabled: false
       )
+
+      visit items_path
     end
 
     it 'should show enabled item information' do
-      expect(page).to have_content(i_1.name)
-      expect(page).to have_content(i_1.description)
-      expect(page).to have_content(i_1.thumbnail)
-      expect(page).to have_content(i_1.price)
-      expect(page).to have_content(i_1.inventory)
+      expect(page).to have_content(@i_1.name)
+      expect(page).to have_content(@i_1.thumbnail)
+      expect(page).to have_content(@i_1.merchant.name)
+      expect(page).to have_content(@i_1.price)
+      expect(page).to have_content(@i_1.inventory)
     end
 
     it 'should not show disabled item information' do
-      expect(page).to_not have_content(i_2.name)
-      expect(page).to_not have_content(i_2.description)
-      expect(page).to_not have_content(i_2.thumbnail)
-      expect(page).to_not have_content(i_2.price)
-      expect(page).to_not have_content(i_2.inventory)
+      expect(page).to_not have_content(@i_2.name)
+      expect(page).to_not have_content(@i_2.thumbnail)
+      expect(page).to_not have_content(@i_2.merchant.name)
+      expect(page).to_not have_content(@i_2.price)
+      expect(page).to_not have_content(@i_2.inventory)
+    end
+
+    it 'should link to item show through item name' do
+
+    end
+
+    it 'should link to item show through item thumbnail' do
+
     end
   end
 end

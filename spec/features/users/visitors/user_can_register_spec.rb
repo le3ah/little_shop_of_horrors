@@ -28,5 +28,16 @@ describe 'as a visitor' do
     expect(page).to have_content("Welcome, #{name}")
 
   end
+  it "will render form again if missing registration info" do
+    name = "Tony II"
+
+    visit root_path
+
+    click_on 'Sign Up'
+    expect(current_path).to eq('/register')
+    fill_in :user_name, with: name
+    click_on 'Create User'
+    expect(page).to have_content("User Registration Form")
+  end
 
 end

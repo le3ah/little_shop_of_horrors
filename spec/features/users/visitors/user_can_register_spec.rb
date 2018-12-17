@@ -24,9 +24,9 @@ describe 'as a visitor' do
     fill_in :user_zip, with: zip
 
     click_on 'Create User'
-
-    expect(page).to have_content("Welcome, #{username}")
+    expect(current_path).to eq(profile_path)
+    expect(page).to have_content("Welcome, #{name}")
 
   end
-  
+
 end

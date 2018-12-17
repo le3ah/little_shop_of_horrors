@@ -4,7 +4,7 @@ describe 'navigation' do
   before :each do
     visit root_path
   end
-  xit "links to appropriate page" do
+  it "links to appropriate page" do
     click_link "home"
     expect(current_path).to eq(root_path)
     click_link "browse items"

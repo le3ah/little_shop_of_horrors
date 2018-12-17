@@ -12,9 +12,9 @@ describe 'navigation' do
     click_link "browse merchants"
     expect(current_path).to eq(merchants_path)
     click_link "shopping cart"
-    expect(current_path).to eq('/cart')
+    expect(current_path).to eq(cart_path)
     click_link "login"
-    expect(current_path).to eq('/login')
+    expect(current_path).to eq(login_path)
     click_link "user registration"
     expect(current_path).to eq('/register')
   end

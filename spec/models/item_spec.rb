@@ -14,6 +14,7 @@ describe Item, type: :model do
     describe 'to orders' do
       it {should have_many(:order_items)}
       it {should have_many(:orders).through(:order_items)}
+      it {should belong_to(:user)}
     end
   end
 end

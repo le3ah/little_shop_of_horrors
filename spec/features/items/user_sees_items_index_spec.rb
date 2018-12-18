@@ -63,12 +63,12 @@ describe 'Items Index Page' do
 
     it 'should link to item show through item name' do
       click_link "#{@i_1.name}"
-      expect(current_path).to eq(item_path(@i_2))
+      expect(current_path).to eq(item_path(@i_1))
     end
 
     it 'should link to item show through item thumbnail' do
       click_link "item-image-#{@i_1.id}"
-      expect(current_path).to eq(item_path(@i_2))
+      expect(current_path).to eq(item_path(@i_1))
     end
   end
 end

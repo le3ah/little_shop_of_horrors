@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 
+  get '/dashboard', to: 'merchants#show'
+
   get '/cart', to: 'carts#index'
 end

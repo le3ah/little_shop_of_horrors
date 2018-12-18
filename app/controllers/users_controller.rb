@@ -6,15 +6,18 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      session[:id] = @user.id
+      session[:user_id] = @user.id
+      flash[:success] = "Party in my plants! You're a new user! 💐 🌝"
       redirect_to profile_path
     else
+      flash.keep[:email_error] = "Whoops! Cannot repeat email address! 🥀"
       render :new
+
     end
   end
 
   def show
-    @user = User.find(session[:id])
+    @user = User.find(session[:user_id])
   end
 
   private

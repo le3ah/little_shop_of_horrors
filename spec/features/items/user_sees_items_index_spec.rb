@@ -43,7 +43,7 @@ describe 'Items Index Page' do
       expect(page).to have_content(@i_1.inventory)
     end
 
-    xit 'should not show disabled item information' do
+    it 'should not show disabled item information' do
       expect(page).to_not have_content(@i_2.name)
       expect(page).to_not have_content(@i_2.thumbnail)
       expect(page).to_not have_content(@i_2.user.name)
@@ -51,12 +51,14 @@ describe 'Items Index Page' do
       expect(page).to_not have_content(@i_2.inventory)
     end
 
-    it 'should link to item show through item name' do
-
+    xit 'should link to item show through item name' do
+      click_link "#{@i_2.name}"
+      expect(current_path).to eq(item_path(@i_2))
     end
 
-    it 'should link to item show through item thumbnail' do
-
+    xit 'should link to item show through item thumbnail' do
+      click_link "image-#{@i_2.id}"
+      expect(current_path).to eq(item_path(@i_2))
     end
   end
 end

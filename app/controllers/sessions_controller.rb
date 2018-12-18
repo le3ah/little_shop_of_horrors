@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Hooray! Welcome! 🎍"
       redirect_to profile_path if user.role == "default"
       redirect_to dashboard_path if user.role == "merchant"
+      redirect_to root_path if user.role == "admin"
     else
       flash.keep[:error] = "Oh no! Something went wrong. 🤯 🥀"
       render :new

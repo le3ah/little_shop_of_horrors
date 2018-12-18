@@ -1,0 +1,4 @@
+<h1>Welcome, merchant <%= @merchant.name %>!</h1>
+
+<%= link_to "log out", root_path, method: :delete %>
+<%= flash[:success] %>

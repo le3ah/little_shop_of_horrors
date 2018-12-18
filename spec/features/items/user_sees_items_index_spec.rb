@@ -4,7 +4,7 @@ describe 'Items Index Page' do
   context 'as any kind of user' do
     before :each do
       m_1 = User.create!(
-        name: "Bob's Burgers",
+        name: "Bob's Flowers",
         email: "email@email.com",
         password: "1234password",
         role: 1,
@@ -14,22 +14,32 @@ describe 'Items Index Page' do
         state: "CO"
       )
 
+      m_2 = User.create!(
+        name: "Bob's Orchids",
+        email: "email2@email.com",
+        password: "1234password",
+        role: 1,
+        address: "12 Main st",
+        city: "Town",
+        zip: 92020,
+        state: "CO"
+      )
+
       @i_1 = m_1.items.create!(
-        name: 'Burger',
-        description: 'Juicy',
+        name: 'Flower Pot',
+        description: 'Messy Pot',
         thumbnail: 'thumbnail',
         price: 4,
         inventory: 5,
         enabled: true
       )
 
-      @i_2 = m_1.items.create!(
-        name: 'Burger sauce',
+      @i_2 = m_2.items.create!(
+        name: 'Orchid sauce',
         description: 'Juicy sauce',
-        thumbnail: 'thumbnail',
+        thumbnail: 'thumbnail for sauce',
         price: 2,
-        inventory: 12,
-        enabled: false
+        inventory: 12
       )
 
       visit items_path
@@ -43,7 +53,7 @@ describe 'Items Index Page' do
       expect(page).to have_content(@i_1.inventory)
     end
 
-    xit 'should not show disabled item information' do
+    it 'should not show disabled item information' do
       expect(page).to_not have_content(@i_2.name)
       expect(page).to_not have_content(@i_2.thumbnail)
       expect(page).to_not have_content(@i_2.user.name)
@@ -52,11 +62,13 @@ describe 'Items Index Page' do
     end
 
     it 'should link to item show through item name' do
-
+      click_link "#{@i_1.name}"
+      expect(current_path).to eq(item_path(@i_1))
     end
 
     it 'should link to item show through item thumbnail' do
-
+      click_link "item-image-#{@i_1.id}"
+      expect(current_path).to eq(item_path(@i_1))
     end
   end
 end

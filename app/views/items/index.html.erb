@@ -1,9 +1,11 @@
 <% @items.each do |i| %>
-  <div class='item' id="item-<%= i.id %>">
-    <%= i.name %>
-    <%= i.thumbnail %>
-    <%= i.user.name %>
-    <%= i.price %>
-    <%= i.inventory %>
-  </div>
+  <% if i.enabled %>
+    <div class='item' id="item-<%= i.id %>">
+      <%= link_to i.name, item_path(i) %>
+      <%= link_to i.thumbnail, item_path(i), id: "item-image-#{i.id}" %>
+      <%= i.user.name %>
+      <%= i.price %>
+      <%= i.inventory %>
+    </div>
+  <% end %>
 <% end %>

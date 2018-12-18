@@ -39,8 +39,30 @@ describe 'as a registered user' do
     expect(current_path).to eq(dashboard_path)
 
     expect(page).to have_content("Welcome, merchant #{user.name}!")
+    expect(page).to have_content("Hooray!")
     expect(page).to have_content("log out")
     
+  end
+
+  it "should login admin" do
+    user = create(:user, role: 2)
+    
+    visit root_path
+    click_on "login"
+
+    expect(current_path).to eq(login_path)
+
+    fill_in "email", with: user.email
+    fill_in "password", with: user.password
+
+
+    click_on "submit"
+
+    expect(current_path).to eq(root_path)
+
+    expect(page).to have_content("Little Shop of Horrors!")
+    expect(page).to have_content("Hooray!")
+    expect(page).to have_content("log out")
   end
 
   it "should show error flash if incorrect login" do

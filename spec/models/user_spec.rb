@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   context "Validations" do
     context "relationships" do
         it { should have_many(:orders) }
+        it { should have_many(:items) }
     end
 
     describe 'should require all fields' do

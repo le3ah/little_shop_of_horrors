@@ -71,6 +71,6 @@ describe 'as a visitor' do
     expect(find_field(:user_address).value).to eq address
     expect(find_field(:user_city).value).to eq city
     expect(find_field(:user_state).value).to eq state
-    expect(find_field(:user_zip).value).to eq zip
+    expect(find_field(:user_zip).value).to eq "35057"
   end
 end

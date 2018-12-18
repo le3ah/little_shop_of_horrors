@@ -14,15 +14,16 @@ describe 'Items Index Page' do
         state: "CO"
       )
 
-      @i_1 = m_1.items.create(
+      @i_1 = m_1.items.create!(
         name: 'Burger',
         description: 'Juicy',
         thumbnail: 'thumbnail',
         price: 4,
-        inventory: 5
+        inventory: 5,
+        enabled: true
       )
 
-      @i_2 = m_1.items.create(
+      @i_2 = m_1.items.create!(
         name: 'Burger sauce',
         description: 'Juicy sauce',
         thumbnail: 'thumbnail',
@@ -35,10 +36,8 @@ describe 'Items Index Page' do
     end
 
     it 'should show enabled item information' do
-      binding.pry
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.thumbnail)
-
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content(@i_1.price)
       expect(page).to have_content(@i_1.inventory)

@@ -1,1 +1,9 @@
-
+<% @items.each do |i| %>
+  <div class='item' id="item-<%= i.id %>">
+    <%= i.name %>
+    <%= i.thumbnail %>
+    <%= i.merchant.name %>
+    <%= i.price %>
+    <%= i.inventory %>
+  </div>
+<% end %>

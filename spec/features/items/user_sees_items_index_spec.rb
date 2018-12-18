@@ -3,13 +3,14 @@ require "rails_helper"
 describe 'Items Index Page' do
   context 'as any kind of user' do
     before :each do
-      m_1 = Merchant.create(
+      m_1 = User.create!(
         name: "Bob's Burgers",
         email: "email@email.com",
         password: "1234password",
         role: 1,
         address: "12 Main st",
         city: "Town",
+        zip: 92020,
         state: "CO"
       )
 
@@ -34,17 +35,19 @@ describe 'Items Index Page' do
     end
 
     it 'should show enabled item information' do
+      binding.pry
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.thumbnail)
-      expect(page).to have_content(@i_1.merchant.name)
+
+      expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content(@i_1.price)
       expect(page).to have_content(@i_1.inventory)
     end
 
-    it 'should not show disabled item information' do
+    xit 'should not show disabled item information' do
       expect(page).to_not have_content(@i_2.name)
       expect(page).to_not have_content(@i_2.thumbnail)
-      expect(page).to_not have_content(@i_2.merchant.name)
+      expect(page).to_not have_content(@i_2.user.name)
       expect(page).to_not have_content(@i_2.price)
       expect(page).to_not have_content(@i_2.inventory)
     end

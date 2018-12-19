@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create]
 
   namespace :admin do 
-    resources :merchants, only: [:index]
+    resources :merchants, only: [:index, :show]
   end
 
   get '/register', to: 'users#new'

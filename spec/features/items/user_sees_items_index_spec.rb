@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe 'Items Index Page' do
   context 'as any kind of user' do
-    before 'replace_with_symbol_each' do
+    before :each do
       m_1 = User.create!(
         name: "Bob's Flowers",
         email: "email@email.com",
@@ -45,7 +45,7 @@ describe 'Items Index Page' do
       visit items_path
     end
 
-    xit 'should show enabled item information' do
+    it 'should show enabled item information' do
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)

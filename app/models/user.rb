@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-    validates_presence_of :name, :email, :password, :role,
+    validates_presence_of :name, :email, :role,
                           :address, :city, :zip, :state
-
+    validates_presence_of :password, if: :password
     validates_inclusion_of :enabled, :in => [true, false]
     validates_uniqueness_of :email
 
@@ -37,5 +37,10 @@ class User < ApplicationRecord
         .order("avg_f_time #{order}")
         .limit(amount)
         .select("users.name, avg(order_items.created_at - order_items.updated_at) as avg_f_time")
+    end
+
+    def switch_enabled
+      switch_boolean = !attributes["enabled"]
+      update(enabled: switch_boolean)
     end
 end

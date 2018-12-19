@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
 
         o_1 = Order.create(status: "pending", user_id: u_1.id)
         o_2 = Order.create(status: "pending", user_id: u_1.id)
-    
+
         i_1 = create(:item, price: 1, user_id: m_1.id)
         i_2 = create(:item, price: 1, user_id: m_1.id)
 
@@ -106,6 +106,18 @@ RSpec.describe User, type: :model do
 
         expect(top_sorted).to eq([m_3, m_2, m_1])
         expect(bottom_sorted).to eq([m_1, m_2, m_3])
+      end
+
+      it '.switch_enabled - toggles user enabled status' do
+        m = create(:user)
+
+        m.switch_enabled
+
+        expect(m.enabled).to eq(false)
+
+        m.switch_enabled
+
+        expect(m.enabled).to eq(true)
       end
     end
   end

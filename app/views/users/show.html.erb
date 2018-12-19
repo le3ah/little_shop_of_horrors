@@ -1,3 +1,10 @@
-<h1>Welcome, <%= current_user.name %></h1>
+<h1>Welcome, <%= current_user.name %>!</h1>
 
+<p>Email: <%= current_user.email %></p>
+<p>Address: <%= current_user.address %></p>
+<p>City: <%= current_user.city %></p>
+<p>State: <%= current_user.state %></p>
+<p>Zip: <%= current_user.zip %></p>
+
+<%= link_to "Edit Profile", user_path(current_user), method: :update %>
 <%= flash[:success] %>

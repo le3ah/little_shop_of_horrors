@@ -47,11 +47,77 @@ describe "Merchants Index Page" do
         @i_7 = create(:item, price: 15, user_id: @m_4.id)
         @i_8 = create(:item, price: 15, user_id: @m_4.id)
 
-        OrderItem.create(quantity: 2, price: @i_1.price)
+        OrderItem.create(
+          quantity: 2,
+          price: @i_1.price,
+          fulfilled: true,
+          order_id: @o_1.id,
+          item_id: @i_1.id
+        )
+
+        OrderItem.create(
+          quantity: 10,
+          price: @i_2.price,
+          fulfilled: false,
+          order_id: @o_2.id,
+          item_id: @i_2.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_3.price,
+          fulfilled: true,
+          order_id: @o_1.id,
+          item_id: @i_3.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_4.price,
+          fulfilled: true,
+          order_id: @o_2.id,
+          item_id: @i_4.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_5.price,
+          fulfilled: true,
+          order_id: @o_1.id,
+          item_id: @i_5.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_6.price,
+          fulfilled: true,
+          order_id: @o_2.id,
+          item_id: @i_6.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_7.price,
+          fulfilled: true,
+          order_id: @o_1.id,
+          item_id: @i_7.id
+        )
+
+        OrderItem.create(
+          quantity: 1,
+          price: @i_8.price,
+          fulfilled: true,
+          order_id: @o_2.id,
+          item_id: @i_8.id
+        )
+
+        visit merchants_path
       end
 
       it 'should show top 3 merchants by items sold price and quantity' do
+        sorted = User.merchants_by_revenue(:top, 3)
 
+        expect(all('.merchant-stat')[0]).to have_content(sorted[0].name)
       end
 
       it 'should show best 3 merchants by order fulfillment time' do

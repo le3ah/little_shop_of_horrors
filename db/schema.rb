@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20181218001734) do
   create_table "order_items", force: :cascade do |t|
     t.integer "quantity"
     t.integer "price"
-    t.boolean "fulfilled"
+    t.boolean "fulfilled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "order_id"

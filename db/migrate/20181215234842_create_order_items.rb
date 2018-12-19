@@ -4,7 +4,7 @@ class CreateOrderItems < ActiveRecord::Migration[5.1]
 
       t.integer :quantity
       t.integer :price
-      t.boolean :fulfilled
+      t.boolean :fulfilled, default: false
 
       t.timestamps
       t.references :order, foreign_key: true

@@ -1,0 +1,10 @@
+<% @merchants.each do |m| %>
+  <% if m.enabled %>
+    <div class='merchant' id="merchant-#{m.id}">
+      <%= m.name %>
+      <%= m.city %>
+      <%= m.state %>
+      <%= m.created_at %>
+    </div>
+  <% end %>
+<% end %>

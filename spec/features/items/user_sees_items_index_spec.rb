@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe 'Items Index Page' do
   context 'as any kind of user' do
-    before 'replace_with_symbol_each' do
+    before :each do
       m_1 = User.create!(
         name: "Bob's Flowers",
         email: "email@email.com",

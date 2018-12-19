@@ -18,7 +18,7 @@ describe 'as a registered user' do
     expect(current_path).to eq(profile_path)
 
     expect(page).to have_content("Welcome, #{user.name}")
-    expect(page).to have_content("log out")
+    expect(page).to have_content("logout")
     expect(page).to have_content("Hooray!")
   end
 
@@ -40,7 +40,7 @@ describe 'as a registered user' do
 
     expect(page).to have_content("Welcome, merchant #{user.name}!")
     expect(page).to have_content("Hooray!")
-    expect(page).to have_content("log out")
+    expect(page).to have_content("logout")
     
   end
 
@@ -62,7 +62,7 @@ describe 'as a registered user' do
 
     expect(page).to have_content("Little Shop of Horrors!")
     expect(page).to have_content("Hooray!")
-    expect(page).to have_content("log out")
+    expect(page).to have_content("logout")
   end
 
   it "should show error flash if incorrect login" do

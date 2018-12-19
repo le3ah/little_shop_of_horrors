@@ -12,7 +12,7 @@ describe  'Items Show Page' do
       enabled: true
     )
 
-    visit item_path(item)
+    visit item_path(@item_1)
   end
   context 'as any kind of user' do
     it "should show all item information" do
@@ -27,19 +27,19 @@ describe  'Items Show Page' do
     end
   end
   context 'as a visitor' do
-    it "should see a link to add this item to my cart" do
+    xit "should see a link to add this item to my cart" do
 
-      expect(page).to have_content("Add Item to My Cart")
+      expect(page).to have_link("Add Item to My Cart")
     end
   end
   context 'as a regular user' do
-    it "should see a link to add this item to my cart" do
+    xit "should see a link to add this item to my cart" do
 
-      expect(page).to have_content("Add Item to My Cart")
+      expect(page).to have_link("Add Item to My Cart")
     end
   end
   context 'as a merchant' do
-    it "should not see a link to add item to cart" do
+    xit "should not see a link to add item to cart" do
       expect(page).to_not have_content("Add Item to My Cart")
     end
   end

@@ -4,3 +4,4 @@
 <%= @item.user.name %>
 <%= @item.inventory %>
 <%= @item.price %>
+<p>Average Fulfillment Time: <%= OrderItem.avg_fulfillment_time(@item) %></p>

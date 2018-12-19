@@ -6,10 +6,8 @@ class OrderItem < ApplicationRecord
   belongs_to :item
 
   def self.avg_fulfillment_time(item)
-    joins(items: :order_items)
-      .where("order_items.fulfilled = true")
-      .where(role: 1)
-      .group(item.id)
-      .select("avg(order_items.created_at - order_items.updated_at) as avg_f_time")
+    where(fulfilled: true)
+      .where(item_id: item.id)
+      .average("updated_at- created_at")
   end
 end

@@ -11,7 +11,7 @@ class User < ApplicationRecord
     has_many :items
     has_secure_password
 
-    def merchants
+    def self.merchants
       where(role: 1)
     end
 end

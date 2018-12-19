@@ -48,20 +48,4 @@ RSpec.describe User, type: :model do
 
     end
   end
-  describe  "Model Tests" do
-    it ".fulfillment_time" do
-      merchant_1 = create(:user, role: 1)
-      item_1 = merchant_1.items.create(
-        name: 'Flower Pot',
-        description: 'Messy Pot',
-        thumbnail: 'thumbnail',
-        price: 4,
-        inventory: 5,
-        enabled: true
-      )
-
-      expect(item_1.fulfillment_time).to eq()
-
-    end
-  end
 end

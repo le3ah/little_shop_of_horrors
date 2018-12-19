@@ -21,7 +21,7 @@ RSpec.describe 'as an Admin' do
             expect(current_path).to eq(admin_merchant_path(merchant))
         end
 
-        xit "can enable and disable merchant status" do
+        it "can enable and disable merchant status" do
             admin = create(:user, role:2)
             merchant1 = create(:user, role:1)
             merchant2 = create(:user, role:1)
@@ -33,11 +33,12 @@ RSpec.describe 'as an Admin' do
             within("##{merchant1.id}") do 
                 click_on("disable")
             end 
-            
+
             expect(current_path).to eq(admin_merchants_path)
-            
-            within("#merchant-#{merchant1.id}") do 
-                expect(page).to have_content("enable")
+            merchant1.reload 
+
+            within("##{merchant1.id}") do 
+                expect(page).to have_button("enable")
             end 
         end 
         
@@ -55,7 +56,26 @@ RSpec.describe 'as an Admin' do
             visit admin_merchants_path
 
             expect(page).to have_content('All da merchants')
-        end 
+        end
+        
+        it 'can view the index page and see all of the merchants' do 
+            admin = User.create(name:"sweet christmas", email: 'test@test.com', password:"hownow", role: 2, 
+                address: "123 road street", city: "denver", zip:12345, state: "co")
+            merchant1 = create(:user, role:1)
+            merchant2 = create(:user, role:1)
+
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+            visit admin_merchants_path
+            
+            expect(page).to have_content(merchant1.name) 
+            expect(page).to have_content(merchant2.name)
+            expect(page).to have_content(merchant2.city)
+            expect(page).to have_content(merchant2.state)
+            expect(page).to have_content(merchant1.city)
+            expect(page).to have_content(merchant1.state)
+
+        end
         
         it "can view the merchants show page and see the merchant's dashboard" do
             admin = User.new(name:"sweet christmas", email: 'test@test.com', password:"hownow", role: 2, 
@@ -68,6 +88,7 @@ RSpec.describe 'as an Admin' do
             
             click_on("#{merchant.name}")
             
+            expect(current_path).to eq("/admin/merchants/#{merchant.id}") 
             expect(current_path).to eq(admin_merchant_path(merchant)) 
             expect(page).to have_content("Merchant Page") 
         end

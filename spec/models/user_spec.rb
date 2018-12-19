@@ -44,7 +44,6 @@ RSpec.describe User, type: :model do
         m.switch_enabled
         
         expect(m.enabled).to eq(true)
-
       end 
       
     end

@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   resources :users, only: [:create]
 
+  namespace :admin do 
+    resources :merchants, only: [:index]
+  end
+
   get '/register', to: 'users#new'
   get '/profile', to: 'users#show'
 

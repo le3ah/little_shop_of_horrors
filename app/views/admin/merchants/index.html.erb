@@ -1,0 +1,18 @@
+<h1>
+    All da merchants 
+</h1>
+
+<% @merchants.each do |merchant| %>
+<table>
+    <thead>
+        <th>Name</th>
+    </thead>
+
+    <tbody>
+        <td> <%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+    </tbody>
+
+</table>
+
+<% end %>
+(required for spec/views/admin/merchants/index.html.erb)

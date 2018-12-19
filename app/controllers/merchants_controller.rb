@@ -1,6 +1,6 @@
 class MerchantsController < ApplicationController
   def index
-    @merchants = User.merchants
+    @merchants = User.where('role = 1')
   end
 
   def show

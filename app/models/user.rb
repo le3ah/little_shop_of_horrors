@@ -27,7 +27,7 @@ class User < ApplicationRecord
         .select("users.*, sum(order_items.price * order_items.quantity) as revenue")
     end
 
-    def self.merchants_by_fullfillment(top_or_bottom, amount)
+    def self.merchants_by_fullfillment_time(top_or_bottom, amount)
       order = top_or_bottom == :top ? "desc" : "asc"
 
       joins(items: :order_items)
@@ -36,7 +36,7 @@ class User < ApplicationRecord
         .group(:id)
         .order("avg_f_time #{order}")
         .limit(amount)
-        .select("users.name, avg(order_items.created_at - order_items.updated_at) as avg_f_time")
+        .select("users.*, avg(order_items.created_at - order_items.updated_at) as avg_f_time")
     end
 
     def switch_enabled

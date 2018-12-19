@@ -14,4 +14,9 @@ class User < ApplicationRecord
     def self.merchants
       where(role: 1)
     end
+
+    def switch_enabled
+      assign_attributes({:enabled => !attributes["enabled"]})
+    end 
+
 end

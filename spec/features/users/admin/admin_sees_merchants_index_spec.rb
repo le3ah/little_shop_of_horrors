@@ -2,6 +2,48 @@ require "rails_helper"
 
 RSpec.describe 'as an Admin' do 
 
+    context "Admin can see a merchants index" do
+
+        it "can visit and see data" do
+            admin = create(:user, role:2)
+            merchant = create(:user, role:1)
+
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+            visit admin_merchants_path
+
+            expect(page).to have_content(merchant.name) 
+            expect(page).to have_content(merchant.city) 
+            expect(page).to have_content(merchant.state) 
+
+            click_on(merchant.name)
+
+            expect(current_path).to eq(admin_merchant_path(merchant))
+        end
+
+        xit "can enable and disable merchant status" do
+            admin = create(:user, role:2)
+            merchant1 = create(:user, role:1)
+            merchant2 = create(:user, role:1)
+
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+            visit admin_merchants_path
+
+            within("##{merchant1.id}") do 
+                click_on("disable")
+            end 
+            
+            expect(current_path).to eq(admin_merchants_path)
+            
+            within("#merchant-#{merchant1.id}") do 
+                expect(page).to have_content("enable")
+            end 
+        end 
+        
+    end
+    
+
     context "admin can see a merchant's dashboard" do
         
         it "can view the merchant's index page" do 
@@ -39,8 +81,7 @@ RSpec.describe 'as an Admin' do
             expect(page).to_not have_content("All da merchants")
             expect(page).to have_content("The page you were looking for doesn't exist.") 
         end
-        
-        
+
     end
     
 end 

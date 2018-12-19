@@ -14,4 +14,16 @@ class User < ApplicationRecord
     def self.merchants
       where(role: 1)
     end
+
+    def self.merchants_by_revenue(top_or_bottom, amount)
+      order = top_or_bottom == :top ? "desc" : "asc"
+
+      joins(items: :order_items)
+        .where("order_items.fulfilled = true")
+        .where(role: 1)
+        .group(:id)
+        .order("revenue #{order}")
+        .limit(amount)
+        .select("users.*, sum(order_items.price * order_items.quantity)")
+    end
 end

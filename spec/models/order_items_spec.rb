@@ -27,7 +27,7 @@ RSpec.describe OrderItem, type: :model do
         fulfilled: true,
         order_id: o_1.id,
         item_id: i_1.id,
-        created_at: 2.days.ago,
+        created_at: 10.days.ago,
         updated_at: 1.days.ago
       )
 
@@ -37,11 +37,11 @@ RSpec.describe OrderItem, type: :model do
         fulfilled: true,
         order_id: o_2.id,
         item_id: i_1.id,
-        created_at: 4.days.ago,
+        created_at: 5.days.ago,
         updated_at: 2.days.ago
       )
 
-      expect(OrderItem.avg_fulfillment_time(i_1)).to eq(1.5)
+      expect(OrderItem.avg_fulfillment_time(i_1)).to eq(6)
     end
   end
 end

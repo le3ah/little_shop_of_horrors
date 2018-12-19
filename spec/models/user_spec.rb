@@ -23,6 +23,17 @@ RSpec.describe User, type: :model do
         it { should validate_uniqueness_of(:email) }
     end
 
+    describe 'class methods' do
+      it '.merchants - find merchant users' do
+        m = create(:user)
+        u = create(:user, role: 1)
+
+        users = User.merchants
+
+        expect(users).to include(u)
+        expect(users).to_not include(m)
+      end
+    end
   end
 
 end

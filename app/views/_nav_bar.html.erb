@@ -1,8 +1,12 @@
-<nav>
+<nav class="nav">
   <%= link_to "home", root_path  %>
   <%= link_to "browse items", items_path  %>
   <%= link_to "browse merchants", merchants_path  %>
-  <%= link_to "shopping cart", '/cart'  %>
-  <%= link_to "login", '/login'  %>
-  <%= link_to "Sign Up", '/register'  %>
+  <%= link_to "shopping cart", cart_path  %>
+  <% if current_user %>
+    <%= link_to "logout", logout_path, method: :delete %>
+  <% else %>
+    <%= link_to "login", login_path %>
+  <% end %>
+  <%= link_to "Sign Up", register_path  %>
 </nav>

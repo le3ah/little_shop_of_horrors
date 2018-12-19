@@ -17,4 +17,11 @@ describe Item, type: :model do
       it {should belong_to(:user)}
     end
   end
+  describe  "Model Tests" do
+    it ".fulfillment_time" do
+
+      expect(item.fulfillment_time).to eq()
+
+    end
+  end
 end

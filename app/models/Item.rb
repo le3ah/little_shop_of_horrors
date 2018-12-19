@@ -6,7 +6,5 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
   belongs_to :user
 
-  def fulfillment_time
-    
-  end
+  
 end

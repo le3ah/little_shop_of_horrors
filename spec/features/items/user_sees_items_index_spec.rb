@@ -45,7 +45,7 @@ describe 'Items Index Page' do
       visit items_path
     end
 
-    xit 'should show enabled item information' do
+    it 'should show enabled item information' do
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)

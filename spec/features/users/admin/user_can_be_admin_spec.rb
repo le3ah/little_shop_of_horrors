@@ -8,10 +8,10 @@ RSpec.describe "User can be admin" do
     end 
 
     it 'can not be an admin' do
-        admin = User.new(name:"sweet christmas", email: 'test@test.com', password:"hownow", role: 0, 
+        user = User.new(name:"sweet christmas", email: 'test@test.com', password:"hownow", role: 0, 
                 address: "123 road street", city: "denver", zip:12345, state: "co")
-        expect(admin.role).to eq("default")
-        expect(admin.admin?).to_not be_truthy
+        expect(user.role).to eq("default")
+        expect(user.admin?).to_not be_truthy
     end
 
 end

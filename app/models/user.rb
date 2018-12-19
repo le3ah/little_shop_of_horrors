@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-    validates_presence_of :name, :email, :password, :role,
+    validates_presence_of :name, :email, :role,
                           :address, :city, :zip, :state
-
+    validates_presence_of :password, if: :password
     validates_inclusion_of :enabled, :in => [true, false]
     validates_uniqueness_of :email
 
@@ -14,4 +14,10 @@ class User < ApplicationRecord
     def self.merchants
       where(role: 1)
     end
+
+    def switch_enabled
+      switch_boolean = !attributes["enabled"]
+      update(enabled: switch_boolean)
+    end 
+
 end

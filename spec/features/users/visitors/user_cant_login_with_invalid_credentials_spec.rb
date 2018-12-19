@@ -7,7 +7,7 @@ describe "user can't login with bad creds" do
 
         expect(current_path).to eq(login_path)
 
-        fill_in "email", with: user.email
+        fill_in "email", with: user.email 
         click_on "submit"
 
         expect(page).to_not have_content("Welcome, #{user.name}")

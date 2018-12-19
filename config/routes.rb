@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
-  resources :users, only: [:create]
+  resources :users, only: [:create, :update]
 
   namespace :admin do 
     resources :merchants, only: [:index, :show]

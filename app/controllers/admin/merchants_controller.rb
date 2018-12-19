@@ -8,18 +8,12 @@ class Admin::MerchantsController < Admin::BaseController
 
 
     def toggle_status
-        user = User.find(toggle_params[:user_id])
+        user = User.find(params[:user_id])
 
         user.switch_enabled
 
         redirect_to admin_merchants_path
     end 
 
-
-    private 
-
-    def toggle_params
-        params.permit(:enabled, :user_id)
-    end
-    
+        
 end 

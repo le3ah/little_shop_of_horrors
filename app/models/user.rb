@@ -18,7 +18,6 @@ class User < ApplicationRecord
     def switch_enabled
       switch_boolean = !attributes["enabled"]
       update(enabled: switch_boolean)
-      #assign_attributes({:enabled => !attributes["enabled"]})
     end 
 
 end

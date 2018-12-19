@@ -11,9 +11,13 @@ Rails.application.routes.draw do
     post '/toggle', to: "merchants#toggle_status"
   end
 
-  get '/register', to: 'users#new'
+  namespace :profile do
+    resources :orders, only: [:index]
+  end 
   get '/profile', to: 'users#show'
-
+  
+  get '/register', to: 'users#new'
+  
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

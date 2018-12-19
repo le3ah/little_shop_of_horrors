@@ -24,6 +24,6 @@ class User < ApplicationRecord
         .group(:id)
         .order("revenue #{order}")
         .limit(amount)
-        .select("users.*, sum(order_items.price * order_items.quantity)")
+        .select("users.*, sum(order_items.price * order_items.quantity) as revenue")
     end
 end

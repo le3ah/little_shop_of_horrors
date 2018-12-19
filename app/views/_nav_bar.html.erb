@@ -3,10 +3,18 @@
   <%= link_to "browse items", items_path  %>
   <%= link_to "browse merchants", merchants_path  %>
   <%= link_to "shopping cart", cart_path  %>
+
+  <% if current_user && current_user.role == "default" %>
+    <%= link_to 'Profile', profile_path  %>
+    <%= link_to 'Orders', profile_orders_path %>
+    <%= "Logged in as #{current_user.name}" %>
+  <% end %>
+
   <% if current_user %>
     <%= link_to "logout", logout_path, method: :delete %>
   <% else %>
     <%= link_to "login", login_path %>
+    <%= link_to "Sign Up", register_path  %>
   <% end %>
-  <%= link_to "Sign Up", register_path  %>
+  
 </nav>

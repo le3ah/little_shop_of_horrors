@@ -43,9 +43,7 @@ RSpec.describe User, type: :model do
 
         o_1 = Order.create(status: "pending", user_id: u_1.id)
         o_2 = Order.create(status: "pending", user_id: u_1.id)
-        o_3 = Order.create(status: "pending", user_id: u_1.id)
-        o_4 = Order.create(status: "pending", user_id: u_1.id)
-
+    
         i_1 = create(:item, price: 1, user_id: m_1.id)
         i_2 = create(:item, price: 1, user_id: m_1.id)
 

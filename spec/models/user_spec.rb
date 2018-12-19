@@ -34,19 +34,18 @@ RSpec.describe User, type: :model do
         expect(users).to_not include(m)
       end
 
-      it '.switch_enabled - toggles user enabled status' do 
+      it '.switch_enabled - toggles user enabled status' do
         m = create(:user)
 
         m.switch_enabled
-        
+
         expect(m.enabled).to eq(false)
-        
+
         m.switch_enabled
-        
+
         expect(m.enabled).to eq(true)
-      end 
-      
+      end
+
     end
   end
-
 end

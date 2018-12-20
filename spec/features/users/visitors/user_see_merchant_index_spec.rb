@@ -154,14 +154,33 @@ describe "Merchants Index Page" do
       end
 
       it 'should show top 3 states where orders are shipped' do
+        user_1 = create(:user, city: 'San Diego', state: 'CA')
+        user_2 = create(:user, city: 'San Diego', state: 'CA')
+        user_3 = create(:user, city: 'Denver', state: 'CO')
+        user_4 = create(:user, city: 'Denver', state: 'CO')
+        user_5 = create(:user, city: 'Denver', state: 'FL')
+        user_6 = create(:user, city: 'Miami', state: 'FL')
+        user_7 = create(:user, city: 'Oakland', state: 'CA')
+        user_8 = create(:user, city: 'New York', state: 'NY')
 
+        Order.create(status: "complete", user_id: user_1.id)
+        Order.create(status: "complete", user_id: user_2.id)
+        Order.create(status: "complete", user_id: user_3.id)
+        Order.create(status: "complete", user_id: user_4.id)
+        Order.create(status: "complete", user_id: user_5.id)
+        Order.create(status: "complete", user_id: user_6.id)
+        Order.create(status: "complete", user_id: user_7.id)
+        Order.create(status: "complete", user_id: user_8.id)
+
+        require "pry"; binding.pry
+        "LEFT JOIN bookmarks ON bookmarks.bookmarkable_type = 'Post' AND bookmarks.user_id = users.id"
       end
 
       it 'should show top 3 cities where orders where shipped' do
-
+        
       end
 
-      it 'should top 3 orders by quantity of items' do
+      xit 'should top 3 orders by quantity of items' do
 
       end
     end

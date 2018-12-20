@@ -39,8 +39,28 @@ class User < ApplicationRecord
         .select("users.*, avg(order_items.created_at - order_items.updated_at) as avg_f_time")
     end
 
+    def self.top_states(amount)
+      top_cities_or_states(:state, amount)
+    end
+
+    def self.top_cities(amount)
+      top_cities_or_states(:city, amount)
+    end
+
     def switch_enabled
       switch_boolean = !attributes["enabled"]
       update(enabled: switch_boolean)
+    end
+
+    private
+
+    def self.top_cities_or_states(city_or_state, amount)
+      group = city_or_state == :city ? [:city, :state] : :state
+      select("city, state, count(order.id) as order_count")
+        .joins(:orders)
+        .where("orders.status = ?", :complete)
+        .group(group)
+        .order("order_count, city, state")
+        .limit(amount)
     end
 end

@@ -190,19 +190,19 @@ describe "Merchants Index Page" do
 
       it 'should show top 3 cities where orders where shipped' do
         within '.top-cities' do
-          expect(page).to have_content("City: #{top_states[0].state},")
+          expect(page).to have_content("City: #{top_states[0].city}, #{top_states[0].state}")
           expect(page).to have_content("Order Count: #{top_states[0].order_count}")
 
-          expect(page).to have_content("City: #{top_states[1].state},")
+          expect(page).to have_content("City: #{top_states[1].city}, #{top_states[1].state}")
           expect(page).to have_content("Order Count: #{top_states[1].order_count}")
 
-          expect(page).to have_content("City: #{top_states[2].state},")
+          expect(page).to have_content("City: #{top_states[2].city}, #{top_states[2].state}")
           expect(page).to have_content("Order Count: #{top_states[2].order_count}")
         end
       end
 
       it 'should top 3 orders by quantity of items' do
-        
+
       end
     end
   end

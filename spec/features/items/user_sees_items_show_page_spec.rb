@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe  'Items Show Page' do
   before :each do
-    m_1 = create(:user, role: 1)
-    o_1 = Order.create(status: "pending", user_id: m_1.id)
-    @i_1 = m_1.items.create(
+    @m_1 = create(:user, role: 1)
+    o_1 = Order.create(status: "pending", user_id: @m_1.id)
+    @i_1 = @m_1.items.create(
       name: 'Flower Pot',
       description: 'Messy Pot',
       thumbnail: 'thumbnail',
@@ -23,10 +23,12 @@ describe  'Items Show Page' do
       updated_at: 1.days.ago
     )
 
-    visit item_path(@i_1)
+
   end
   context 'as any kind of user' do
     it "should show all item information" do
+      visit item_path(@i_1)
+
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.description)
       expect(page).to have_content(@i_1.thumbnail)
@@ -38,14 +40,25 @@ describe  'Items Show Page' do
   end
   context 'as a visitor or regular user' do
     it "should see a link to add this item to my cart" do
-
+      visit item_path(@i_1)
       expect(page).to have_button("Add to Cart")
     end
   end
 
   context 'as a merchant' do
-    xit "should not see a link to add item to cart" do
-      expect(page).to_not have_content("Add Item to My Cart")
+    it "should not see a link to add item to cart" do
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_1)
+      visit item_path(@i_1)
+      expect(page).to_not have_button("Add to Cart")
+    end
+  end
+  context 'as an admin' do
+    it "should not see a link to add item to cart" do
+      a_1 = create(:user, role: 2)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(a_1)
+      visit item_path(@i_1)
+      expect(page).to_not have_button("Add to Cart")
     end
   end
 end

@@ -8,9 +8,9 @@ FactoryBot.define do
     sequence(:inventory) { |n| rand(1..1000) }
   end
 
-  factory :inactive_item, parent: :item do
+  factory :disabled_item, parent: :item do
     association :user, factory: :merchant
     sequence(:name) { |n| "Inactive Name #{n}"}
-    active { false }
-  end 
+    enabled { false }
+  end
 end

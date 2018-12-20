@@ -172,12 +172,24 @@ describe "Merchants Index Page" do
         Order.create(status: "complete", user_id: user_7.id)
         Order.create(status: "complete", user_id: user_8.id)
 
-        require "pry"; binding.pry
-        "LEFT JOIN bookmarks ON bookmarks.bookmarkable_type = 'Post' AND bookmarks.user_id = users.id"
+        top_states = User.top_states(3)
+
+        visit merchants_path
+
+        within '.top-states' do
+          expect(page).to have_content("State: #{top_states[0].state},")
+          expect(page).to have_content("Order Count: #{top_states[0].order_count}")
+
+          expect(page).to have_content("State: #{top_states[1].state},")
+          expect(page).to have_content("Order Count: #{top_states[1].order_count}")
+
+          expect(page).to have_content("State: #{top_states[2].state},")
+          expect(page).to have_content("Order Count: #{top_states[2].order_count}")
+        end
       end
 
-      it 'should show top 3 cities where orders where shipped' do
-        
+      xit 'should show top 3 cities where orders where shipped' do
+
       end
 
       xit 'should top 3 orders by quantity of items' do

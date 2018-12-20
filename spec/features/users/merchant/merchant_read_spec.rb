@@ -33,6 +33,18 @@ describe "As a Merchant" do
             expect(current_path).to eq(dashboard_path) 
             
         end 
+
+        it 'cannot be seen by a visitor' do 
+            visit root_path
+
+            within ".nav" do 
+                expect(page).to_not have_content("Profile") 
+                expect(page).to_not have_content("Orders") 
+                expect(page).to_not have_content("logout") 
+                expect(page).to_not have_content("Dashboard") 
+            end
+
+        end
     end
     
 

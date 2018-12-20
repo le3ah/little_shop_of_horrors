@@ -26,6 +26,6 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'merchants#show'
 
-
-  get '/cart', to: 'carts#index'
+  get '/cart', to: 'cart_items#index'
+  post '/cart_items', to: 'cart_items#create'
 end

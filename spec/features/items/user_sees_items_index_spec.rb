@@ -3,27 +3,9 @@ require "rails_helper"
 describe 'Items Index Page' do
   context 'as any kind of user' do
     before :each do
-      m_1 = User.create!(
-        name: "Bob's Flowers",
-        email: "email@email.com",
-        password: "1234password",
-        role: 1,
-        address: "12 Main st",
-        city: "Town",
-        zip: 92020,
-        state: "CO"
-      )
+      m_1 = create(:user, role: 1)
 
-      m_2 = User.create!(
-        name: "Bob's Orchids",
-        email: "email2@email.com",
-        password: "1234password",
-        role: 1,
-        address: "12 Main st",
-        city: "Town",
-        zip: 92020,
-        state: "CO"
-      )
+      m_2 = create(:user, role: 1)
 
       @i_1 = m_1.items.create!(
         name: 'Flower Pot',
@@ -66,9 +48,17 @@ describe 'Items Index Page' do
       expect(current_path).to eq(item_path(@i_1))
     end
 
-    it 'should link to item show through item thumbnail' do
-      click_link "item-image-#{@i_1.id}"
-      expect(current_path).to eq(item_path(@i_1))
-    end
+    # it 'should link to item show through item thumbnail' do
+    #   click_link "item-image-#{@i_1.id}"
+    #   expect(current_path).to eq(item_path(@i_1))
+    # end
+    # within ".statistics" do
+    #   it "should show top 5 most popular items" do
+    #
+    #   end
+    #   it "should show bottom 5 least popular items" do
+    #
+    #   end
+    # end
   end
 end

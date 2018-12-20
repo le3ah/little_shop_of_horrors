@@ -39,11 +39,11 @@ class User < ApplicationRecord
         .select("users.*, avg(order_items.created_at - order_items.updated_at) as avg_f_time")
     end
 
-    def self.top_states(amount)
+    def self.top_states(amount = nil)
       top_cities_or_states(:state, amount)
     end
 
-    def self.top_cities(amount)
+    def self.top_cities(amount = nil)
       top_cities_or_states(:city, amount)
     end
 
@@ -60,7 +60,7 @@ class User < ApplicationRecord
         selection = "city, state"
         order = "city asc, state asc"
       else
-        group = :state 
+        group = :state
         selection = "state"
         order = "state asc"
       end

@@ -176,14 +176,11 @@ describe "Merchants Index Page" do
         top_states = User.top_states(3)
 
         within '.top-states' do
-          expect(page).to have_content("State: #{top_states[0].state},")
-          expect(page).to have_content("Order Count: #{top_states[0].order_count}")
+          expect(page).to have_content("State: #{top_states[0].state} Order Count: #{top_states[0].order_count}")
 
-          expect(page).to have_content("State: #{top_states[1].state},")
-          expect(page).to have_content("Order Count: #{top_states[1].order_count}")
+          expect(page).to have_content("State: #{top_states[1].state} Order Count: #{top_states[1].order_count}")
 
-          expect(page).to have_content("State: #{top_states[2].state},")
-          expect(page).to have_content("Order Count: #{top_states[2].order_count}")
+          expect(page).to have_content("State: #{top_states[2].state} Order Count: #{top_states[2].order_count}")
         end
       end
 
@@ -203,7 +200,7 @@ describe "Merchants Index Page" do
         top_orders = User.top_orders(3)
 
         within '.top-orders' do
-          
+
         end
       end
     end

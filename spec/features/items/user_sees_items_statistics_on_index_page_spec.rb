@@ -117,12 +117,20 @@ describe 'Items Index Page' do
 
         visit items_path
 
-        within ".statistics" do
-        expect(page).to have_content("Most Popular Items: #{Item.popular_items(:top, 5)}")
-        expect(page).to have_content("Least Popular Items: #{Item.popular_items(:bottom, 5)}")
+        sorted_top = Item.popular_items(:top, 5)
+        sorted_bottom = Item.popular_items(:bottom, 5)
 
+        expect(all('.most_popular')[0]).to have_content(sorted_top[0].name)
+        expect(all('.most_popular')[1]).to have_content(sorted_top[1].name)
+        expect(all('.most_popular')[2]).to have_content(sorted_top[2].name)
+        expect(all('.most_popular')[3]).to have_content(sorted_top[3].name)
+        expect(all('.most_popular')[4]).to have_content(sorted_top[4].name)
 
-      end
+        expect(all('.least_popular')[0]).to have_content(sorted_bottom[0].name)
+        expect(all('.least_popular')[1]).to have_content(sorted_bottom[1].name)
+        expect(all('.least_popular')[2]).to have_content(sorted_bottom[2].name)
+        expect(all('.least_popular')[3]).to have_content(sorted_bottom[3].name)
+        expect(all('.least_popular')[4]).to have_content(sorted_bottom[4].name)
     end
   end
 end

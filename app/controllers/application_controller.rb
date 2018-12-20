@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
@@ -9,5 +9,9 @@ class ApplicationController < ActionController::Base
 
   def current_admin?
     current_user && current_user.admin?
+  end
+
+  def cart
+    @cart ||= Cart.new(session[:cart])
   end
 end

@@ -39,7 +39,7 @@ describe  'Items Show Page' do
   context 'as a visitor or regular user' do
     it "should see a link to add this item to my cart" do
 
-      expect(page).to have_link("Add to Cart")
+      expect(page).to have_button("Add to Cart")
     end
   end
 

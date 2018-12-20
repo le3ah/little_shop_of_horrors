@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   namespace :admin do 
     resources :merchants, only: [:index, :show]
+    resources :users, only: [:index]
     post '/toggle', to: "merchants#toggle_status"
   end
 

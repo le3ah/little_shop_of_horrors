@@ -2,25 +2,28 @@ require "rails_helper"
 
 describe "Merchants Index Page" do
   context 'as a visitor' do
-    before :each do
-      @merch = create(:user, role: 1, enabled: false)
-      @merch_2 = create(:user, role: 1, created_at: 2.days.ago)
-      visit merchants_path
+    describe 'Merchant Information' do
+      before :each do
+        @merch = create(:user, role: 1, enabled: false)
+        @merch_2 = create(:user, role: 1, created_at: 2.days.ago)
+        visit merchants_path
+      end
+
+      it 'should show merchant information' do
+        expect(page).to have_content(@merch_2.name)
+        expect(page).to have_content(@merch_2.city)
+        expect(page).to have_content(@merch_2.state)
+        expect(page).to have_content(@merch_2.created_at)
+      end
+
+      it 'should not show inactive merchant information' do
+        expect(page).to_not have_content(@merch.name)
+        expect(page).to_not have_content(@merch.city)
+        expect(page).to_not have_content(@merch.state)
+        expect(page).to_not have_content(@merch.created_at)
+      end
     end
 
-    it 'should show merchant information' do
-      expect(page).to have_content(@merch_2.name)
-      expect(page).to have_content(@merch_2.city)
-      expect(page).to have_content(@merch_2.state)
-      expect(page).to have_content(@merch_2.created_at)
-    end
-
-    it 'should not show inactive merchant information' do
-      expect(page).to_not have_content(@merch.name)
-      expect(page).to_not have_content(@merch.city)
-      expect(page).to_not have_content(@merch.state)
-      expect(page).to_not have_content(@merch.created_at)
-    end
     describe 'Merchant Statistics' do
       before :each do
         u_1 = create(:user)
@@ -110,7 +113,7 @@ describe "Merchants Index Page" do
           order_id: @o_2.id,
           item_id: @i_8.id
         )
-
+        
         visit merchants_path
       end
 
@@ -120,6 +123,7 @@ describe "Merchants Index Page" do
         expect(all('.revenue-stat')[0]).to have_content(sorted[0].name)
         expect(all('.revenue-stat')[1]).to have_content(sorted[1].name)
         expect(all('.revenue-stat')[2]).to have_content(sorted[2].name)
+        expect(page).to_not have_content("Merchant: #{@m_1.name}")
       end
 
       it 'should show best 3 merchants by order fulfillment time' do

@@ -15,7 +15,6 @@ describe "As an admin" do
     it "can see all default users" do
         expect(page).to have_content(@user1.name)
         expect(page).to have_content(@user2.name)
-        save_and_open_page
         expect(page).to have_content(@user2.created_at.to_date)
         expect(page).to have_button("Enable") 
         expect(page).to_not have_content(@merchant.name)

@@ -3,11 +3,10 @@
   <%= link_to "browse items", items_path  %>
   <%= link_to "browse merchants", merchants_path  %>
 
-  <% unless current_user && current_user.role == "admin" %>
-    <%= link_to "shopping cart", cart_path  %>
-  <% end %>
-  <% if current_user && current_user.role = "admin"  %>
+  <% if current_user && current_user.role == "admin"  %>
      <%= link_to 'Users', admin_users_path %>
+  <% else current_user && current_user.role == "admin" %>
+    <%= link_to "shopping cart", cart_path  %>
   <% end %>
 
   <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>

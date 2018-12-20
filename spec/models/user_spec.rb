@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
         top_s = User.top_states(3)
 
         expect(top_s[0].state).to eq("CA")
-        expect(top_s[0].order_count).to eq(2)
+        expect(top_s[0].order_count).to eq(3)
 
         expect(top_s[1].state).to eq("CO")
         expect(top_s[1].order_count).to eq(2)
@@ -82,7 +82,8 @@ RSpec.describe User, type: :model do
         expect(top_s[1].city).to eq("San Diego")
         expect(top_s[1].order_count).to eq(2)
 
-        expect(top_s[2].city).to eq("Miami")
+        expect(top_s[2].city).to eq("Denver")
+        expect(top_s[2].state).to eq("FL")
         expect(top_s[2].order_count).to eq(1)
       end
 

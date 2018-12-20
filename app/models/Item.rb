@@ -12,8 +12,9 @@ class Item < ApplicationRecord
       joins(:order_items)
         .where("order_items.fulfilled = true")
         .group(:id)
-        .order("quantity #{order}")
+        .order("item_count #{order}")
         .limit(amount)
+        .select("items.*, sum(quantity) as item_count")
   end
 
 end

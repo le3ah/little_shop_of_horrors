@@ -19,7 +19,7 @@
       <%= link_to i.name, item_path(i) %>
       <%= link_to i.thumbnail, item_path(i), id: "item-image-#{i.id}" %>
       <%= i.user.name %>
-      <%= i.price %>
+      <p>$<%= i.price %></p>
       <%= i.inventory %>
     </div>
   <% end %>

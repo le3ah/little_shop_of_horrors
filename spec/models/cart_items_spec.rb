@@ -5,8 +5,8 @@ describe CartItem do
     user = create(:user, role: 1)
     item = create(:item, user_id: user.id)
     cart_item = CartItem.new(item)
-    
-    expect(cart_item.name).to eq "Item 1"
+
+    expect(cart_item.name).to eq item.name
   end
 
   it 'returns the quantity for an item list' do

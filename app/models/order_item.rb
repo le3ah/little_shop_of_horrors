@@ -8,6 +8,8 @@ class OrderItem < ApplicationRecord
   def self.avg_fulfillment_time(item)
     where(fulfilled: true)
       .where(item_id: item.id)
-      .average("updated_at- created_at")
+      .average("updated_at - created_at")
   end
+
+  
 end

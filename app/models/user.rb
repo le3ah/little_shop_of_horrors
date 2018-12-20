@@ -55,14 +55,21 @@ class User < ApplicationRecord
     private
 
     def self.top_cities_or_states(city_or_state, amount)
-      group = city_or_state == :city ? [:city, :state] : :state
-      selection = city_or_state == :city ? "city, state" : "state"
+      if city_or_state == :city
+        group = [:city, :state]
+        selection = "city, state"
+        order = "city asc, state asc"
+      else
+        group = :state 
+        selection = "state"
+        order = "state asc"
+      end
 
       select("#{selection}, count(orders.id) as order_count")
         .joins(:orders)
         .where("orders.status = ?", :complete)
         .group(group)
-        .order("order_count, #{selection}")
+        .order("order_count desc, #{order}")
         .limit(amount)
     end
 end

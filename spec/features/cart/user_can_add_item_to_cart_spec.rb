@@ -19,7 +19,7 @@ describe 'As a visitor or default user' do
 
     expect(page).to have_content("Shopping Cart")
 
-    within ".item_0" do
+    within ".cart_item_0" do
       expect(page).to have_content(item.name)
     end
 

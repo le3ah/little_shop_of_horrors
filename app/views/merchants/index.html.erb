@@ -1,3 +1,10 @@
+<p>Top Sellers</p>
+<% @top_sellers.each do |ts| %>
+  <div class="revenue-stat">
+    <p>Merchant: <%= ts.name %></p>
+  </div>
+<% end %>
+
 <% @merchants.each do |m| %>
   <% if m.enabled %>
     <div class='merchant' id="merchant-#{m.id}">

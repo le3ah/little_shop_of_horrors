@@ -36,18 +36,13 @@ describe  'Items Show Page' do
       expect(page).to have_content("Average Fulfillment Time: #{OrderItem.avg_fulfillment_time(@i_1)}")
     end
   end
-  context 'as a visitor' do
-    xit "should see a link to add this item to my cart" do
+  context 'as a visitor or regular user' do
+    it "should see a link to add this item to my cart" do
 
-      expect(page).to have_link("Add Item to My Cart")
+      expect(page).to have_link("Add to Cart")
     end
   end
-  context 'as a regular user' do
-    xit "should see a link to add this item to my cart" do
 
-      expect(page).to have_link("Add Item to My Cart")
-    end
-  end
   context 'as a merchant' do
     xit "should not see a link to add item to cart" do
       expect(page).to_not have_content("Add Item to My Cart")

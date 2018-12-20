@@ -43,4 +43,8 @@ class User < ApplicationRecord
       switch_boolean = !attributes["enabled"]
       update(enabled: switch_boolean)
     end
+
+    def self.default
+      User.where(role: "default")    
+    end 
 end

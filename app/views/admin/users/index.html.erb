@@ -1,19 +1,18 @@
     <table>
         <thead>
             <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
+            <th>Date Registered</th>
+            <th>Enable/Disable</th>
         </thead>
-        <% @users.each do |user| %>
-            <tbody>
-                <td><%= user.name %></td>
-                <td><%= user.address %></td>
-                <td><%= user.city %></td>
-                <td><%= user.state %></td>
-                <td><%= user.zip %></td>
+        <% @default_users.each do |user| %>
+            <tbody id="user-<%=user.id%>">
+                <td><%= link_to user.name, admin_user_path(user) %></td>
+                <td><%= user.created_at.to_date%></td>
+                <% if user.enabled? %>
+                    <td><%= button_to "Enable", admin_toggle_user_path({user_id:user.id}) %></td>
+                <% else %>
+                    <td><%= button_to "Disable", admin_toggle_user_path({user_id:user.id}) %></td>
+                <% end %>
             </tbody>
         <% end %>
     </table>

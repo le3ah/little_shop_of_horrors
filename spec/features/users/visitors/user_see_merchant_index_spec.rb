@@ -117,15 +117,25 @@ describe "Merchants Index Page" do
       it 'should show top 3 merchants by items sold price and quantity' do
         sorted = User.merchants_by_revenue(:top, 3)
 
-        expect(all('.merchant-stat')[0]).to have_content(sorted[0].name)
+        expect(all('.revenue-stat')[0]).to have_content(sorted[0].name)
+        expect(all('.revenue-stat')[1]).to have_content(sorted[1].name)
+        expect(all('.revenue-stat')[2]).to have_content(sorted[2].name)
       end
 
       it 'should show best 3 merchants by order fulfillment time' do
+        sorted = User.merchants_by_fullfillment_time(:top, 3)
 
+        expect(all('.fast-order-stat')[0]).to have_content(sorted[0].name)
+        expect(all('.fast-order-stat')[1]).to have_content(sorted[1].name)
+        expect(all('.fast-order-stat')[2]).to have_content(sorted[2].name)
       end
 
       it 'should show worst 3 merchants by order fulfillment time' do
+        sorted = User.merchants_by_fullfillment_time(:bottom, 3)
 
+        expect(all('.slow-order-stat')[0]).to have_content(sorted[0].name)
+        expect(all('.slow-order-stat')[1]).to have_content(sorted[1].name)
+        expect(all('.slow-order-stat')[2]).to have_content(sorted[2].name)
       end
 
       it 'should show top 3 states where orders are shipped' do

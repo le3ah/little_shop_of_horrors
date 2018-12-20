@@ -114,6 +114,25 @@ describe "Merchants Index Page" do
           item_id: @i_8.id
         )
 
+        user_1 = create(:user, city: 'San Diego', state: 'CA')
+        user_2 = create(:user, city: 'San Diego', state: 'CA')
+        user_3 = create(:user, city: 'Denver', state: 'CO')
+        user_4 = create(:user, city: 'Denver', state: 'CO')
+        user_5 = create(:user, city: 'Denver', state: 'FL')
+        user_6 = create(:user, city: 'Miami', state: 'FL')
+        user_7 = create(:user, city: 'Oakland', state: 'CA')
+        user_8 = create(:user, city: 'New York', state: 'NY')
+
+        Order.create(status: "complete", user_id: user_1.id)
+        Order.create(status: "complete", user_id: user_2.id)
+        Order.create(status: "complete", user_id: user_3.id)
+        Order.create(status: "complete", user_id: user_4.id)
+        Order.create(status: "complete", user_id: user_5.id)
+        Order.create(status: "complete", user_id: user_6.id)
+        Order.create(status: "complete", user_id: user_7.id)
+        Order.create(status: "complete", user_id: user_8.id)
+
+
         visit merchants_path
       end
 
@@ -154,27 +173,7 @@ describe "Merchants Index Page" do
       end
 
       it 'should show top 3 states where orders are shipped' do
-        user_1 = create(:user, city: 'San Diego', state: 'CA')
-        user_2 = create(:user, city: 'San Diego', state: 'CA')
-        user_3 = create(:user, city: 'Denver', state: 'CO')
-        user_4 = create(:user, city: 'Denver', state: 'CO')
-        user_5 = create(:user, city: 'Denver', state: 'FL')
-        user_6 = create(:user, city: 'Miami', state: 'FL')
-        user_7 = create(:user, city: 'Oakland', state: 'CA')
-        user_8 = create(:user, city: 'New York', state: 'NY')
-
-        Order.create(status: "complete", user_id: user_1.id)
-        Order.create(status: "complete", user_id: user_2.id)
-        Order.create(status: "complete", user_id: user_3.id)
-        Order.create(status: "complete", user_id: user_4.id)
-        Order.create(status: "complete", user_id: user_5.id)
-        Order.create(status: "complete", user_id: user_6.id)
-        Order.create(status: "complete", user_id: user_7.id)
-        Order.create(status: "complete", user_id: user_8.id)
-
         top_states = User.top_states(3)
-
-        visit merchants_path
 
         within '.top-states' do
           expect(page).to have_content("State: #{top_states[0].state},")
@@ -189,20 +188,23 @@ describe "Merchants Index Page" do
       end
 
       it 'should show top 3 cities where orders where shipped' do
+        top_cities = User.top_cities(3)
+
         within '.top-cities' do
-          expect(page).to have_content("City: #{top_states[0].city}, #{top_states[0].state}")
-          expect(page).to have_content("Order Count: #{top_states[0].order_count}")
+          expect(page).to have_content("City: #{top_cities[0].city}, #{top_cities[0].state} Order Count: #{top_cities[0].order_count}")
 
-          expect(page).to have_content("City: #{top_states[1].city}, #{top_states[1].state}")
-          expect(page).to have_content("Order Count: #{top_states[1].order_count}")
+          expect(page).to have_content("City: #{top_cities[1].city}, #{top_cities[1].state} Order Count: #{top_cities[1].order_count}")
 
-          expect(page).to have_content("City: #{top_states[2].city}, #{top_states[2].state}")
-          expect(page).to have_content("Order Count: #{top_states[2].order_count}")
+          expect(page).to have_content("City: #{top_cities[2].city}, #{top_cities[2].state} Order Count: #{top_cities[2].order_count}")
         end
       end
 
       it 'should top 3 orders by quantity of items' do
+        top_orders = User.top_orders(3)
 
+        within '.top-orders' do
+          
+        end
       end
     end
   end

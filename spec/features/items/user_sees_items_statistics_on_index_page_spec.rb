@@ -116,10 +116,10 @@ describe 'Items Index Page' do
         )
 
         visit items_path
-        
+
         within ".statistics" do
-        expect(page).to have_content("Most Popular Items: ")
-        expect(page).to have_content("Least Popular Items: ")
+        expect(page).to have_content("Most Popular Items: #{Item.popular_items(:top, 5)}")
+        expect(page).to have_content("Least Popular Items: #{Item.popular_items(:bottom, 5)}")
 
 
       end

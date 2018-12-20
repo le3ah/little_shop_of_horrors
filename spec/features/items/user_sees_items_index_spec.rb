@@ -47,18 +47,5 @@ describe 'Items Index Page' do
       click_link "#{@i_1.name}"
       expect(current_path).to eq(item_path(@i_1))
     end
-
-    # it 'should link to item show through item thumbnail' do
-    #   click_link "item-image-#{@i_1.id}"
-    #   expect(current_path).to eq(item_path(@i_1))
-    # end
-    # within ".statistics" do
-    #   it "should show top 5 most popular items" do
-    #
-    #   end
-    #   it "should show bottom 5 least popular items" do
-    #
-    #   end
-    # end
   end
 end

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All da Users</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+        </thead>
+        <% @users.each do |user| %>
+            <tbody>
+                <td><%= user.name %></td>
+                <td><%= user.address %></td>
+                <td><%= user.city %></td>
+                <td><%= user.state %></td>
+                <td><%= user.zip %></td>
+            </tbody>
+        <% end %>
+    </table>
+</body>
+</html>

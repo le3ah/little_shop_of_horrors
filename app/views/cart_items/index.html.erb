@@ -1,0 +1,16 @@
+<h1>Shopping Cart</h1>
+
+<table>
+  <th>Name</th>
+  <th>Quantity</th>
+  <% if @cart_items.empty? %>
+    <p>Your cart is empty!</p>
+  <% else %>
+    <% @cart_items.each_with_index do |cart_item, index| %>
+      <tr>
+        <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
+        <td class="quantity_<%= index %>"><%= cart_item.quantity %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

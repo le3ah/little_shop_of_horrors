@@ -28,15 +28,14 @@
 
   <div class="top-states">
     <p>Top states for orders</p>
-    <% binding.pry %>
     <% @top_states.each do |s| %>
-      <p>State: <%= s.state %>, Order Count: <%= s.order_count %></p>
+      <p>State: <%= s.state %> Order Count: <%= s.order_count %></p>
     <% end %>
   </div>
 
   <div class="top-cities">
     <% @top_cities.each do |c| %>
-      <p>City: <%= s.city %>, <%= s.state %> Order Count: <%= s.order_count %></p>
+      <p>City: <%= c.city %>, <%= c.state %> Order Count: <%= c.order_count %></p>
     <% end %>
   </div>
 

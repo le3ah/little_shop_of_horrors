@@ -31,7 +31,7 @@ describe Order, type: :model do
       )
       OrderItem.create(
         quantity: 1,
-        price: i_1.price,
+        price: i_2.price,
         fulfilled: true,
         order_id: o_1.id,
         item_id: i_2.id
@@ -46,7 +46,7 @@ describe Order, type: :model do
       )
       OrderItem.create(
         quantity: 2,
-        price: i_1.price,
+        price: i_2.price,
         fulfilled: true,
         order_id: o_2.id,
         item_id: i_2.id
@@ -61,7 +61,7 @@ describe Order, type: :model do
       )
       OrderItem.create(
         quantity: 3,
-        price: i_1.price,
+        price: i_2.price,
         fulfilled: true,
         order_id: o_3.id,
         item_id: i_2.id
@@ -76,7 +76,7 @@ describe Order, type: :model do
       )
       OrderItem.create(
         quantity: 4,
-        price: i_1.price,
+        price: i_2.price,
         fulfilled: true,
         order_id: o_4.id,
         item_id: i_2.id
@@ -84,9 +84,9 @@ describe Order, type: :model do
 
       top_orders = Order.top_by_quantity(3)
 
-      expect(top_orders[0].quantity).to eq(8)
-      expect(top_orders[1].quantity).to eq(6)
-      expect(top_orders[2].quantity).to eq(4)
+      expect(top_orders[0].total_quantity).to eq(8)
+      expect(top_orders[1].total_quantity).to eq(6)
+      expect(top_orders[2].total_quantity).to eq(4)
     end
   end
 end

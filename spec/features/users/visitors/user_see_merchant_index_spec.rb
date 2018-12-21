@@ -5,6 +5,7 @@ describe "Merchants Index Page" do
     before :each do
       @merch = create(:user, role: 1, enabled: false)
       @merch_2 = create(:user, role: 1, created_at: 2.days.ago)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merch_2)
       visit merchants_path
     end
 

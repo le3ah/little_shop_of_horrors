@@ -48,7 +48,7 @@ describe 'admin can see specific links in the nav bar' do
         expect(page).to have_content("Logged in as #{admin.name}")
     end 
 
-    it "sad path - you can't see shit" do
+    it "sad path - visiot cannot see admin merchants path" do
         
         visit admin_merchants_path 
         
@@ -63,6 +63,18 @@ describe 'admin can see specific links in the nav bar' do
 
 
     end
+
+    it "sad path - default user can't see admin merchants path" do
+        user = create(:user, role:0)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+        visit admin_merchants_path 
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    end
+
 
 
 

@@ -44,7 +44,7 @@ RSpec.describe "As a user" do
         expect(page).to have_content("Logged in as #{user.name}")
     end 
 
-    it "sad path - you can't see shit" do
+    it "sad path - visitor can't see specific nav links" do
         
         visit merchants_path 
         
@@ -56,6 +56,20 @@ RSpec.describe "As a user" do
 
     end
 
+    it 'sad path - merchant cant see user profile' do 
+        merch = create(:user, role:1)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merch)
 
+        visit profile_path
+
+        expect(page).to have_content("The page you were looking for doesn't exist.") 
+    end
+
+    it 'sad path - visior cant see user profile' do 
+
+        visit profile_path
+
+        expect(page).to have_content("The page you were looking for doesn't exist.") 
+    end
   end
 end

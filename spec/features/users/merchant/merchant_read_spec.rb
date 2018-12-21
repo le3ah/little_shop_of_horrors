@@ -36,8 +36,29 @@ describe "As a Merchant" do
 
             visit dashboard_path
 
+            expect(page).to have_content("The page you were looking for doesn't exist.")
+
 
         end
+
+        it 'dashboard cannot be seen by a user' do
+            user = create(:user, role:0)
+
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+            
+            visit root_path
+
+            within ".nav" do 
+                expect(page).to_not have_content("Dashboard") 
+            end
+
+            visit dashboard_path
+
+            expect(page).to have_content("The page you were looking for doesn't exist.")
+
+        end
+
     end
     
 

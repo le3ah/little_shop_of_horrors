@@ -34,16 +34,24 @@
   </div>
 
   <div class="top-cities">
+    <p>Top cities for orders</p>
     <% @top_cities.each do |c| %>
       <p>City: <%= c.city %>, <%= c.state %> Order Count: <%= c.order_count %></p>
     <% end %>
   </div>
 
-  <div class="biggest-orders">
-    <p>Largest Order: <%= @top_orders[0].total_quantity %></p>
-    <p>Second Largest Order: <%= @top_orders[1].total_quantity %></p>
-    <p>Third Largest Order: <%= @top_orders[2].total_quantity %></p>
-  </div>
+  <% if @top_orders %>
+    <p>Top orders by item quantity</p>
+    <div class="biggest-orders">
+      <p>Largest Order: <%= @top_orders[0].total_quantity %></p>
+      <% if @top_orders[1] %>
+      <p>Second Largest Order: <%= @top_orders[1].total_quantity %></p>
+      <% end %>
+      <% if @top_orders[2] %>
+      <p>Third Largest Order: <%= @top_orders[2].total_quantity %></p>
+      <% end %>
+    </div>
+  <% end %>
 </section>
 
 

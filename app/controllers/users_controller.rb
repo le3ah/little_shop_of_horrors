@@ -17,7 +17,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user || User.find(session[:user_id]) 
+    render_404 unless current_session
+    @user = current_session
+  end
+
+  def current_session
+    current_user || User.find(session[:user_id]) if session[:user_id]
   end
 
   private

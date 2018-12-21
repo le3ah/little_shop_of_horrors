@@ -53,3 +53,4 @@ create(:order_item, order: order, item: item_3, price: 3, quantity: 1)
 order = create(:completed_order, user: user)
 create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
 create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+>>>>>>> 7024f43f5eb117509f0ea0255cde1a679224e0da

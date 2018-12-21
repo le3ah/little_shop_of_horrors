@@ -3,27 +3,9 @@ require "rails_helper"
 describe 'Items Index Page' do
   context 'as any kind of user' do
     before :each do
-      m_1 = User.create!(
-        name: "Bob's Flowers",
-        email: "email@email.com",
-        password: "1234password",
-        role: 1,
-        address: "12 Main st",
-        city: "Town",
-        zip: 92020,
-        state: "CO"
-      )
+      m_1 = create(:user, role: 1)
 
-      m_2 = User.create!(
-        name: "Bob's Orchids",
-        email: "email2@email.com",
-        password: "1234password",
-        role: 1,
-        address: "12 Main st",
-        city: "Town",
-        zip: 92020,
-        state: "CO"
-      )
+      m_2 = create(:user, role: 1)
 
       @i_1 = m_1.items.create!(
         name: 'Flower Pot',
@@ -49,7 +31,7 @@ describe 'Items Index Page' do
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)
-      expect(page).to have_content(@i_1.price)
+      expect(page).to have_content("$#{@i_1.price}")
       expect(page).to have_content(@i_1.inventory)
     end
 
@@ -57,7 +39,7 @@ describe 'Items Index Page' do
       expect(page).to_not have_content(@i_2.name)
       expect(page).to_not have_content(@i_2.thumbnail)
       expect(page).to_not have_content(@i_2.user.name)
-      expect(page).to_not have_content(@i_2.price)
+      expect(page).to_not have_content("$#{@i_2.price}")
       expect(page).to_not have_content(@i_2.inventory)
     end
 

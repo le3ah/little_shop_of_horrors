@@ -72,4 +72,8 @@ class User < ApplicationRecord
         .order("order_count desc, #{order}")
         .limit(amount)
     end
+
+    def self.default
+      User.where(role: "default")
+    end
 end

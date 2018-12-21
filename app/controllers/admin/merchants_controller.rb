@@ -6,7 +6,6 @@ class Admin::MerchantsController < Admin::BaseController
     def show
     end 
 
-
     def toggle_status
         user = User.find(params[:user_id])
 
@@ -14,6 +13,5 @@ class Admin::MerchantsController < Admin::BaseController
 
         redirect_to admin_merchants_path
     end 
-
-        
+  
 end 

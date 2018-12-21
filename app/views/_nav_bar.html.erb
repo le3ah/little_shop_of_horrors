@@ -1,12 +1,28 @@
 <nav class="nav">
-  <%= link_to "home", root_path  %>
-  <%= link_to "browse items", items_path  %>
-  <%= link_to "browse merchants", merchants_path  %>
-  <%= link_to "shopping cart", cart_path  %>
-  <% if current_user %>
-    <%= link_to "logout", logout_path, method: :delete %>
-  <% else %>
-    <%= link_to "login", login_path %>
+<ul>
+  <li> <%= link_to "home", root_path  %> </li>
+  <li> <%= link_to "browse items", items_path  %> </li>
+  <li> <%= link_to "browse merchants", merchants_path  %> </li>
+
+  <% if current_user && current_user.role == "admin"  %>
+    <li> <%= link_to 'Users', admin_users_path %> </li>
+  <% else current_user && current_user.role == "admin" %>
+    <li> <%= link_to "shopping cart", cart_path  %> (<%= @cart.items.count %>)</li>
   <% end %>
-  <%= link_to "Sign Up", register_path  %>
+
+  <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>
+    <li> <%= link_to 'Profile', profile_path  %> </li>
+    <li> <%= link_to 'Orders', profile_orders_path %> </li>
+    <%= "Logged in as #{current_user.name}" %>
+  <% end %>
+
+
+  <% if current_user %>
+    <li> <%= link_to "logout", logout_path, method: :delete %> </li>
+  <% else %>
+    <li> <%= link_to "login", login_path %> </li>
+    <li> <%= link_to "Sign Up", register_path  %> </li>
+  <% end %>
+</ul>
+
 </nav>

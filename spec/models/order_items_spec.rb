@@ -43,5 +43,6 @@ RSpec.describe OrderItem, type: :model do
 
       expect(OrderItem.avg_fulfillment_time(i_1)).to eq(6)
     end
+
   end
 end

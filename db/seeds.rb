@@ -5,31 +5,47 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require "factory_bot_rails"
-
-OrderItem.destroy_all
-Item.destroy_all
-Order.destroy_all
-User.destroy_all
+require 'factory_bot_rails'
 
 include FactoryBot::Syntax::Methods
 
-user_1 = create(:user, city: 'San Diego', state: 'CA')
-user_2 = create(:user, city: 'San Diego', state: 'CA')
-user_3 = create(:user, city: 'Denver', state: 'CO')
-user_4 = create(:user, city: 'Denver', state: 'CO')
-user_9 = create(:user, city: 'Denver', state: 'FL')
-user_5 = create(:user, city: 'Miami', state: 'FL')
-user_6 = create(:user, city: 'Miami', state: 'FL')
-user_7 = create(:user, city: 'Oakland', state: 'CA')
-user_8 = create(:user, city: 'New York', state: 'NY')
+OrderItem.destroy_all
+Order.destroy_all
+Item.destroy_all
+User.destroy_all
 
-Order.create(status: "complete", user_id: user_1.id)
-Order.create(status: "complete", user_id: user_2.id)
-Order.create(status: "complete", user_id: user_3.id)
-Order.create(status: "complete", user_id: user_4.id)
-Order.create(status: "complete", user_id: user_5.id)
-Order.create(status: "complete", user_id: user_6.id)
-Order.create(status: "complete", user_id: user_7.id)
-Order.create(status: "complete", user_id: user_8.id)
-Order.create(status: "complete", user_id: user_9.id)
+admin = create(:user, role: 2)
+user = create(:user)
+merchant_1 = create(:user, role: 1)
+merchant_2 = create(:user, role: 1)
+merchant_3 = create(:user, role: 1)
+merchant_4 = create(:user, role: 1)
+
+item_1 = create(:item, user: merchant_1)
+item_2 = create(:item, user: merchant_2)
+item_3 = create(:item, user: merchant_3)
+item_4 = create(:item, user: merchant_4)
+item_5 = create(:item, user: merchant_4)
+item_6 = create(:item, user: merchant_4)
+create_list(:item, 10, user: merchant_1, enabled: true)
+
+order = create(:completed_order, user: user)
+create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_3, price: 3, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_4, price: 4, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_5, price: 4, quantity: 9)
+create(:fulfilled_order_item, order: order, item: item_6, price: 4, quantity: 15)
+
+order = create(:order, user: user)
+create(:order_item, order: order, item: item_1, price: 1, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+
+order = create(:cancelled_order, user: user)
+create(:order_item, order: order, item: item_2, price: 2, quantity: 1)
+create(:order_item, order: order, item: item_3, price: 3, quantity: 1)
+
+order = create(:completed_order, user: user)
+create(:fulfilled_order_item, order: order, item: item_1, price: 1, quantity: 1)
+create(:fulfilled_order_item, order: order, item: item_2, price: 2, quantity: 1)
+>>>>>>> 7024f43f5eb117509f0ea0255cde1a679224e0da

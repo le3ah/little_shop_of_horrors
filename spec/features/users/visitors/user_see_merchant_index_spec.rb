@@ -27,16 +27,32 @@ describe "Merchants Index Page" do
     describe 'Merchant Statistics' do
       before :each do
         u_1 = create(:user)
+        u_2 = create(:user, city: "San", state: "CO")
+        u_3 = create(:user, city: "San Fran", state: "CA")
+        u_4 = create(:user, city: "San Jan", state: "FL")
+
+        u_5 = create(:user, city: "San", state: "NY")
+        u_6 = create(:user, city: "San Fran", state: "OR")
+        u_7 = create(:user, city: "San Jan", state: "BF")
 
         @m_1 = create(:user, role: 1)
         @m_2 = create(:user, role: 1)
         @m_3 = create(:user, role: 1)
         @m_4 = create(:user, role: 1)
 
-        @o_1 = Order.create(status: "pending", user_id: u_1.id)
+        @o_1 = Order.create(status: "complete", user_id: u_1.id)
         @o_2 = Order.create(status: "pending", user_id: u_1.id)
-        @o_3 = Order.create(status: "pending", user_id: u_1.id)
-        @o_4 = Order.create(status: "pending", user_id: u_1.id)
+        @o_3 = Order.create(status: "complete", user_id: u_1.id)
+        @o_4 = Order.create(status: "complete", user_id: u_1.id)
+
+        Order.create(status: "complete", user_id: u_2.id)
+        Order.create(status: "pending", user_id: u_2.id)
+        Order.create(status: "complete", user_id: u_3.id)
+        Order.create(status: "complete", user_id: u_3.id)
+        Order.create(status: "complete", user_id: u_3.id)
+        Order.create(status: "pending", user_id: u_6.id)
+        Order.create(status: "complete", user_id: u_6.id)
+        Order.create(status: "complete", user_id: u_6.id)
 
         @i_1 = create(:item, price: 1, user_id: @m_1.id)
         @i_2 = create(:item, price: 1, user_id: @m_1.id)
@@ -55,7 +71,9 @@ describe "Merchants Index Page" do
           price: @i_1.price,
           fulfilled: true,
           order_id: @o_1.id,
-          item_id: @i_1.id
+          item_id: @i_1.id,
+          created_at: 2.hours.ago,
+          updated_at: 1.hours.ago
         )
 
         OrderItem.create(
@@ -63,7 +81,9 @@ describe "Merchants Index Page" do
           price: @i_2.price,
           fulfilled: false,
           order_id: @o_2.id,
-          item_id: @i_2.id
+          item_id: @i_2.id,
+          created_at: 2.days.ago,
+          updated_at: 1.days.ago
         )
 
         OrderItem.create(
@@ -71,7 +91,9 @@ describe "Merchants Index Page" do
           price: @i_3.price,
           fulfilled: true,
           order_id: @o_1.id,
-          item_id: @i_3.id
+          item_id: @i_3.id,
+          created_at: 2.days.ago,
+          updated_at: 1.days.ago
         )
 
         OrderItem.create(
@@ -79,7 +101,9 @@ describe "Merchants Index Page" do
           price: @i_4.price,
           fulfilled: true,
           order_id: @o_2.id,
-          item_id: @i_4.id
+          item_id: @i_4.id,
+          created_at: 2.days.ago,
+          updated_at: 1.days.ago
         )
 
         OrderItem.create(
@@ -87,7 +111,9 @@ describe "Merchants Index Page" do
           price: @i_5.price,
           fulfilled: true,
           order_id: @o_1.id,
-          item_id: @i_5.id
+          item_id: @i_5.id,
+          created_at: 2.days.ago,
+          updated_at: 1.days.ago
         )
 
         OrderItem.create(
@@ -95,7 +121,9 @@ describe "Merchants Index Page" do
           price: @i_6.price,
           fulfilled: true,
           order_id: @o_2.id,
-          item_id: @i_6.id
+          item_id: @i_6.id,
+          created_at: 9.days.ago,
+          updated_at: 8.days.ago
         )
 
         OrderItem.create(
@@ -103,7 +131,9 @@ describe "Merchants Index Page" do
           price: @i_7.price,
           fulfilled: true,
           order_id: @o_1.id,
-          item_id: @i_7.id
+          item_id: @i_7.id,
+          created_at: 7.days.ago,
+          updated_at: 1.days.ago
         )
 
         OrderItem.create(
@@ -111,27 +141,10 @@ describe "Merchants Index Page" do
           price: @i_8.price,
           fulfilled: true,
           order_id: @o_2.id,
-          item_id: @i_8.id
+          item_id: @i_8.id,
+          created_at: 4.days.ago,
+          updated_at: 1.days.ago
         )
-
-        user_1 = create(:user, city: 'San Diego', state: 'CA')
-        user_2 = create(:user, city: 'San Diego', state: 'CA')
-        user_3 = create(:user, city: 'Denver', state: 'CO')
-        user_4 = create(:user, city: 'Denver', state: 'CO')
-        user_5 = create(:user, city: 'Denver', state: 'FL')
-        user_6 = create(:user, city: 'Miami', state: 'FL')
-        user_7 = create(:user, city: 'Oakland', state: 'CA')
-        user_8 = create(:user, city: 'New York', state: 'NY')
-
-        Order.create(status: "complete", user_id: user_1.id)
-        Order.create(status: "complete", user_id: user_2.id)
-        Order.create(status: "complete", user_id: user_3.id)
-        Order.create(status: "complete", user_id: user_4.id)
-        Order.create(status: "complete", user_id: user_5.id)
-        Order.create(status: "complete", user_id: user_6.id)
-        Order.create(status: "complete", user_id: user_7.id)
-        Order.create(status: "complete", user_id: user_8.id)
-
 
         visit merchants_path
       end
@@ -191,14 +204,57 @@ describe "Merchants Index Page" do
           expect(page).to have_content("City: #{top_cities[2].city}, #{top_cities[2].state} Order Count: #{top_cities[2].order_count}")
         end
       end
+    end
 
-      it 'should top 3 orders by quantity of items' do
-        top_orders = User.top_orders(3)
+    describe 'Order Stats' do
+      it 'should show top 3 orders by quantity of items' do
+        m = create(:user, role: 1)
+        user_1 = create(:user)
 
-        within '.top-orders' do
-          expect(page).to have_content("Largest: #{top_orders[0].total_quantity}")
-          expect(page).to have_content("Second Largest: #{top_orders[1].total_quantity}")
-          expect(page).to have_content("Third Largest: #{top_orders[2].total_quantity}")
+        order_1 = Order.create(status: "complete", user_id: user_1.id)
+        order_2 = Order.create(status: "complete", user_id: user_1.id)
+        order_3 = Order.create(status: "complete", user_id: user_1.id)
+        order_4 = Order.create(status: "complete", user_id: user_1.id)
+        item = create(:item, user_id: m.id)
+
+        OrderItem.create(
+          quantity: 1,
+          price: item.price,
+          fulfilled: true,
+          order_id: order_1.id,
+          item_id: item.id
+        )
+        OrderItem.create(
+          quantity: 3,
+          price: item.price,
+          fulfilled: true,
+          order_id: order_2.id,
+          item_id: item.id
+        )
+
+        OrderItem.create(
+          quantity: 4,
+          price: item.price,
+          fulfilled: true,
+          order_id: order_3.id,
+          item_id: item.id
+        )
+        OrderItem.create(
+          quantity: 5,
+          price: item.price,
+          fulfilled: true,
+          order_id: order_4.id,
+          item_id: item.id
+        )
+
+        visit merchants_path
+
+        top_orders = Order.top_by_quantity(3)
+
+        within '.biggest-orders' do
+          expect(page).to have_content("Largest Order: #{top_orders[0].total_quantity}")
+          expect(page).to have_content("Second Largest Order: #{top_orders[1].total_quantity}")
+          expect(page).to have_content("Third Largest Order: #{top_orders[2].total_quantity}")
         end
       end
     end

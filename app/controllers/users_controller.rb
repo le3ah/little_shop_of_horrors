@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def current_session
-    current_user || User.find(session[:user_id]) if session[:user_id]
+    current_user || (User.find(session[:user_id]) if session[:user_id])
   end
 
   private

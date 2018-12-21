@@ -177,9 +177,7 @@ describe "Merchants Index Page" do
 
         within '.top-states' do
           expect(page).to have_content("State: #{top_states[0].state} Order Count: #{top_states[0].order_count}")
-
           expect(page).to have_content("State: #{top_states[1].state} Order Count: #{top_states[1].order_count}")
-
           expect(page).to have_content("State: #{top_states[2].state} Order Count: #{top_states[2].order_count}")
         end
       end
@@ -189,9 +187,7 @@ describe "Merchants Index Page" do
 
         within '.top-cities' do
           expect(page).to have_content("City: #{top_cities[0].city}, #{top_cities[0].state} Order Count: #{top_cities[0].order_count}")
-
           expect(page).to have_content("City: #{top_cities[1].city}, #{top_cities[1].state} Order Count: #{top_cities[1].order_count}")
-
           expect(page).to have_content("City: #{top_cities[2].city}, #{top_cities[2].state} Order Count: #{top_cities[2].order_count}")
         end
       end
@@ -200,7 +196,9 @@ describe "Merchants Index Page" do
         top_orders = User.top_orders(3)
 
         within '.top-orders' do
-
+          expect(page).to have_content("Largest: #{top_orders[0].total_quantity}")
+          expect(page).to have_content("Second Largest: #{top_orders[1].total_quantity}")
+          expect(page).to have_content("Third Largest: #{top_orders[2].total_quantity}")
         end
       end
     end

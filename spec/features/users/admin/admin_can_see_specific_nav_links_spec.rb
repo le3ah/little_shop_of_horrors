@@ -59,6 +59,9 @@ describe 'admin can see specific links in the nav bar' do
             expect(page).to_not have_content("Users")
         end
 
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+
     end
 
 

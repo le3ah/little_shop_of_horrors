@@ -19,16 +19,6 @@ describe "As a Merchant" do
                 expect(page).to have_content("Dashboard") 
             end
 
-            click_on "home"
-            expect(current_path).to eq(root_path) 
-            click_on "browse items"
-            expect(current_path).to eq(items_path) 
-            click_on "browse merchants"            
-            expect(current_path).to eq(merchants_path) 
-            click_on "Profile"
-            expect(current_path).to eq(profile_path) 
-            click_on "Orders"
-            expect(current_path).to eq(profile_orders_path)
             click_on "Dashboard"
             expect(current_path).to eq(dashboard_path) 
             
@@ -43,6 +33,9 @@ describe "As a Merchant" do
                 expect(page).to_not have_content("logout") 
                 expect(page).to_not have_content("Dashboard") 
             end
+
+            visit dashboard_path
+
 
         end
     end

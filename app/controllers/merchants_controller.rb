@@ -1,6 +1,7 @@
 class MerchantsController < ApplicationController
 
   before_action :not_today_satan
+  skip_before_action :not_today_satan, only: [:index]
 
   def index
     @merchants = User.merchants

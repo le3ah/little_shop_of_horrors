@@ -7,16 +7,11 @@ describe 'admin can see specific links in the nav bar' do
         visit merchants_path 
 
         within(".nav") do
-            expect(page).to have_content("Profile")
             expect(page).to have_content("Orders")
             expect(page).to have_content("logout")
             expect(page).to have_content("Users") 
             expect(page).to_not have_content("shopping cart")
         end
-
-
-        click_on('Profile')
-        expect(current_path).to eq(profile_path)
         
         click_on('Orders')
         expect(current_path).to eq(profile_orders_path) 

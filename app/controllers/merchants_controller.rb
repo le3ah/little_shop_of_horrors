@@ -6,6 +6,7 @@ class MerchantsController < ApplicationController
     @slow_merchants = User.merchants_by_fullfillment_time(:bottom, 3)
     @top_states = User.top_states(3)
     @top_cities = User.top_cities(3)
+    @top_orders = User.top_orders(3)
   end
 
   def show

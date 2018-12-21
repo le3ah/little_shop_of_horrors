@@ -85,7 +85,7 @@ describe Item, type: :model do
         created_at: 10.days.ago,
         updated_at: 1.days.ago
       )
-      
+
       expect(Item.popular_items(:top, 5)).to eq([i_4, i_5, i_2, i_3, i_1])
       expect(Item.popular_items(:bottom, 5)).to eq([i_6, i_1, i_3, i_2, i_5])
     end

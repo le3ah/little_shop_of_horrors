@@ -8,7 +8,7 @@ describe  'as a registered user' do
       visit login_path
 
       expect(current_path).to eq(profile_path)
-      # expect(page).to have_content("You are already logged in.")
+      expect(page).to have_content("You are already logged in, silly.")
     end
   end
   context 'logged in as a merchant user' do
@@ -19,7 +19,7 @@ describe  'as a registered user' do
       visit login_path
 
       expect(current_path).to eq(dashboard_path)
-      # expect(page).to have_content("You are already logged in.")
+      expect(page).to have_content("You are already logged in, silly.")
     end
   end
   context 'logged in as an admin user' do
@@ -30,7 +30,7 @@ describe  'as a registered user' do
       visit login_path
 
       expect(current_path).to eq(root_path)
-      # expect(page).to have_content("You are already logged in.")
+      expect(page).to have_content("You are already logged in, silly.")
     end
   end
 end

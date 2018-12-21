@@ -4,6 +4,6 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = User.find(session[:user_id])
+    @merchant = current_user || User.find(session[:user_id])
   end
 end

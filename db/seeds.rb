@@ -15,6 +15,9 @@ Item.destroy_all
 User.destroy_all
 
 admin = create(:user, role: 2)
+admin_1 = create(:user, role: 2, name: "admin", email: "admin@admin.com", password: "admin")
+merchant_5 = create(:user, role: 1, name: "merchant", email: "merchant@merchant.com", password: "merchant")
+user_1 = create(:user, name: "user", email: "user@user.com", password: "user")
 user = create(:user)
 merchant_1 = create(:user, role: 1)
 merchant_2 = create(:user, role: 1)
@@ -27,6 +30,7 @@ item_3 = create(:item, user: merchant_3)
 item_4 = create(:item, user: merchant_4)
 item_5 = create(:item, user: merchant_4)
 item_6 = create(:item, user: merchant_4)
+item_7 = create(:item, user: merchant_5)
 create_list(:item, 10, user: merchant_1, enabled: true)
 
 order = create(:completed_order, user: user)
@@ -36,6 +40,7 @@ create(:fulfilled_order_item, order: order, item: item_3, price: 3, quantity: 1)
 create(:fulfilled_order_item, order: order, item: item_4, price: 4, quantity: 1)
 create(:fulfilled_order_item, order: order, item: item_5, price: 4, quantity: 9)
 create(:fulfilled_order_item, order: order, item: item_6, price: 4, quantity: 15)
+create(:fulfilled_order_item, order: order, item: item_7, price: 7, quantity: 13)
 
 order = create(:order, user: user)
 create(:order_item, order: order, item: item_1, price: 1, quantity: 1)

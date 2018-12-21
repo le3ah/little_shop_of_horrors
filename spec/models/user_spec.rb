@@ -120,15 +120,15 @@ RSpec.describe User, type: :model do
         expect(m.enabled).to eq(true)
       end
 
-      it 'default class method finds all of the default users' do 
+      it 'default class method finds all of the default users' do
         user1 = create(:user)
         user2 = create(:user)
         merchant = create(:user, role: 1)
 
         expected = User.default
-
+        # FIX ME
         expect(expected).to eq([user1, user2])
-      end 
+      end
 
     end
   end

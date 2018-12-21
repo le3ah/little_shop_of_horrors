@@ -14,4 +14,8 @@ class Order < ApplicationRecord
       .order("total_quantity desc")
       .limit(amount)
   end
+
+  def self.any_complete?
+    where(status: "complete").count > 0
+  end
 end

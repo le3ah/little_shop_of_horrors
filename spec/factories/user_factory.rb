@@ -8,4 +8,10 @@ FactoryBot.define do
     sequence(:state) { |n| "State #{n}" }
     sequence(:zip) { |n| rand(10000..99999) }
   end
+
+  factory :disabled_user, parent: :user do
+    sequence(:name) { |n| "Inactive User #{n}"}
+    sequence(:email) { |n| "inactive_user_#{n}@gmail.com"}
+    enabled { false }
+  end
 end

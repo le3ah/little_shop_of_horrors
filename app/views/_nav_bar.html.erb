@@ -1,12 +1,13 @@
 <nav class="nav">
-  <%= link_to "home", root_path  %>
-  <%= link_to "browse items", items_path  %>
-  <%= link_to "browse merchants", merchants_path  %>
+<ul>
+  <li> <%= link_to "home", root_path  %> </li>
+  <li> <%= link_to "browse items", items_path  %> </li>
+  <li> <%= link_to "browse merchants", merchants_path  %> </li>
 
   <% if current_user && current_user.role == "admin"  %>
-     <%= link_to 'Users', admin_users_path %>
+    <li> <%= link_to 'Users', admin_users_path %> </li>
   <% else current_user && current_user.role == "admin" %>
-    <%= link_to "shopping cart", cart_path  %>
+    <li> <%= link_to "shopping cart", cart_path  %> (<%= @cart.items.count %>)</li>
   <% end %>
 
   <% if power_users %>
@@ -21,10 +22,11 @@
   
 
   <% if current_user %>
-    <%= link_to "logout", logout_path, method: :delete %>
+    <li> <%= link_to "logout", logout_path, method: :delete %> </li>
   <% else %>
-    <%= link_to "login", login_path %>
-    <%= link_to "Sign Up", register_path  %>
+    <li> <%= link_to "login", login_path %> </li>
+    <li> <%= link_to "Sign Up", register_path  %> </li>
   <% end %>
+</ul>
 
 </nav>

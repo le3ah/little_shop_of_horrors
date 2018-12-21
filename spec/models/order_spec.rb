@@ -88,5 +88,27 @@ describe Order, type: :model do
       expect(top_orders[1].total_quantity).to eq(6)
       expect(top_orders[2].total_quantity).to eq(4)
     end
+
+    it '.any_complete? - true' do
+      u = create(:user)
+
+      o_1 = Order.create(status: "complete", user_id: u.id)
+      o_2 = Order.create(status: "pending", user_id: u.id)
+      o_3 = Order.create(status: "pending", user_id: u.id)
+      o_4 = Order.create(status: "pending", user_id: u.id)
+
+      expect(Order.any_complete?).to eq(true)
+    end
+
+    it '.any_complete? - false' do
+      u = create(:user)
+
+      o_1 = Order.create(status: "pending", user_id: u.id)
+      o_2 = Order.create(status: "pending", user_id: u.id)
+      o_3 = Order.create(status: "pending", user_id: u.id)
+      o_4 = Order.create(status: "pending", user_id: u.id)
+
+      expect(Order.any_complete?).to eq(false)
+    end
   end
 end

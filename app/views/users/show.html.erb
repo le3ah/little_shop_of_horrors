@@ -6,5 +6,5 @@
 <p>State: <%= current_user.state %></p>
 <p>Zip: <%= current_user.zip %></p>
 
-<%= link_to "Edit Profile", user_path(current_user), method: :update %>
+<%= link_to "Edit Profile", profile_edit_path %>
 <%= flash[:success] %>

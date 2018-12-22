@@ -5,15 +5,15 @@ describe 'navigation' do
     visit root_path
   end
   it "links to appropriate page" do
-    click_link "home"
+    click_link "Home"
     expect(current_path).to eq(root_path)
-    click_link "browse items"
+    click_link "Browse Items"
     expect(current_path).to eq(items_path)
-    click_link "browse merchants"
+    click_link "Browse Merchants"
     expect(current_path).to eq(merchants_path)
-    click_link "shopping cart"
+    click_link "Shopping Cart"
     expect(current_path).to eq(cart_path)
-    click_link "login"
+    click_link "Login"
     expect(current_path).to eq(login_path)
     click_link "Sign Up"
     expect(current_path).to eq('/register')

@@ -1,6 +1,5 @@
 <div class="statistics">
   <h3>Most Popular Items: </h3>
-  <%= flash[:success] %>
   <ul>
   <% @items.popular_items(:top, 5).each do |item| %>
     <li class="most_popular"><%= link_to item.name, item_path(item) %></li>

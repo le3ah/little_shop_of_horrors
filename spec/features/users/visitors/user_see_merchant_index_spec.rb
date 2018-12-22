@@ -2,12 +2,13 @@ require "rails_helper"
 
 describe "Merchants Index Page" do
   context 'as a visitor' do
-    describe 'Merchant Information' do
-      before :each do
-        @merch = create(:user, role: 1, enabled: false)
-        @merch_2 = create(:user, role: 1, created_at: 2.days.ago)
-        visit merchants_path
-      end
+
+    before :each do
+      @merch = create(:user, role: 1, enabled: false)
+      @merch_2 = create(:user, role: 1, created_at: 2.days.ago)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merch_2)
+      visit merchants_path
+    end
 
       it 'should show merchant information' do
         expect(page).to have_content(@merch_2.name)
@@ -149,7 +150,7 @@ describe "Merchants Index Page" do
         visit merchants_path
       end
 
-      xit 'should show top 3 merchants by items sold price and quantity' do
+      it 'should show top 3 merchants by items sold price and quantity' do
         sorted = User.merchants_by_revenue(:top, 3)
 
         within '.revenue-stats' do

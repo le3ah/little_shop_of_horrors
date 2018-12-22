@@ -3,7 +3,7 @@ describe "user can't login with bad creds" do
         user = create(:user)
 
         visit root_path
-        click_on "login"
+        click_on "Login"
 
         expect(current_path).to eq(login_path)
 

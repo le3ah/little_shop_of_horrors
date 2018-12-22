@@ -32,6 +32,7 @@ class UsersController < ApplicationController
       @user.password = value if attribute =~ /password/
     end
     @user.save
+    flash[:success] = "You successfully edited your profile!"
     redirect_to profile_path
   end
 

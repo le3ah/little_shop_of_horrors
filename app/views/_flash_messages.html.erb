@@ -3,9 +3,11 @@
     <%= flash[:success] %>
   </div>
 <% end %>
-<% if flash[:log_error] %>
+<% if flash[:error] ||  flash[:log_error] ||  flash[:email_error]%>
   <div class="alert alert-danger" role="alert">
+    <%= flash[:error] %>
     <%= flash[:log_error] %>
+    <%= flash[:email_error] %>
   </div>
 <% end %>
 

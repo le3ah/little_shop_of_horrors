@@ -2,7 +2,11 @@
 <%= f.label :name %>
 <%= f.text_field :name %>
 <%= f.label :email %>
-<%= f.text_field :email, value: nil %>
+<% if @user.id %>
+  <%= f.text_field :email %>
+<% else %>
+  <%= f.text_field :email, value: nil %>
+<% end %>
 <%= f.label :address %>
 <%= f.text_field :address %>
 <%= f.label :city %>

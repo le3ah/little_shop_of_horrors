@@ -15,6 +15,6 @@ describe 'as a registered user' do
     expect(page).to have_content("City: #{user.city}")
     expect(page).to have_content("State: #{user.state}")
     expect(page).to have_content("Zip: #{user.zip}")
-    expect(page).to have_link('Edit Profile', href: user_path(user))
+    expect(page).to have_link('Edit Profile', href: profile_edit_path)
   end
 end

@@ -67,7 +67,7 @@ create(:fulfilled_order_item, order: order, item: item_7, price: 7, quantity: 13
 create(:fulfilled_order_item, order: order, item: item_8, price: 4, quantity: 1)
 create(:fulfilled_order_item, order: order, item: item_9, price: 7, quantity: 2)
 
-order = create(:completed_order, user: user)
+order = create(:completed_order, user_id: user.id)
 create(:fulfilled_order_item, order: order, item: item_10, price: 1, quantity: 11)
 create(:fulfilled_order_item, order: order, item: item_12, price: 2, quantity: 12)
 create(:fulfilled_order_item, order: order, item: item_13, price: 3, quantity: 1)

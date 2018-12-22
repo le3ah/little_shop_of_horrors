@@ -43,6 +43,16 @@ RSpec.describe OrderItem, type: :model do
 
       expect(OrderItem.avg_fulfillment_time(i_1)).to eq(6)
     end
+  end
+  describe  'instance methods' do
+    it "#subtotal" do
+      u_1 = create(:user)
+      m_1 = create(:user, role: 1)
+      o_1 = create(:completed_order, user_id: u_1.id)
+      item_2 = create(:item, price: 2, user_id: m_1.id)
+      order_item = create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2)
 
+      expect(order_item.subtotal).to eq(4)
+    end
   end
 end

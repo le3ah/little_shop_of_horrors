@@ -6,9 +6,11 @@
 <p>State: <%= current_user.state %></p>
 <p>Zip: <%= current_user.zip %></p>
 
-<%= link_to "Edit Profile", user_path(current_user), method: :update %>
 <% current_user.orders.each do |order| %>
 <%= link_to "View Order", "/profile/orders/#{order.id}" %>
 <% end %>
+
+<%= link_to "Edit Profile", user_path(current_user), method: :update %>
+
 <%= flash[:success] %>
 <%= flash[:log_error] %>

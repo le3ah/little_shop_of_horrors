@@ -10,8 +10,8 @@ describe 'as a visitor' do
     zip = 35055
 
     visit root_path
-
     click_on 'Sign Up'
+
     expect(current_path).to eq('/register')
 
     fill_in :user_name, with: name

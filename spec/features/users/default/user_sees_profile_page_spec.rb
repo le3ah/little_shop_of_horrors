@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'as a registered user' do
-  it 'display profile page if I am logged in' do
+  it 'displays profile page if I am logged in' do
     user = create(:user)
 
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)

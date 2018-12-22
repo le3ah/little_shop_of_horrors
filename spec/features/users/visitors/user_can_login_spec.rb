@@ -5,7 +5,7 @@ describe 'as a registered user' do
     user = create(:user)
     
     visit root_path
-    click_on "login"
+    click_on "Login"
 
     expect(current_path).to eq(login_path)
 
@@ -18,7 +18,7 @@ describe 'as a registered user' do
     expect(current_path).to eq(profile_path)
 
     expect(page).to have_content("Welcome, #{user.name}")
-    expect(page).to have_content("logout")
+    expect(page).to have_content("Logout")
     expect(page).to have_content("Hooray!")
   end
 
@@ -26,7 +26,7 @@ describe 'as a registered user' do
     user = create(:user, role: 1)
     
     visit root_path
-    click_on "login"
+    click_on "Login"
 
     expect(current_path).to eq(login_path)
 
@@ -40,7 +40,7 @@ describe 'as a registered user' do
 
     expect(page).to have_content("Welcome, merchant #{user.name}!")
     expect(page).to have_content("Hooray!")
-    expect(page).to have_content("logout")
+    expect(page).to have_content("Logout")
     
   end
 
@@ -48,7 +48,7 @@ describe 'as a registered user' do
     user = create(:user, role: 2)
     
     visit root_path
-    click_on "login"
+    click_on "Login"
 
     expect(current_path).to eq(login_path)
 
@@ -62,6 +62,6 @@ describe 'as a registered user' do
 
     expect(page).to have_content("Little Shop of Horrors!")
     expect(page).to have_content("Hooray!")
-    expect(page).to have_content("logout")
+    expect(page).to have_content("Logout")
   end
 end

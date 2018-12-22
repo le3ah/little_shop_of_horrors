@@ -12,7 +12,7 @@ RSpec.describe "As a user" do
         within(".nav") do
             expect(page).to have_content("Profile")
             expect(page).to have_content("Orders")
-            expect(page).to have_content("logout")
+            expect(page).to have_content("Logout")
         end
 
         click_on('Profile')
@@ -21,7 +21,7 @@ RSpec.describe "As a user" do
         click_on('Orders')
         expect(current_path).to eq(profile_orders_path) 
 
-        click_on('logout')
+        click_on('Logout')
         expect(current_path).to eq(root_path)
     end
 
@@ -51,7 +51,7 @@ RSpec.describe "As a user" do
         within(".nav") do
             expect(page).to_not have_content("Profile")
             expect(page).to_not have_content("Orders")
-            expect(page).to_not have_content("logout")
+            expect(page).to_not have_content("Logout")
         end
 
     end

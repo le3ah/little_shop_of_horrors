@@ -11,10 +11,10 @@ describe 'as a registered user' do
     expect(current_path).to eq profile_path
 
     within ".nav" do
-      expect(page).to have_content("logout")
+      expect(page).to have_content("Logout")
     end
 
-    click_link "logout"
+    click_link "Logout"
 
     expect(current_path).to eq root_path
   end

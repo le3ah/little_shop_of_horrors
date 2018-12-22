@@ -8,15 +8,15 @@ describe 'admin can see specific links in the nav bar' do
 
         within(".nav") do
             expect(page).to have_content("Orders")
-            expect(page).to have_content("logout")
+            expect(page).to have_content("Logout")
             expect(page).to have_content("Users") 
-            expect(page).to_not have_content("shopping cart")
+            expect(page).to_not have_content("Shopping Cart")
         end
         
         click_on('Orders')
         expect(current_path).to eq(profile_orders_path) 
 
-        click_on('logout')
+        click_on('Logout')
         expect(current_path).to eq(root_path)
 
         click_on('Users')
@@ -50,7 +50,7 @@ describe 'admin can see specific links in the nav bar' do
         within(".nav") do
             expect(page).to_not have_content("Profile")
             expect(page).to_not have_content("Orders")
-            expect(page).to_not have_content("logout")
+            expect(page).to_not have_content("Logout")
             expect(page).to_not have_content("Users")
         end
 

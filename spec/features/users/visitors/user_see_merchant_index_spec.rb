@@ -150,7 +150,7 @@ describe "Merchants Index Page" do
         visit merchants_path
       end
 
-      xit 'should show top 3 merchants by items sold price and quantity' do
+      it 'should show top 3 merchants by items sold price and quantity' do
         sorted = User.merchants_by_revenue(:top, 3)
 
         within '.revenue-stats' do

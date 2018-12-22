@@ -1,1 +1,13 @@
-<h1>Your Order</h1>
+<h1>Order for <%= current_user.name %></h1>
+
+<% current_user.orders.each do |order| %>
+<ul>
+  <% order.order_items.each do |order_item| %>
+  <li>Order ID: <%= order_item.id %> </li>
+  <li>Order Created At: <%= order_item.created_at %> </li>
+  <li>Order Updated At: <%= order_item.updated_at %> </li>
+  <li>Order Item Status: <%= order_item.fulfilled? == true ? "fulfilled" : "not fulfilled"  %> </li>
+  <% end %>
+  <li>Order Status: <%= order.status %> </li>
+</ul>
+<% end %>

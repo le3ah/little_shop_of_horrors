@@ -44,7 +44,7 @@ RSpec.describe "As a user" do
         expect(page).to have_content("Logged in as #{user.name}")
     end 
 
-    it "sad path - you can't see shit" do
+    it "sad path - visitor can't see specific nav links" do
         
         visit merchants_path 
         
@@ -55,7 +55,5 @@ RSpec.describe "As a user" do
         end
 
     end
-
-
   end
 end

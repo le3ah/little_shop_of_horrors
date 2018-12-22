@@ -7,16 +7,11 @@ describe 'admin can see specific links in the nav bar' do
         visit merchants_path 
 
         within(".nav") do
-            expect(page).to have_content("Profile")
             expect(page).to have_content("Orders")
             expect(page).to have_content("Logout")
             expect(page).to have_content("Users") 
             expect(page).to_not have_content("Shopping Cart")
         end
-
-
-        click_on('Profile')
-        expect(current_path).to eq(profile_path)
         
         click_on('Orders')
         expect(current_path).to eq(profile_orders_path) 
@@ -48,7 +43,7 @@ describe 'admin can see specific links in the nav bar' do
         expect(page).to have_content("Logged in as #{admin.name}")
     end 
 
-    it "sad path - you can't see shit" do
+    it "sad path - visiot cannot see admin merchants path" do
         
         visit admin_merchants_path 
         
@@ -59,7 +54,22 @@ describe 'admin can see specific links in the nav bar' do
             expect(page).to_not have_content("Users")
         end
 
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+
     end
+
+    it "sad path - default user can't see admin merchants path" do
+        user = create(:user, role:0)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+        visit admin_merchants_path 
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    end
+
 
 
 

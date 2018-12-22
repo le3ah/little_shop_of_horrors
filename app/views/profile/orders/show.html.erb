@@ -12,9 +12,13 @@
   <li>Item Description: <%= order_item.item.description %> </li>
   <li>Item Image: <%= order_item.item.thumbnail %> </li>
   <li>Item Quantity: <%= order_item.quantity %> </li>
+  <li>Item Price: $<%= order_item.price %> </li>
+  <li>Item Subtotal: $<%= order_item.subtotal %> </li>
 
   <% end %>
   <br>
+  <li>Total Item Quantity: <%= order.quantity_of_order %> </li>
+  <li>Order Grand Total: <%= order.grand_total %> </li>
   <li>Order Status: <%= order.status %> </li>
 </ul>
 <% end %>

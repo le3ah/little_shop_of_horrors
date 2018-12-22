@@ -27,7 +27,11 @@ save_and_open_page
       expect(page).to have_content("Item Description: #{order_item.item.description}")
       expect(page).to have_content("Item Image: #{order_item.item.thumbnail}")
       expect(page).to have_content("Item Quantity: #{order_item.quantity}")
+      expect(page).to have_content("Item Price: $#{order_item.price}")
+      expect(page).to have_content("Item Subtotal: $#{order_item.subtotal}")
     end
+    expect(page).to have_content("Total Item Quantity: #{o_1.quantity_of_order}")
+    expect(page).to have_content("Order Grand Total: #{o_1.grand_total}")
     expect(page).to have_content("Order Status: #{o_1.status}")
   end
 end

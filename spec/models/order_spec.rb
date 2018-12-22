@@ -110,6 +110,19 @@ describe Order, type: :model do
 
       expect(Order.any_complete?).to eq(false)
     end
-  
+  end
+  describe  'instance methods' do
+    it "#quantity_of_order" do
+      user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      m_1 = create(:user, role: 1)
+      o_1 = create(:order, user_id: user.id)
+      item_2 = create(:item, price: 2, user_id: m_1.id)
+      item_3 = create(:item, price: 4, user_id: m_1.id)
+      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
+      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
+
+      expect(o_1.quantity_of_order).to eq(4)
+    end
   end
 end

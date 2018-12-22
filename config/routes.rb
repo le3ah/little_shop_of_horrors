@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
 
-  namespace :admin do 
+  namespace :admin do
     resources :merchants, only: [:index, :show]
     resources :users, only: [:index, :show]
     post '/toggle', to: "merchants#toggle_status"
@@ -14,12 +14,13 @@ Rails.application.routes.draw do
   end
 
   namespace :profile do
-    resources :orders, only: [:index]
-  end 
+    resources :orders, only: [:index, :show]
+  end
   get '/profile', to: 'users#show'
-  
+
+
   get '/register', to: 'users#new'
-  
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

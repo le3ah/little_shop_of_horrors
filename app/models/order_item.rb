@@ -11,5 +11,8 @@ class OrderItem < ApplicationRecord
       .average("updated_at - created_at")
   end
 
-  
+  def subtotal
+    quantity * price
+  end
+
 end

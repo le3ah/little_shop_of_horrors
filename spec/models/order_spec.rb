@@ -110,16 +110,6 @@ describe Order, type: :model do
 
       expect(Order.any_complete?).to eq(false)
     end
-    it ".subtotal" do
-      u_1 = create(:user)
-      m_1 = create(:user, role: 1)
-      o_1 = create(:completed_order, user_id: u_1.id)
-      item_1 = create(:item, price: 1, user_id: m_1.id)
-      item_2 = create(:item, price: 2, user_id: m_1.id)
-      create(:fulfilled_order_item, order: o_1, item: item_1, price: 1, quantity: 1)
-      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2)
-
-      expect(Order.subtotal).to eq(5)
-    end
+  
   end
 end

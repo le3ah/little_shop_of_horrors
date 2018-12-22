@@ -124,5 +124,17 @@ describe Order, type: :model do
 
       expect(o_1.quantity_of_order).to eq(4)
     end
+    it "#grand_total" do
+      user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      m_1 = create(:user, role: 1)
+      o_1 = create(:order, user_id: user.id)
+      item_2 = create(:item, price: 2, user_id: m_1.id)
+      item_3 = create(:item, price: 4, user_id: m_1.id)
+      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
+      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
+
+      expect(o_1.grand_total).to eq(12)
+    end
   end
 end

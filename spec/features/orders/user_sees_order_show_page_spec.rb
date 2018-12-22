@@ -16,7 +16,7 @@ describe  'Order Show Page' do
     click_link "View Order"
 
     expect(current_path).to eq("/profile/orders/#{o_1.id}")
-save_and_open_page
+
     o_1.order_items.each do |order_item|
       expect(page).to have_content("Order ID: #{order_item.id}")
       expect(page).to have_content("Order Created At: #{order_item.created_at}")
@@ -31,7 +31,7 @@ save_and_open_page
       expect(page).to have_content("Item Subtotal: $#{order_item.subtotal}")
     end
     expect(page).to have_content("Total Item Quantity: #{o_1.quantity_of_order}")
-    expect(page).to have_content("Order Grand Total: #{o_1.grand_total}")
+    expect(page).to have_content("Order Grand Total: $#{o_1.grand_total}")
     expect(page).to have_content("Order Status: #{o_1.status}")
   end
 end

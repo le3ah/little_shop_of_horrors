@@ -7,8 +7,9 @@
 <p>Zip: <%= current_user.zip %></p>
 
 <%= link_to "Edit Profile", profile_edit_path %>
+
 <% current_user.orders.each do |order| %>
-<%= link_to "View Order", "/profile/orders/#{order.id}" %>
+<%= link_to "View Order", profile_order_path(order) %>
 <% end %>
 
 <%= flash[:success] %>

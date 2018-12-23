@@ -7,7 +7,7 @@ describe 'Items Index Page' do
 
       m_2 = create(:user, role: 1)
 
-      @i_1 = m_1.items.create!(
+      @i_1 = m_1.items.create(
         name: 'Flower Pot',
         description: 'Messy Pot',
         thumbnail: 'thumbnail',
@@ -16,7 +16,7 @@ describe 'Items Index Page' do
         enabled: true
       )
 
-      @i_2 = m_2.items.create!(
+      @i_2 = m_2.items.create(
         name: 'Orchid sauce',
         description: 'Juicy sauce',
         thumbnail: 'thumbnail for sauce',

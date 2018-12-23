@@ -16,7 +16,7 @@ describe  'Order Show Page' do
 
     click_link "View Order"
 
-    expect(current_path).to eq("/profile/orders/#{o_1.id}")
+    expect(current_path).to eq(profile_order_path(o_1))
 
     o_1.order_items.each do |order_item|
       expect(page).to have_content("Order ID: #{order_item.id}")

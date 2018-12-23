@@ -70,7 +70,7 @@ end
 ```
 
 ## Authentication & Authorization
-Some of the requirements surrounding this functionality is listed below in Visitor Roles.  We used enums in our Models and before_actions in our Controllers to help us easily identify and authorize our clients.
+Some of the requirements surrounding this functionality are listed below in Visitor Roles.  We used enums in our Models and before_actions in our Controllers to help us easily identify and authorize our clients.
 
 ## Testing
 We used RSpec for testing and kept track of our test coverage through SimpleCov

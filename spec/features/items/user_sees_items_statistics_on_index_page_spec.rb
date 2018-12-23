@@ -9,7 +9,7 @@ describe 'Items Index Page' do
 
         m_2 = create(:user, role: 1)
 
-        @i_1 = m_1.items.create!(
+        @i_1 = m_1.items.create(
           name: 'Flower Pot',
           description: 'Messy Pot',
           thumbnail: 'thumbnail',
@@ -18,7 +18,7 @@ describe 'Items Index Page' do
           enabled: true
         )
 
-        @i_2 = m_2.items.create!(
+        @i_2 = m_2.items.create(
           name: 'Orchid sauce',
           description: 'Juicy sauce',
           thumbnail: 'thumbnail for sauce',
@@ -26,7 +26,7 @@ describe 'Items Index Page' do
           inventory: 12,
           enabled: true
         )
-        @i_3 = m_1.items.create!(
+        @i_3 = m_1.items.create(
           name: 'Spider Plant',
           description: 'spiderlike',
           thumbnail: 'thumbnail',
@@ -35,7 +35,7 @@ describe 'Items Index Page' do
           enabled: true
         )
 
-        @i_4 = m_2.items.create!(
+        @i_4 = m_2.items.create(
           name: 'Apple tree',
           description: 'boring',
           thumbnail: 'thumbnail for sauce',
@@ -43,7 +43,7 @@ describe 'Items Index Page' do
           inventory: 12,
           enabled: true
         )
-        @i_5 = m_1.items.create!(
+        @i_5 = m_1.items.create(
           name: 'Orange Leaf',
           description: 'Colorful!',
           thumbnail: 'thumbnail',
@@ -52,7 +52,7 @@ describe 'Items Index Page' do
           enabled: true
         )
 
-        @i_6 = m_2.items.create!(
+        @i_6 = m_2.items.create(
           name: 'Pods',
           description: 'This is a plant',
           thumbnail: 'thumbnail for sauce',

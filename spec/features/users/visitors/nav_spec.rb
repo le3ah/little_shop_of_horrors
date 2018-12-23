@@ -15,7 +15,7 @@ describe 'navigation' do
     expect(current_path).to eq(cart_path)
     click_link "Login"
     expect(current_path).to eq(login_path)
-    click_link "Sign Up"
+    click_link "Register"
     expect(current_path).to eq('/register')
   end
 end

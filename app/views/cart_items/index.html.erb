@@ -7,6 +7,9 @@
 <table>
   <th>Name</th>
   <th>Quantity</th>
+    <% if !current_user %>
+      <p>You must register or be logged in to checkout</p>
+    <% end %>
     <% @cart_items.each_with_index do |cart_item, index| %>
       <tr>
         <td class="cart_item_<%= index %>"><%= cart_item.name %></td>

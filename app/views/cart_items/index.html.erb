@@ -7,7 +7,7 @@
     <p>Your cart is empty!</p>
   <% else %>
     <% if !current_user %>
-      <p>You must be logged in to checkout</p>
+      <p>You must register or be logged in to checkout</p>
     <% end %>
     <% @cart_items.each_with_index do |cart_item, index| %>
       <tr>

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "As a user" do
   context "When I Navigate the Site" do
     it "can see specific user links in the nav" do
-        user = create(:user, name: "oh holy night", role:0)
+        user = create(:user)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -26,7 +26,7 @@ RSpec.describe "As a user" do
     end
 
     it "can not see login or sign up" do
-        user = create(:user, name: "oh holy night", role:0)
+        user = create(:user)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -37,7 +37,7 @@ RSpec.describe "As a user" do
     end
 
     it 'can see "sup, #{users name}"' do
-        user = create(:user, name: "oh holy night", role:0)
+        user = create(:user)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         visit merchants_path
 

@@ -17,12 +17,16 @@
     @cart ||= Cart.new(session[:cart])
   end
 
+  def empty_cart
+    @cart = Cart.new(nil)
+  end
+
   def power_users
-    alpha_and_omega = (current_user && current_user.role == "default") || 
+    alpha_and_omega = (current_user && current_user.role == "default") ||
     (current_user && current_user.role == 'admin' )  ||
     (current_user && current_user.role == 'merchant')
     alpha_and_omega
-  end 
+  end
 
   def render_404
     render file: "#{Rails.root}/public/404.html", status: :not_found

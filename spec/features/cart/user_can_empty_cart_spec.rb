@@ -22,11 +22,17 @@ describe "Emptying Cart" do
     end
 
     it 'should remove items from cart when clicking empty cart' do
-      
+      click_link "Empty Cart"
+
+      expect(page).to have_content("Your cart is empty!")
     end
 
     it 'should show 0 items in nav bar after clicking empty cart' do
+      click_link "Empty Cart"
 
+      within '.nav' do
+        expect(page).to have_content("Shopping Cart (0)")
+      end
     end
   end
 end

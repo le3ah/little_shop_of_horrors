@@ -260,4 +260,3 @@ describe "Merchants Index Page" do
       end
     end
   end
-end

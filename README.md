@@ -61,7 +61,7 @@ end
 We're lucky to have a resident front-end expert on our team, and we certainly leaned on his skills for our layout.  Creepy and user-friendly were our top-two priorities.
 
 ## POROs
-Our entire class seemed to muse over the last time we'd needed to type the world 'initialize.' Was it this module, was it last module, did we ever actually type it?  Time is not a real concept at Turing, but Ruby objects are, and we enjoyed getting back to our roots a little with this:
+Our entire class seemed to muse over the last time we'd needed to type the word 'initialize.' Was it this module, was it last module, did we ever actually type it?  Time is not a real concept at Turing, but Ruby objects are, and we enjoyed getting back to our roots a little with this:
 ```
 attr_reader :data
 def initialize(input_data = nil)

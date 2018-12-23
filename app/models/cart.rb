@@ -15,8 +15,4 @@ class Cart
     data[item.id.to_s] ||= 0
     data[item.id.to_s] += 1
   end
-
-  def empty_cart
-    @data = {}
-  end
 end

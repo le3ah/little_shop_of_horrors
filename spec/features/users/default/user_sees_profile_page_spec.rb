@@ -5,9 +5,9 @@ describe 'Default User Profile Page' do
     @u = create(:user)
     @m = create(:user, role: 1)
 
-    @o_1 = create(:order, user: @u)
-    @o_2 = create(:completed_order, user: @u)
-    @o_3 = create(:cancelled_order, user: @u)
+    @o_1 = create(:order, user: @u, created_at: 3.days.ago, updated_at: 2.days.ago)
+    @o_2 = create(:completed_order, user: @u, created_at: 4.days.ago, updated_at: 3.days.ago)
+    @o_3 = create(:cancelled_order, user: @u, created_at: 5.days.ago, updated_at: 1.days.ago)
 
     @i_1 = create(:item, enabled: true, user: @m)
     @i_2 = create(:item, enabled: true, user: @m)
@@ -17,7 +17,7 @@ describe 'Default User Profile Page' do
     create(:order_item, order: @o_2, item: @i_2)
     create(:order_item, order: @o_3, item: @i_3)
 
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(u)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@u)
 
     visit profile_path
   end
@@ -50,26 +50,32 @@ describe 'Default User Profile Page' do
     end
 
     it 'should show order information' do
-      expect(page).to have_content("View Order ##{@o_1.id}")
-      expect(page).to have_content("Created at: #{@o_1.created_at}")
-      expect(page).to have_content("Updated at: #{@o_1.updated_at}")
-      expect(page).to have_content("#{@o_1.status}")
-      expect(page).to have_content("#{@o_1.quantity_of_order}")
-      expect(page).to have_content("#{@o_1.grand_total}")
+      within "#order-#{@o_1.id}" do
+        expect(page).to have_content("View Order ##{@o_1.id}")
+        expect(page).to have_content("Created at: #{@o_1.created_at}")
+        expect(page).to have_content("Updated at: #{@o_1.updated_at}")
+        expect(page).to have_content("#{@o_1.status}")
+        expect(page).to have_content("#{@o_1.quantity_of_order}")
+        expect(page).to have_content("#{@o_1.grand_total}")
+      end
 
-      expect(page).to have_content("View Order ##{@o_2.id}")
-      expect(page).to have_content("Created at: #{@o_2.created_at}")
-      expect(page).to have_content("Updated at: #{@o_2.updated_at}")
-      expect(page).to have_content("Status: #{@o_2.status}")
-      expect(page).to have_content("Item Count: #{@o_2.quantity_of_order}")
-      expect(page).to have_content("Grand Total: #{@o_2.grand_total}")
+      within "#order-#{@o_2.id}" do
+        expect(page).to have_content("View Order ##{@o_2.id}")
+        expect(page).to have_content("Created at: #{@o_2.created_at}")
+        expect(page).to have_content("Updated at: #{@o_2.updated_at}")
+        expect(page).to have_content("Status: #{@o_2.status}")
+        expect(page).to have_content("Item Count: #{@o_2.quantity_of_order}")
+        expect(page).to have_content("Grand Total: #{@o_2.grand_total}")
+      end
 
-      expect(page).to have_content("View Order ##{@o_2.id}")
-      expect(page).to have_content("Created at: #{@o_2.created_at}")
-      expect(page).to have_content("Updated at: #{@o_2.updated_at}")
-      expect(page).to have_content("Status: #{@o_2.status}")
-      expect(page).to have_content("Item Count: #{@o_2.quantity_of_order}")
-      expect(page).to have_content("Grand Total: #{@o_2.grand_total}")
+      within "#order-#{@o_3.id}" do
+        expect(page).to have_content("View Order ##{@o_3.id}")
+        expect(page).to have_content("Created at: #{@o_3.created_at}")
+        expect(page).to have_content("Updated at: #{@o_3.updated_at}")
+        expect(page).to have_content("Status: #{@o_3.status}")
+        expect(page).to have_content("Item Count: #{@o_3.quantity_of_order}")
+        expect(page).to have_content("Grand Total: #{@o_3.grand_total}")
+      end
     end
   end
 end

@@ -1,11 +1,11 @@
 <h1>Your Cart</h1>
 
+<% if @cart_items.empty? %>
+  <p>Your cart is empty!</p>
+<% else %>
 <table>
   <th>Name</th>
   <th>Quantity</th>
-  <% if @cart_items.empty? %>
-    <p>Your cart is empty!</p>
-  <% else %>
     <% @cart_items.each_with_index do |cart_item, index| %>
       <tr>
         <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
@@ -14,3 +14,5 @@
     <% end %>
   <% end %>
 </table>
+
+<%= link_to "Empty Cart",  %>

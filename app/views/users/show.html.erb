@@ -8,9 +8,20 @@
 
 <%= link_to "Edit Profile", profile_edit_path %>
 
-<% current_user.orders.each do |order| %>
-<%= link_to "View Order ##{order.id}", profile_order_path(order) %>
-<% end %>
+<section class='orders'>
+  <p>Your Orders</p>
+  <% current_user.orders.each do |order| %>
+    <div id="order-<%= order.id %>" class="order">
+      <%= link_to "View Order ##{order.id}", profile_order_path(order) %>
+      <p>Created at: <%= order.created_at %></p>
+      <p>Updated at: <%= order.updated_at %></p>
+      <p>Status: <%= order.status %></p>
+      <p>Item Count: <%= order.quantity_of_order %></p>
+      <p>Grand Total: <%= order.grand_total %></p>
+    </div>
+  <% end %>
+</section>
+
 
 <%= flash[:success] %>
 <%= flash[:log_error] %>

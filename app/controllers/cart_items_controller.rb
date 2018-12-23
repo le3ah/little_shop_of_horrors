@@ -12,6 +12,7 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    
+    empty_cart
+    session[:cart] = create_cart.data
   end
 end

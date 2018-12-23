@@ -4,10 +4,14 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    item = Item.find(params[:item_id])   
+    item = Item.find(params[:item_id])
     create_cart.add_item(item)
-    session[:cart] = create_cart.data 
+    session[:cart] = create_cart.data
     flash[:success] = "Item has been added to your cart"
     redirect_to items_path
+  end
+
+  def destroy
+    
   end
 end

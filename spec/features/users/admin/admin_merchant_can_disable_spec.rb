@@ -10,13 +10,19 @@ describe 'As an admin merchant' do
       @merchant_2 = create(:user, role: 1, enabled: false)
 
       visit admin_merchants_path
-      click_button "disable"
+      within "#merchant-#{@merchant_2.id}" do
+        expect(page).to have_button("enable")
+      end
+      within "#merchant-#{@merchant_1.id}" do
+        expect(page).to have_button("disable")
+        click_button "disable"
+      end
 
       expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_content("#{@merchant_1.name} is now disabled.")
       within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_button("enable")
-      end 
+      end
     end
   end
 end

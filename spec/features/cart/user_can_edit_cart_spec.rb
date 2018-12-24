@@ -24,11 +24,13 @@ describe "Editing Cart" do
 
         expect(current_path).to eq(cart_path)
         expect(page).to_not have_content("#{@item.name} 1")
+        expect(page).to have_content("#{@item_2.name} 2")
         expect(page).to have_content("Your cart has been updated")
       end
 
       it 'has a button that increments an item quantity' do
         expect(page).to have_selector(:link_or_button, "+", count: 2)
+        expect(page).to have_content("#{@item.name} 1")
         click_button "plus-cart-item-0"
 
         expect(current_path).to eq(cart_path)
@@ -38,6 +40,7 @@ describe "Editing Cart" do
 
       it 'has a button that decrements an item quantity' do
         expect(page).to have_selector(:link_or_button, "-", count: 2)
+        expect(page).to have_content("#{@item_2.name} 2")
         click_button "minus-cart-item-1"
 
         expect(current_path).to eq(cart_path)

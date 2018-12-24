@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
-  resources :cart_items, only: [:create, :update, :destroy]
+  resources :cart_items, only: [:create, :update]
 
   namespace :admin do
     resources :merchants, only: [:index, :show]
@@ -31,4 +31,5 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'merchants#show'
 
   get '/cart', to: 'cart_items#index'
+  delete '/cart_items', to: 'cart_items#destroy'
 end

@@ -13,7 +13,7 @@
     <% end %>
     <% @cart_items.each_with_index do |cart_item, index| %>
       <tr>
-        <td><%= button_to "Remove", cart_item_path(cart_item.id), id: "rem-cart-item-#{index}", method: :delete %></td>
+        <td><%= button_to "Remove", cart_item_path(cart_item.id), id: "rem-cart-item-#{index}", method: :patch %></td>
         <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
         <td class="quantity_<%= index %>"><%= cart_item.quantity %></td>
         <td><%= button_to "+", cart_item_path(cart_item.id, add: true), id: "plus-cart-item-#{index}", method: :patch %></td>

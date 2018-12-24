@@ -12,7 +12,10 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    require "pry"; binding.pry
+    create_cart.update_item(item, params[:add])
+    session[:cart] = create_cart.data
+    flash[:success] = "Your cart has been updated"
+    redirect_to cart_path
   end
 
   def destroy

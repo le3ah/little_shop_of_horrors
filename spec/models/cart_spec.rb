@@ -4,7 +4,7 @@ describe Cart do
   describe 'instance methods' do
     before(:each) do
       user = create(:user)
-      @item = create(:item, user_id: user.id, inventory: 2)
+      @item = create(:item, user_id: user.id, inventory: 3)
       input_data = Hash.new(0)
       input_data[@item.id.to_s] = 2
       @cart = Cart.new(input_data)
@@ -51,17 +51,17 @@ describe Cart do
     end
 
     it '#enough_inventory? returns false if cart item quantity == item inventory' do
-      expect(@item.inventory).to eq(2)
-      expect(@cart.data).to eq({@item.id.to_s => 2})
+      expect(@item.inventory).to eq(3)
+      cart = Cart.new({@item.id.to_s => 3})
 
-      expect(@cart.enough_inventory?(@item.id)).to eq(false)
+      expect(cart.enough_inventory_for_more?(@item.id)).to eq(false)
     end
 
     it "#enough_inventory? returns true if cart item quantity < item inventory" do
-      expect(@item.inventory).to eq(2)
-      cart = Cart.new({@item.id.to_s => 1})
+      expect(@item.inventory).to eq(3)
+      cart = Cart.new({@item.id.to_s => 2})
 
-      expect(cart.enough_inventory?(@item.id)).to eq(true)
+      expect(cart.enough_inventory_for_more?(@item.id)).to eq(true)
     end
   end
 end

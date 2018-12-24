@@ -16,13 +16,12 @@ class Cart
     data[item.id.to_s] += 1
   end
 
-  def update_item(item, adding)
-    item_id = item.id.to_s
+  def update_item(item_id, adding)
     if adding
-      data[item_id] += 1
+      data[item_id.to_s] += 1
     else
-      data[item_id] -= 1
-      @data.delete(item_id) if data[item_id] == 0
+      data[item_id.to_s] -= 1
+      @data.delete(item_id.to_s) if data[item_id.to_s] == 0
     end
   end
 end

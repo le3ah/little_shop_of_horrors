@@ -18,14 +18,36 @@ describe Cart do
       expect(@cart.data).to eq({@item.id.to_s => 2})
     end
 
-    it '#add_item updates the data method when an item is added ' do
+    it '#add_item updates data when an item is added ' do
        cart = Cart.new(nil)
 
        cart.add_item(@item)
        expect(cart.data).to eq({@item.id.to_s => 1})
-        
+
        cart.add_item(@item)
        expect(cart.data).to eq({@item.id.to_s => 2})
+    end
+
+    it "#update_item updates data by decrementing" do
+      expect(@cart.data).to eq({@item.id.to_s => 2})
+
+      @cart.update_item(@item.id, false)
+      expect(@cart.data).to eq({@item.id.to_s => 1})
+    end
+
+    it "#update_item updates data by incrementing" do
+      expect(@cart.data).to eq({@item.id.to_s => 2})
+
+      @cart.update_item(@item.id, true)
+      expect(@cart.data).to eq({@item.id.to_s => 2})
+    end
+
+    it "#update_item removes item from data when quantity is 0" do
+      expect(@cart.data).to eq({@item.id.to_s => 2})
+
+      @cart.update_item(@item.id, false)
+      @cart.update_item(@item.id, false)
+      expect(@cart.data).to eq({})
     end
   end
 end

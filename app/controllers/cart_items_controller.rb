@@ -12,10 +12,10 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    require "pry"; binding.pry
-    create_cart.update_item(params[:id], params[:add])
+    updated = create_cart.update_item(params[:id], params[:add])
     session[:cart] = create_cart.data
-    flash[:success] = "Your cart has been updated"
+    flash[:success] = "Your cart has been updated" if updated
+    flash[:error] = "Not enough item quantity to fulfill that amount" unless updated
     redirect_to cart_path
   end
 

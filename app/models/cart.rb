@@ -1,5 +1,5 @@
 class Cart
-  attr_reader :data 
+  attr_reader :data
   def initialize(input_data = nil)
     @data = input_data || Hash.new
   end

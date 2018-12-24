@@ -32,4 +32,5 @@ Rails.application.routes.draw do
 
   get '/cart', to: 'cart_items#index'
   post '/cart_items', to: 'cart_items#create'
+  delete '/cart_items', to: 'cart_items#destroy'
 end

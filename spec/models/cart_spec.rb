@@ -39,7 +39,7 @@ describe Cart do
       expect(@cart.data).to eq({@item.id.to_s => 2})
 
       @cart.update_item(@item.id, true)
-      expect(@cart.data).to eq({@item.id.to_s => 2})
+      expect(@cart.data).to eq({@item.id.to_s => 3})
     end
 
     it "#update_item removes item from data when quantity is 0" do

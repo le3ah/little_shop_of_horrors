@@ -16,6 +16,8 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    create_cart
+    empty_cart
+    session[:cart] = create_cart.data
+    redirect_to cart_path
   end
 end

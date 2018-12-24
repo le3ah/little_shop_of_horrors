@@ -1,7 +1,7 @@
 <h1>User Registration Form</h1>
-<% if flash[:email_error] %>
+<% if flash[:error] %>
   <div class="error">
-    <%= flash[:email_error] %>
+    <%= flash[:error] %>
   </div>
 <% end %>
 <%= render partial: '/users/user_form' %>

@@ -3,6 +3,7 @@
 # Little Shop of Horrors
 
 BE Mod 2 Group Project
+
 Contributors: Nico, Ricardo, Leah, & Tony
 
 ## Background and Description

@@ -1,5 +1,5 @@
 
-<nav class="nav navbar navbar-expand-lg navbar-light bg-light">
+<nav class="nav navbar navbar-expand-lg navbar-dark bg-dark">
   <%= link_to "LSOH", root_path, :class => "navbar-brand"  %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -31,17 +31,7 @@
           <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
         </li>
       <% end %>
-
-      <% if current_user %>
-        <li class="nav-item">
-          <%= link_to "Logout", logout_path, :class => "nav-link", method: :delete %> </li>
-        <li class='nav-item'> <%= "Logged in as #{current_user.name}" %> </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", login_path, :class => "nav-link" %> </li>
-        <li class="nav-item">
-          <%= link_to "Register", register_path, :class => "nav-link"  %> </li>
-      <% end %>
+      
       <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>
         <li class="nav-item">
           <%= link_to 'Profile', profile_path, :class => "nav-link"  %>
@@ -49,10 +39,21 @@
         <li class="nav-item">
           <%= link_to 'Orders', profile_orders_path, :class => "nav-link" %>
         </li>
-        <li class="nav-item right">
-          <p class="right"><%= "Logged in as #{current_user.name}" %></p>
+      <% end %>
+
+      <% if current_user %>
+        <li class="nav-item">
+          <%= link_to "Logout", logout_path, :class => "nav-link", method: :delete %> 
         </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Login", login_path, :class => "nav-link" %> </li>
+        <li class="nav-item">
+          <%= link_to "Register", register_path, :class => "nav-link"  %> </li>
       <% end %>
     </ul>
+    <% if current_user %>
+      <p class="nav_message"><%= "Logged in as #{current_user.name}" %></p>
+    <% end %>
   </div>
 </nav>

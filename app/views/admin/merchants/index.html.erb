@@ -1,11 +1,7 @@
 <h1>
     All da merchants
 </h1>
-<% if flash[:disable] %>
-  <div class="alert alert-success" role="alert">
-    <%= flash[:disable] %>
-  </div>
-<% end %>
+
 <% @merchants.each do |merchant| %>
 <table id="merchant-<%=merchant.id%>">
     <thead>

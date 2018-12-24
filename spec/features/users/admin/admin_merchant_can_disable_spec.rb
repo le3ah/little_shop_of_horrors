@@ -2,7 +2,7 @@ require  'rails_helper'
 
 describe 'As an admin merchant' do
   context 'when I visit the merchant index page' do
-    it "should disable an enabled merchant" do
+    it "should be able to disable and enable a merchant" do
       @admin = create(:user, role: 2)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
 
@@ -10,9 +10,15 @@ describe 'As an admin merchant' do
       @merchant_2 = create(:user, role: 1, enabled: false)
 
       visit admin_merchants_path
+
       within "#merchant-#{@merchant_2.id}" do
         expect(page).to have_button("enable")
+        click_button "enable"
       end
+
+      expect(current_path).to eq(admin_merchants_path)
+      expect(page).to have_content("#{@merchant_2.name}'s account is now enabled.")
+
       within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_button("disable")
         click_button "disable"
@@ -20,10 +26,15 @@ describe 'As an admin merchant' do
 
       expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_content("#{@merchant_1.name}'s account is now disabled.")
+
       within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_button("enable")
       end
+      within "#merchant-#{@merchant_2.id}" do
+        expect(page).to have_button("disable")
+      end
     end
+
     it "prevents disabled user from logging in" do
       @merchant_1 = create(:user, role: 1, enabled: false)
       visit login_path

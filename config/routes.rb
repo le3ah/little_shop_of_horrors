@@ -17,12 +17,13 @@ Rails.application.routes.draw do
   namespace :profile do
     resources :orders, only: [:index, :show]
   end
-
-  namespace :merchants do
-    get '/dashboard', to: 'merchants#show'
-    get '/dashboard/items', to: 'merchant_items#index'
-  end
-  # scope module: :merchant, path: :dashboard, as: :merchant do
+  
+  get '/dashboard', to: 'merchants#show'
+  get '/dashboard/items', to: 'merchants#items_index'
+  # resources :merchants do   
+  # end
+  
+  # scope module: 'merchant' do
   #   resources :items, only: [:index]
   # end
 

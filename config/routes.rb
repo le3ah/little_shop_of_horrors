@@ -17,15 +17,9 @@ Rails.application.routes.draw do
   namespace :profile do
     resources :orders, only: [:index, :show]
   end
-  
+
   get '/dashboard', to: 'merchants#show'
   get '/dashboard/items', to: 'merchants#items_index'
-  # resources :merchants do   
-  # end
-  
-  # scope module: 'merchant' do
-  #   resources :items, only: [:index]
-  # end
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
@@ -35,8 +29,6 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-
-
 
   get '/cart', to: 'cart_items#index'
   post '/cart_items', to: 'cart_items#create'

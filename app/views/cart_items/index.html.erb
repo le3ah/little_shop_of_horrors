@@ -1,11 +1,12 @@
 <h1>Your Cart</h1>
 
+<% if @cart_items.empty? %>
+  <p>Your cart is empty!</p>
+<% else %>
+
 <table>
   <th>Name</th>
   <th>Quantity</th>
-  <% if @cart_items.empty? %>
-    <p>Your cart is empty!</p>
-  <% else %>
     <% if !current_user %>
       <p>You must register or be logged in to checkout</p>
     <% end %>
@@ -17,3 +18,7 @@
     <% end %>
   <% end %>
 </table>
+
+<% unless @cart_items.empty? %>
+  <%= link_to "Empty Cart", cart_items_path, method: :delete %>
+<% end %>

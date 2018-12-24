@@ -23,6 +23,7 @@ class Cart
     else
       data[item_id.to_s] -= 1
       @data.delete(item_id.to_s) if data[item_id.to_s] == 0
+      return true
     end
   end
 

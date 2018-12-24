@@ -11,7 +11,6 @@ class UsersController < ApplicationController
       flash[:success] = "Party in my plants! You're a new user! 💐 🌝"
       redirect_to profile_path
     else
-      require 'pry'; binding.pry
       flash.keep[:error] = @user.errors.full_messages
       render :new
     end

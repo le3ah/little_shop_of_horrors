@@ -65,7 +65,7 @@ describe 'as a visitor' do
 
     click_on 'Create User'
     expect(page).to have_content("User Registration Form")
-    expect(page).to have_content("Cannot repeat email address!")
+    expect(page).to have_content("Email has already been taken")
     expect(find_field(:user_name).value).to eq name
     expect(find_field(:user_email).value).to_not eq email
     expect(find_field(:user_address).value).to eq address

@@ -20,6 +20,10 @@ class MerchantsController < ApplicationController
       not_today_satan
     end
   end
+
+  def items_index
+    
+  end
   
   def current_merchant?
     current_user && current_user.merchant?

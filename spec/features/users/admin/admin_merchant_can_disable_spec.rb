@@ -24,5 +24,16 @@ describe 'As an admin merchant' do
         expect(page).to have_button("enable")
       end
     end
+    it "prevents disabled user from logging in" do
+      @merchant_1 = create(:user, role: 1, enabled: false)
+      visit login_path
+
+      fill_in "email", with: @merchant_1.email
+      fill_in "password", with: @merchant_1.password
+
+      click_on "submit"
+
+      expect(current_path).to eq(login_path)
+    end
   end
 end

@@ -1,9 +1,9 @@
-<%= @item.name %>
-<%= @item.description %>
+<p>Name: <%= @item.name %></p>
+<p>Description: <%= @item.description %></p>
 <%= @item.thumbnail %>
-<%= @item.user.name %>
-<%= @item.inventory %>
-<%= @item.price %>
+<p>Username: <%= @item.user.name %></p>
+<p>Inventory:<%= @item.inventory %></p>
+<p>Price: <%= @item.price %></p>
 <p>Average Fulfillment Time: <%= OrderItem.avg_fulfillment_time(@item) %></p>
 <% unless current_user && current_user.role == "merchant" ||
           current_user && current_user.role == "admin"%>

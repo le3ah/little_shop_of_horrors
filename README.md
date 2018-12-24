@@ -7,7 +7,7 @@ BE Mod 2 Group Project
 Contributors: Nico, Ricardo, Leah, & Tony
 
 ## Background and Description
-"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping car and checkout. Merchant users can mark items as 'fulfilled,' and Admin users can mark orders as 'complete.'  Each user role has access to some or all CRUD functionality for application models.
+"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and checkout. Merchant users can mark items as 'fulfilled,' and Admin users can mark orders as 'complete.'  Each user role has access to some or all CRUD functionality for application models.
 
 ## Our Inspiration
 "Burson Fouch: I remember in one flower shop there was a whole wall covered with poison ivy. People came from miles around to look at that wall and they stayed to buy.

@@ -2,13 +2,13 @@ class SessionsController < ApplicationController
   def new
     if current_user && current_user.role == "default"
       redirect_to profile_path
-      flash[:log_error] = "You are already logged in, silly."
+      flash[:error] = "You are already logged in, silly."
     elsif current_user && current_user.role == "merchant"
       redirect_to dashboard_path
-      flash[:log_error] = "You are already logged in, silly."
+      flash[:error] = "You are already logged in, silly."
     elsif current_user && current_user.role == "admin"
       redirect_to root_path
-      flash[:log_error] = "You are already logged in, silly."
+      flash[:error] = "You are already logged in, silly."
     end
   end
 
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       redirect_to dashboard_path if user.role == "merchant"
       redirect_to root_path if user.role == "admin"
     else
-      flash.keep[:error] = "Oh no! Something went wrong. 🤯 🥀"
+      flash.keep[:error] = "Incorrect username or password. 🤯 🥀"
       render :new
     end
   end

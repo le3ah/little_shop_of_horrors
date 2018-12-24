@@ -5,7 +5,6 @@
 <%= @item.inventory %>
 <%= @item.price %>
 <p>Average Fulfillment Time: <%= OrderItem.avg_fulfillment_time(@item) %></p>
-<% unless current_user && current_user.role == "merchant" ||
-          current_user && current_user.role == "admin"%>
+<% if current_user && current_user.role == "default" %>
   <%= button_to "Add to Cart", cart_items_path(item_id: @item.id) %>
 <% end %>

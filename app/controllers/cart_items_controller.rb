@@ -12,7 +12,7 @@ class CartItemsController < ApplicationController
   end
 
   def update
-    create_cart.update_item(item, params[:add])
+    create_cart.update_item(item_id, params[:add])
     session[:cart] = create_cart.data
     flash[:success] = "Your cart has been updated"
     redirect_to cart_path

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'admin can see specific links in the nav bar' do
     it "can see specific admin links in the nav" do
         user = create(:user, name: "oh holy night", role:2)

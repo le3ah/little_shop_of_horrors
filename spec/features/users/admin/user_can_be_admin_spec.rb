@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe "User can be admin" do
 
     it 'can be an admin' do

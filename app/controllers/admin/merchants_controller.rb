@@ -1,10 +1,10 @@
-class Admin::MerchantsController < Admin::BaseController  
+class Admin::MerchantsController < Admin::BaseController
     def index
         @merchants = User.where('role = 1')
     end
 
     def show
-    end 
+    end
 
     def toggle_status
         user = User.find(params[:user_id])
@@ -12,6 +12,9 @@ class Admin::MerchantsController < Admin::BaseController
         user.switch_enabled
 
         redirect_to admin_merchants_path
-    end 
-  
-end 
+        if !user.enabled?
+          flash[:disable] = "#{user.name} is now disabled."
+        end 
+    end
+
+end

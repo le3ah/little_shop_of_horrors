@@ -13,6 +13,7 @@ describe 'As an admin merchant' do
       click_button "disable"
 
       expect(current_path).to eq(admin_merchants_path)
+      expect(page).to have_content("#{@merchant_1.name} is now disabled.")
     end
   end
 end

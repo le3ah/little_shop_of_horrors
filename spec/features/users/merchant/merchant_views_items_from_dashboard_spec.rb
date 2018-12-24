@@ -7,7 +7,6 @@ describe "As a merchant" do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
         visit dashboard_path
-
         expect(page).to have_link("View My Items")
         click_link "View My Items"
 

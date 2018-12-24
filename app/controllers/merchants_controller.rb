@@ -14,23 +14,19 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    if current_user 
-      @merchant = current_user || User.find(session[:user_id]) 
-    else 
+    if current_user
+      @merchant = current_user || User.find(session[:user_id])
+    else
       not_today_satan
     end
   end
 
-  def items_index
-    
-  end
-  
   def current_merchant?
     current_user && current_user.merchant?
-  end 
-  
+  end
+
   def not_today_satan
     render file: "#{Rails.root}/public/404.html", status: :not_found unless current_merchant?
-  end 
+  end
 
 end

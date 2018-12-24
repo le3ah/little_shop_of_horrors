@@ -12,13 +12,14 @@
       <li class="nav-item">
         <%= link_to "Browse Items", items_path, :class => "nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %>
-      </li>
+
 
       <% if current_user && current_user.role == 'merchant' %>
            <li class="nav-item">
-        <%= link_to 'Dashboard', dashboard_path %>
+             <%= link_to 'Dashboard', dashboard_path %>
+           </li>
+           <li class="nav-item">
+             <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %>
            </li>
       <% end %>
 
@@ -26,9 +27,15 @@
         <li class="nav-item">
           <%= link_to 'Users', admin_users_path, :class => "nav-link" %>
         </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
+        </li>
       <% else current_user && current_user.role == "admin" %>
         <li class="nav-item">
           <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
         </li>
       <% end %>
 
@@ -36,11 +43,15 @@
         <li class="nav-item">
           <%= link_to "Logout", logout_path, :class => "nav-link", method: :delete %> </li>
         <li class='nav-item'> <%= "Logged in as #{current_user.name}" %> </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %></li>
       <% else %>
         <li class="nav-item">
           <%= link_to "Login", login_path, :class => "nav-link" %> </li>
         <li class="nav-item">
           <%= link_to "Register", register_path, :class => "nav-link"  %> </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %></li>
       <% end %>
       <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>
         <li class="nav-item">

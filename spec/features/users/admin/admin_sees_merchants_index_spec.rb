@@ -3,7 +3,15 @@ require "rails_helper"
 RSpec.describe 'as an Admin' do
 
     context "Admin can see a merchants index" do
+        it "can click link from nav to reach admin_merchants_path" do
+          admin = create(:user, role: 2)
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
+          visit root_path
+          click_link "Browse Merchants as Admin"
+
+          expect(current_path).to eq(admin_merchants_path)
+        end
         it "can visit and see data" do
             admin = create(:user, role:2)
             merchant = create(:user, role:1)

@@ -13,7 +13,7 @@ class Admin::MerchantsController < Admin::BaseController
 
         redirect_to admin_merchants_path
         if !user.enabled?
-          flash[:success] = "#{user.name} is now disabled."
+          flash[:success] = "#{user.name}'s account is now disabled."
         end
     end
 

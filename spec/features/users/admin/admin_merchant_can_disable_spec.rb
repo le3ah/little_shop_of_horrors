@@ -19,7 +19,7 @@ describe 'As an admin merchant' do
       end
 
       expect(current_path).to eq(admin_merchants_path)
-      expect(page).to have_content("#{@merchant_1.name} is now disabled.")
+      expect(page).to have_content("#{@merchant_1.name}'s account is now disabled.")
       within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_button("enable")
       end

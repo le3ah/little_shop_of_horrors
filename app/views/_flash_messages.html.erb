@@ -1,7 +1,6 @@
-<% if flash[:success] || flash[:disable] %>
+<% if flash[:success] %>
   <div class="alert alert-success" role="alert">
     <%= flash[:success] %>
-    <%= flash[:disable] %>
   </div>
 <% end %>
 <% if flash[:error] ||  flash[:log_error] ||  flash[:email_error]%>

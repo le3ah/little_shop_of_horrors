@@ -3,10 +3,15 @@
     <%= flash[:success] %>
   </div>
 <% end %>
-<% if flash[:error] ||  flash[:log_error] ||  flash[:email_error]%>
+<% if flash[:error] %>
+  <% if flash[:error].is_a?(Array) %>
+    <% flash[:error].each do |error|%>
+      <div class="alert alert-danger" role="alert">
+        <%= error %>
+      </div>
+    <% end %>
+  <% end %>
   <div class="alert alert-danger" role="alert">
-    <%= flash[:error] %>
-    <%= flash[:log_error] %>
-    <%= flash[:email_error] %>
+    <%=  flash[:error]%>
   </div>
 <% end %>

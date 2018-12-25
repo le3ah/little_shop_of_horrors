@@ -12,6 +12,6 @@ describe "user can't login with bad creds" do
 
         expect(page).to_not have_content("Welcome, #{user.name}")
         expect(page).to have_content("Registered User Login")
-        expect(page).to have_content("Oh no!")
+        expect(page).to have_content("Incorrect username or password.")
     end
 end

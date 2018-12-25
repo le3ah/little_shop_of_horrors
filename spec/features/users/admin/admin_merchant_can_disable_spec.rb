@@ -16,6 +16,8 @@ describe 'As an admin merchant' do
         click_button "enable"
       end
 
+      require "pry"; binding.pry
+
       expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_content("#{@merchant_2.name}'s account is now enabled.")
 

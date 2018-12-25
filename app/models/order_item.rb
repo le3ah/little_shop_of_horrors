@@ -21,6 +21,11 @@ class OrderItem < ApplicationRecord
     where(order_id: order_id).update_all(fulfilled: false, updated_at: Time.now)
   end
 
+  def self.return_inventory_for(order_id)
+    items_and_quantities = self.where(order_id: order_id).pluck(:item_id, :quantity)
+    Item.return_inventory(items_and_quantities) 
+  end
+
   def self.avg_fulfillment_time(item)
     where(fulfilled: true)
       .where(item_id: item.id)

@@ -17,4 +17,10 @@ class Item < ApplicationRecord
         .select("items.*, sum(quantity) as item_count")
   end
 
+  def self.return_inventory(items_and_quantities)
+    items_and_quantities.each do |i_q|
+      item = self.where(id: i_q.first).first
+      item.update(inventory: item.inventory + i_q.last)
+    end
+  end
 end

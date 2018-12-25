@@ -36,8 +36,20 @@ describe "Cart Checkout" do
       click_button "Checkout"
 
       expect(current_path).to eq(profile_path)
-
       order = @u.orders.first
+
+      within "#order-#{order.id}" do
+        expect(page).to have_selector(:link_or_button, "View Order ##{order.id}")
+        expect(page).to have_content("Created at: #{order.created_at}")
+        expect(page).to have_content("Updated at: #{order.updated_at}")
+        expect(page).to have_content("Status: #{order.status}")
+        expect(page).to have_content("Item Count: #{order.quantity_of_order}")
+        expect(page).to have_content("Grand Total: #{order.grand_total}")
+      end
+
+      expect(page).to have_content("Order was created!")
+
+      visit profile_order_path(order.id)
 
       order.order_items.each do |order_item|
         expect(page).to have_content("Order Item ID: #{order_item.id}")
@@ -48,12 +60,12 @@ describe "Cart Checkout" do
         expect(page).to have_content("Item Description: #{order_item.item.description}")
         expect(page).to have_content("Item Image: #{order_item.item.thumbnail}")
         expect(page).to have_content("Item Quantity: #{order_item.quantity}")
-        expect(page).to have_content("Item Price: #{order_item.price}")
-        expect(page).to have_content("Item Subtotal: #{order_item.subtotal}")
+        expect(page).to have_content("Item Price: $#{order_item.price}")
+        expect(page).to have_content("Item Subtotal: $#{order_item.subtotal}")
       end
 
       expect(page).to have_content("Total Item Quantity: #{order.quantity_of_order}")
-      expect(page).to have_content("Order Grand Total: #{order.grand_total}")
+      expect(page).to have_content("Order Grand Total: $#{order.grand_total}")
       expect(page).to have_content("Order Status: #{order.status}")
     end
   end

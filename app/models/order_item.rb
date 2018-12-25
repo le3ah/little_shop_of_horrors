@@ -22,8 +22,10 @@ class OrderItem < ApplicationRecord
   end
 
   def self.return_inventory_for(order_id)
-    items_and_quantities = self.where(order_id: order_id).pluck(:item_id, :quantity)
-    Item.return_inventory(items_and_quantities) 
+    items_and_quantities = self
+      .where(order_id: order_id, fulfilled: true)
+      .pluck(:item_id, :quantity)
+    Item.return_inventory(items_and_quantities)
   end
 
   def self.avg_fulfillment_time(item)

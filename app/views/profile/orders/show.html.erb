@@ -1,8 +1,7 @@
 <h1>Order Total for <%= current_user.name %></h1>
 
-<% current_user.orders.each do |order| %>
 <ul>
-  <% order.order_items.each do |order_item| %>
+  <% @order.order_items.each do |order_item| %>
   <br>
   <li>Order Item ID: <%= order_item.id %> </li>
   <li>Order Item Created At: <%= order_item.created_at %> </li>
@@ -17,9 +16,10 @@
 
   <% end %>
   <br>
-  <li>Total Item Quantity: <%= order.quantity_of_order %> </li>
-  <li>Order Grand Total: $<%= order.grand_total %> </li>
-  <li>Order Status: <%= order.status %> </li>
+  <li>Total Item Quantity: <%= @order.quantity_of_order %> </li>
+  <li>Order Grand Total: $<%= @order.grand_total %> </li>
+  <li>Order Status: <%= @order.status %> </li>
 </ul>
-<%= button_to "Cancel Order", profile_order_path(order.id), method: :delete %>
+<% if @order.status == "pending" %>
+  <%= button_to "Cancel Order", profile_order_path(@order.id), method: :delete %>
 <% end %>

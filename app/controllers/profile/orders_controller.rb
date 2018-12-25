@@ -15,6 +15,7 @@ class Profile::OrdersController < ApplicationController
     OrderItem.return_inventory_for(order.id)
     OrderItem.unfulfill_items_for(order.id)
 
+    flash[:success] = "Order has been cancelled."
     redirect_to profile_path
   end
 end

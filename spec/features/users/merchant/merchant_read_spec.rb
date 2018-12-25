@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe "As a Merchant" do
+
     context "navigation" do
         it 'can view the merchant nav bar' do
             merchant = create(:user, role:1)
@@ -48,4 +49,21 @@ describe "As a Merchant" do
             expect(page).to have_content("The page you were looking for doesn't exist.")
         end
     end
+
+    context "Dashboard" do
+        it 'merchant can see (but not edit) their profile data on the dashboard' do
+            merchant = User.create(role: 1)
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+            visit dashboard_path
+
+            expect(page).to have_content(merchant.name)
+            expect(page).to have_content(merchant.email)
+            expect(page).to have_content(merchant.address)
+            expect(page).to have_content(merchant.city)
+            expect(page).to have_content(merchant.state)
+            expect(page).to have_content(merchant.zip)
+        end
+    end
+    
 end

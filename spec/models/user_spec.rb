@@ -189,10 +189,21 @@ RSpec.describe User, type: :model do
         merchant = create(:user, role: 1)
 
         expected = User.default
-        # FIX ME
+        # FIXME
         expect(expected).to eq([user1, user2])
       end
 
+      it 'can switch roles between default and merchant' do 
+        dude = create(:user)
+
+        dude.toggle_role
+
+        expect(dude.role).to eq("merchant")
+
+        dude.toggle_role
+
+        expect(dude.role).to eq("default")
+      end
     end
   end
 end

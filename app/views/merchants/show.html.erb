@@ -1,3 +1,24 @@
 <h1>Welcome, merchant <%= @merchant.name %>!</h1>
 
+<table>
+    <thead>
+        <th>Email</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+    </thead>
+
+    <tbody>
+        <td><%= current_user.email %></td>
+        <td><%= current_user.address %></td>
+        <td><%= current_user.city %></td>
+        <td><%= current_user.state %></td>
+        <td><%= current_user.zip %></td>
+    </tbody>
+</table>
+
+
+
+
 <%= link_to "View My Items", '/dashboard/items' %>

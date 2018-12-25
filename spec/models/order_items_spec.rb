@@ -108,6 +108,7 @@ RSpec.describe OrderItem, type: :model do
       OrderItem.return_inventory_for(o.id)
 
       [i_1, i_2, i_3].each_with_index do |item, i|
+        item.reload
         expect(item.inventory).to eq(before_inventories[i] + order_items[i].quantity)
       end
     end

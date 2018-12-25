@@ -82,6 +82,8 @@ RSpec.describe OrderItem, type: :model do
       o_i_2 = create(:fulfilled_order_item, order: o, item: i_2)
 
       OrderItem.unfulfill_items_for(o.id)
+      o_i_1.reload
+      o_i_2.reload
 
       expect(o_i_1.fulfilled).to be_falsy
       expect(o_i_2.fulfilled).to be_falsy

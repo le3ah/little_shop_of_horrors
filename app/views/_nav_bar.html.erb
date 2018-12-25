@@ -13,7 +13,7 @@
         <%= link_to "Browse Items", items_path, :class => "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Browse Merchants", merchants_path, :class => "nav-link" %>
+        <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %>
       </li>
 
       <% if current_user && current_user.role == 'merchant' %>
@@ -26,12 +26,18 @@
         <li class="nav-item">
           <%= link_to 'Users', admin_users_path, :class => "nav-link" %>
         </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
+        </li>
       <% else current_user && current_user.role == "admin" %>
         <li class="nav-item">
           <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
         </li>
+        <li class="nav-item">
+          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
+        </li>
       <% end %>
-
+      
       <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>
         <li class="nav-item">
           <%= link_to 'Profile', profile_path, :class => "nav-link"  %>
@@ -43,7 +49,7 @@
 
       <% if current_user %>
         <li class="nav-item">
-          <%= link_to "Logout", logout_path, :class => "nav-link", method: :delete %> 
+          <%= link_to "Logout", logout_path, :class => "nav-link", method: :delete %>
         </li>
       <% else %>
         <li class="nav-item">

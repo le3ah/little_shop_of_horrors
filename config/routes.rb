@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
+  resources :cart_items, only: [:create, :update]
 
   namespace :admin do
     resources :merchants, only: [:index, :show]
@@ -31,6 +32,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/cart', to: 'cart_items#index'
-  post '/cart_items', to: 'cart_items#create'
   delete '/cart_items', to: 'cart_items#destroy'
 end

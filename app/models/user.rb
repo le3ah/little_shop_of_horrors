@@ -48,8 +48,8 @@ class User < ApplicationRecord
     end
 
     def switch_enabled
-      switch_boolean = !attributes["enabled"]
-      update(enabled: switch_boolean)
+      self.enabled = !self.enabled
+      save
     end
 
     private

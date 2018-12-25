@@ -15,4 +15,19 @@ class Cart
     data[item.id.to_s] ||= 0
     data[item.id.to_s] += 1
   end
+
+  def update_item(item_id, adding)
+    if adding
+      return false unless enough_inventory_for_more?(item_id)
+      data[item_id.to_s] += 1
+    else
+      data[item_id.to_s] -= 1
+      @data.delete(item_id.to_s) if data[item_id.to_s] == 0
+      return true
+    end
+  end
+
+  def enough_inventory_for_more?(item_id)
+    data[item_id.to_s] < Item.find(item_id).inventory
+  end
 end

@@ -11,6 +11,14 @@ class CartItemsController < ApplicationController
     redirect_to items_path
   end
 
+  def update
+    updated = create_cart.update_item(params[:id], params[:add])
+    session[:cart] = create_cart.data
+    flash[:success] = "Your cart has been updated" if updated
+    flash[:error] = "Not enough item quantity to fulfill that amount" unless updated
+    redirect_to cart_path
+  end
+
   def destroy
     empty_cart
     session[:cart] = create_cart.data

@@ -3,17 +3,20 @@
 # Little Shop of Horrors
 
 BE Mod 2 Group Project
+
 Contributors: Nico, Ricardo, Leah, & Tony
 
 ## Background and Description
-"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping car and checkout. Merchant users can mark items as 'fulfilled,' and Admin users can mark orders as 'complete.'  Each user role has access to some or all CRUD functionality for application models.
+"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and checkout. Merchant users can mark items as 'fulfilled,' and Admin users can mark orders as 'complete.'  Each user role has access to some or all CRUD functionality for application models.
 
 ## Our Inspiration
-"Burson Fouch: I remember in one flower shop there was a whole wall covered with poison ivy. People came from miles around to look at that wall and they stayed to buy.
-Gravis Mushnik: And the owner got rich?
-Burson Fouch: No, he scratched himself to death in an insane asylum."
+Burson Fouch: "I remember in one flower shop there was a whole wall covered with poison ivy. People came from miles around to look at that wall and they stayed to buy."
 
-So that quote isn't exactly what inspires us, but we did use the premise of this 1960s film to develop our quaint, creepy, little shop.  Our hope is that when we're all successful developers one day, we'll have a movie marathon and watch the original and the musical version from 1986 back-to-back.  Oh, what a glorious day that will be.
+Gravis Mushnik: "And the owner got rich?"
+
+Burson Fouch: "No, he scratched himself to death in an insane asylum."
+
+So that sequence isn't exactly what inspires us, but we did use the premise of this 1960s film to develop our quaint, creepy, little shop.  Our hope is that when we're all successful developers one day, we'll have a movie marathon and watch the original and the musical version from 1986 back-to-back.  Oh, what a glorious day that will be.
 
 ## Learning Goals
 - Advanced Rails routing (nested resources and namespacing)

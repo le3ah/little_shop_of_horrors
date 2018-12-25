@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/profile', to: 'admin_users#show'
     post '/toggle', to: "merchants#toggle_status"
     post '/toggle-user', to: "users#toggle_user"
+    post '/toggle-role', to: "merchants#toggle_role"
   end
 
   namespace :profile do

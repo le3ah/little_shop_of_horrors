@@ -21,4 +21,5 @@
   <li>Order Grand Total: $<%= order.grand_total %> </li>
   <li>Order Status: <%= order.status %> </li>
 </ul>
+<%= button_to "Cancel Order", profile_order_path(order.id), method: :delete %>
 <% end %>

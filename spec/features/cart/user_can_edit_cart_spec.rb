@@ -4,7 +4,8 @@ describe "Editing Cart" do
   context 'as a visitor or logged in user' do
     context 'when there are items in the cart' do
       before :each do
-        user = create(:user, role: 1)
+        user = create(:user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         @item = create(:item, user_id: user.id)
         @item_2 = create(:item, user_id: user.id, inventory: 2)
 

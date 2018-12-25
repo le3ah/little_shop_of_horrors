@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
   resources :cart_items, only: [:create, :update]
+  resources :orders, only: [:create]
 
   namespace :admin do
     resources :merchants, only: [:index, :show]

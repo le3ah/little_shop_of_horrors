@@ -14,9 +14,9 @@ describe 'As an admin merchant' do
       within "#merchant-#{@merchant_2.id}" do
         expect(page).to have_button("enable")
         click_button "enable"
+        @merchant_2.reload
+        expect(@merchant_2.enabled?).to be_truthy
       end
-
-      require "pry"; binding.pry
 
       expect(current_path).to eq(admin_merchants_path)
       expect(page).to have_content("#{@merchant_2.name}'s account is now enabled.")
@@ -24,6 +24,8 @@ describe 'As an admin merchant' do
       within "#merchant-#{@merchant_1.id}" do
         expect(page).to have_button("disable")
         click_button "disable"
+        @merchant_1.reload
+        expect(@merchant_1.enabled?).to be_falsy
       end
 
       expect(current_path).to eq(admin_merchants_path)

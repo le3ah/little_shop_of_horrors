@@ -33,7 +33,28 @@ describe "Cart Checkout" do
     end
 
     it 'checking out redirects to /profile with updated orders' do
-      
+      click_button "Checkout"
+
+      expect(current_path).to eq(profile_path)
+
+      order = user.orders.first
+
+      order.order_items.each do |order_item|
+        expect(page).to have_content("Order Item ID: #{order_item.id}")
+        expect(page).to have_content("Order Item Created At: #{order_item.created_at}")
+        expect(page).to have_content("Order Item Updated At: #{order_item.updated_at}")
+        expect(page).to have_content("Order Item Status: not fulfilled")
+        expect(page).to have_content("Item Name: #{order_item.item.name}")
+        expect(page).to have_content("Item Description: #{order_item.item.description}")
+        expect(page).to have_content("Item Image: #{order_item.item.thumbnail}")
+        expect(page).to have_content("Item Quantity: #{order_item.quantity}")
+        expect(page).to have_content("Item Price: #{order_item.price}")
+        expect(page).to have_content("Item Subtotal: #{order_item.subtotal}")
+      end
+
+      expect(page).to have_content("Total Item Quantity: #{order.quantity_of_order}")
+      expect(page).to have_content("Order Grand Total: #{order.grand_total}")
+      expect(page).to have_content("Order Status: #{order.status}")
     end
   end
 end

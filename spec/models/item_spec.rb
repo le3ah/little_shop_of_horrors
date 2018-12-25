@@ -113,6 +113,7 @@ describe Item, type: :model do
           [o_i_3.item_id, o_i_3.quantity]
       ])
 
+      items.each {|i| i.reload}
       expect(items[0].inventory).to eq(before_inventories[0] + o_i_1.quantity)
       expect(items[1].inventory).to eq(before_inventories[1] + o_i_2.quantity)
       expect(items[2].inventory).to eq(before_inventories[2] + o_i_3.quantity)

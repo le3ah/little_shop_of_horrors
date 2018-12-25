@@ -12,6 +12,7 @@ class Profile::OrdersController < ApplicationController
 
     order.status = "cancelled"
     order.save
+    OrderItem.return_inventory_for(order.id)
     OrderItem.unfulfill_items_for(order.id)
 
     redirect_to profile_path

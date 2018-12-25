@@ -19,9 +19,9 @@ describe  'Order Show Page' do
     expect(current_path).to eq(profile_order_path(o_1))
 
     o_1.order_items.each do |order_item|
-      expect(page).to have_content("Order ID: #{order_item.id}")
-      expect(page).to have_content("Order Created At: #{order_item.created_at}")
-      expect(page).to have_content("Order Updated At: #{order_item.updated_at}")
+      expect(page).to have_content("Order Item ID: #{order_item.id}")
+      expect(page).to have_content("Order Item Created At: #{order_item.created_at}")
+      expect(page).to have_content("Order Item Updated At: #{order_item.updated_at}")
       expect(page).to have_content("Order Item Status: #{order_item.fulfilled? == true ? "fulfilled" : "not fulfilled"}")
 
       expect(page).to have_content("Item Name: #{order_item.item.name}")

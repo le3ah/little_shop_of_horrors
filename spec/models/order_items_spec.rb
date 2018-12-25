@@ -56,7 +56,7 @@ RSpec.describe OrderItem, type: :model do
       created_order_items = o.order_items
 
       expect(created_order_items.count).to eq(2)
-      
+
       expect(created_order_items.first.quantity).to eq(cart.data[i_1.id.to_s])
       expect(created_order_items.first.price).to eq(i_1.price)
       expect(created_order_items.first.fulfilled).to be_falsy
@@ -68,6 +68,23 @@ RSpec.describe OrderItem, type: :model do
       expect(created_order_items.second.fulfilled).to be_falsy
       expect(created_order_items.second.order_id).to eq(o.id)
       expect(created_order_items.second.item_id).to eq(i_2.id)
+    end
+
+    it '.unfulfill_items_for' do
+      u = create(:user)
+      m = create(:user, role: 1)
+
+      o = create(:order, user: u)
+      i_1 = create(:item, user: m)
+      i_2 = create(:item, user: m)
+
+      o_i_1 = create(:fulfilled_order_item, order: o, item: i_1)
+      o_i_2 = create(:fulfilled_order_item, order: o, item: i_2)
+
+      OrderItem.unfulfill_items_for(o.id)
+
+      expect(o_i_1.fulfilled).to be_falsy
+      expect(o_i_2.fulfilled).to be_falsy
     end
   end
 

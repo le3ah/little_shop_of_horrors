@@ -3,9 +3,10 @@ require "rails_helper"
 describe "Emptying Cart" do
   context 'as a visitor or regular user' do
     before :each do
-      user = create(:user, role: 1)
+      user = create(:user)
       item = create(:item, user_id: user.id)
       item_2 = create(:item, user_id: user.id)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit item_path(item)
       click_button "Add to Cart"
@@ -15,7 +16,7 @@ describe "Emptying Cart" do
       visit cart_path
     end
 
-    xit 'should redirect to cart_path when clicking empty cart' do
+    it 'should redirect to cart_path when clicking empty cart' do
       click_link "Empty Cart"
 
       expect(current_path).to eq(cart_path)

@@ -53,21 +53,21 @@ RSpec.describe OrderItem, type: :model do
 
       cart = Cart.new({i_1.id.to_s => 3, i_2.id.to_s => 11})
       OrderItem.checkout_cart(cart, o.id)
-      created_order_items = o.items
+      created_order_items = o.order_items
 
       expect(created_order_items.count).to eq(2)
-
+      
       expect(created_order_items.first.quantity).to eq(cart.data[i_1.id.to_s])
       expect(created_order_items.first.price).to eq(i_1.price)
       expect(created_order_items.first.fulfilled).to be_falsy
       expect(created_order_items.first.order_id).to eq(o.id)
       expect(created_order_items.first.item_id).to eq(i_1.id)
 
-      expect(created_order_items.first.quantity).to eq(cart.data[i_2.id.to_s])
-      expect(created_order_items.first.price).to eq(i_2.price)
-      expect(created_order_items.first.fulfilled).to be_falsy
-      expect(created_order_items.first.order_id).to eq(o.id)
-      expect(created_order_items.first.item_id).to eq(i_2.id)
+      expect(created_order_items.second.quantity).to eq(cart.data[i_2.id.to_s])
+      expect(created_order_items.second.price).to eq(i_2.price)
+      expect(created_order_items.second.fulfilled).to be_falsy
+      expect(created_order_items.second.order_id).to eq(o.id)
+      expect(created_order_items.second.item_id).to eq(i_2.id)
     end
   end
 

@@ -9,7 +9,7 @@ describe "Cart Checkout" do
       @i_1 = create(:item, user_id: m.id)
       @i_2 = create(:item, user_id: m.id)
 
-      visit item_path(@i)
+      visit item_path(@i_1)
       click_button "Add to Cart"
       visit item_path(@i_2)
       click_button "Add to Cart"

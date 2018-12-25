@@ -11,6 +11,7 @@ class Profile::OrdersController < ApplicationController
     order = Order.find(params[:id])
 
     order.status = "cancelled"
+    order.save
     OrderItem.unfulfill_items_for(order.id)
 
     redirect_to profile_path

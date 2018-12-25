@@ -76,6 +76,11 @@
               <td><%= m.city %></td>
               <td><%= m.state %></td>
               <td><%= m.created_at.to_date %></td>
+              <% if m.enabled? %>
+                <td><%= button_to 'disable', admin_toggle_path, params:{user_id:m.id} %></td>
+              <% else %>
+                <td><%= button_to 'enable', admin_toggle_path, params:{user_id:m.id} %></td>
+              <% end %>
             </tr>
         <% end %>
       <% end %>

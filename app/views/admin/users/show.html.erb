@@ -19,7 +19,7 @@
       <td><%= o.id %></td>
       <td><%= o.status %></td>
       <% if o.status == 'pending' %>
-      <td><%= button_to "Cancel", admin_order_path(o), method: :delete %></td>
+      <td><%= button_to "Cancel", admin_order_path(o, user_id: @u.id), method: :delete %></td>
       <% end %>
     </tr>
     <% end %>

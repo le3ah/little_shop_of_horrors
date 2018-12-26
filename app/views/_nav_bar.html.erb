@@ -26,13 +26,13 @@
         <li class="nav-item">
           <%= link_to 'Users', admin_users_path, :class => "nav-link" %>
         </li>
-      <% else current_user && current_user.role == "admin" %>
+      <% elsif current_user && current_user.role != ("merchant" || "admin") %>
         <li class="nav-item">
           <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
         </li>
       <% end %>
       
-      <% if (current_user && current_user.role == "default") || (current_user && current_user.role == 'admin' ) %>
+      <% if current_user && current_user.role == "default" || 'admin'  %>
         <li class="nav-item">
           <%= link_to 'Profile', profile_path, :class => "nav-link"  %>
         </li>

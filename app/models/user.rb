@@ -52,6 +52,10 @@ class User < ApplicationRecord
       save
     end
 
+    def self.email_in_use?(email)
+      self.where(email: email).any?
+    end
+
     def toggle_role
       self.role = self.role == "default" ? "merchant" : "default"
       save
@@ -67,8 +71,8 @@ class User < ApplicationRecord
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)
-      end 
-    end 
+      end
+    end
 
     private
 

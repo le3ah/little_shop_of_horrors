@@ -183,6 +183,13 @@ RSpec.describe User, type: :model do
         expect(m.enabled).to eq(true)
       end
 
+      it '.email_in_use?' do
+        user1 = create(:user, email: "j@gmail.com")
+
+        expect(User.email_in_use?(user1.email)).to be_truthy
+        expect(User.email_in_use?("latin_lover@hotmail.com")).to be_falsy
+      end
+
       it 'default class method finds all of the default users' do
         user1 = create(:user)
         user2 = create(:user)
@@ -203,6 +210,30 @@ RSpec.describe User, type: :model do
         dude.toggle_role
 
         expect(dude.role).to eq("default")
+      end
+
+      context "Merchant Statistics" do 
+        xit 'displays the top 5 items by quantity' do
+          #FIXME - being addressed currently - just pushing up the nav bar & filtration
+
+          merchant = create(:user, role: 1)
+          item_1 = create(:item, user:merchant)
+          item_2 = create(:item, user:merchant)
+          item_3 = create(:item, user:merchant)
+          item_4 = create(:item, user:merchant)
+          item_5 = create(:item, user:merchant)
+          item_6 = create(:item, user:merchant)
+          order = create(:completed_order, user_id:merchant.id)
+          create(:fulfilled_order_item,  order:order, item: item_1, price: 1, quantity: 25)
+          create(:fulfilled_order_item,  order:order, item: item_2, price: 1, quantity: 25)
+          create(:fulfilled_order_item,  order:order, item: item_3, price: 1, quantity: 25)
+          create(:fulfilled_order_item,  order:order, item: item_4, price: 1, quantity: 25)
+          create(:fulfilled_order_item,  order:order, item: item_5, price: 1, quantity: 25)
+          create(:fulfilled_order_item,  order:order, item: item_6, price: 1, quantity: 1)
+          merchant.top_5
+
+          expect(merchant.top_5).to eq([item_1, item_2, item_3, item_4, item_5]) 
+        end
       end
     end
   end

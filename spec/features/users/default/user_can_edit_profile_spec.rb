@@ -88,4 +88,16 @@ describe "User Edit Profile" do
 
     expect(page).to have_content("You successfully edited your profile!")
   end
+
+  it 'should not allow changing email to one that is in use' do
+    user_2 = create(:user, email: "j@gmail.com")
+
+    visit profile_edit_path
+
+    fill_in :user_email, with: "j@gmail.com"
+    click_on "Update User"
+
+    expect(current_path).to eq(profile_edit_path)
+    expect(page).to have_content("That email is already in use, please pick another")
+  end
 end

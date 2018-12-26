@@ -19,6 +19,14 @@
 </table>
 
 
+<div id="top-5-items">
+    <h1>Top 5 Items</h1>
+    <ul>
+        <% @top_5.each do |item| %>
+        <li><%= item.name %></li>
+        <% end %>
+    </ul>
+</div>
 
 
 <%= link_to "View My Items", '/dashboard/items' %>

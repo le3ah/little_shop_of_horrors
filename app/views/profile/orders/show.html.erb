@@ -16,8 +16,8 @@
 
   <% end %>
   <br>
-  <li>Total Item Quantity: <%= @order.quantity_of_order %> </li>
-  <li>Order Grand Total: $<%= @order.grand_total %> </li>
+  <li>Total Item Quantity: <%= @quantity_of_order %> </li>
+  <li>Order Grand Total: $<%= @grand_total %> </li>
   <li>Order Status: <%= @order.status %> </li>
 </ul>
 <% if @order.status == "pending" %>

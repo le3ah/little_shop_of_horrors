@@ -28,12 +28,6 @@ class OrderItem < ApplicationRecord
     Item.return_inventory(items_and_quantities)
   end
 
-  def self.avg_fulfillment_time(item)
-    where(fulfilled: true)
-      .where(item_id: item.id)
-      .average("updated_at - created_at")
-  end
-
   def subtotal
     quantity * price
   end

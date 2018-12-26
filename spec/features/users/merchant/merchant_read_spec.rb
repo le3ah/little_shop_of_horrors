@@ -52,7 +52,7 @@ describe "As a Merchant" do
 
     context "Dashboard" do
         it 'merchant can see (but not edit) their profile data on the dashboard' do
-            merchant = User.create(role: 1)
+            merchant = create(:user, role: 1)
             allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
             visit dashboard_path
@@ -83,16 +83,16 @@ describe "As a Merchant" do
             create(:fulfilled_order_item,  order:order, item: item_5, price: 1, quantity: 25)
             create(:fulfilled_order_item,  order:order, item: item_6, price: 1, quantity: 1)
 
-            allow_any_instance_of(ApplicationController).to recieve(:current_user).and_return(merchant)
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
             visit dashboard_path
 
             within "#top-5-items" do 
-                expect(page).to have_content(item_1) 
-                expect(page).to have_content(item_2) 
-                expect(page).to have_content(item_3) 
-                expect(page).to have_content(item_4) 
-                expect(page).to have_content(item_5) 
+                expect(page).to have_content(item_1.name) 
+                expect(page).to have_content(item_2.name) 
+                expect(page).to have_content(item_3.name) 
+                expect(page).to have_content(item_4.name) 
+                expect(page).to have_content(item_5.name) 
             end
         end 
     end

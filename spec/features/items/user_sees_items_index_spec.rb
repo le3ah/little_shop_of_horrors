@@ -10,7 +10,7 @@ describe 'Items Index Page' do
       @i_1 = m_1.items.create(
         name: 'Flower Pot',
         description: 'Messy Pot',
-        thumbnail: 'thumbnail',
+        thumbnail: 'plant_1',
         price: 4,
         inventory: 5,
         enabled: true
@@ -19,7 +19,7 @@ describe 'Items Index Page' do
       @i_2 = m_2.items.create(
         name: 'Orchid sauce',
         description: 'Juicy sauce',
-        thumbnail: 'thumbnail for sauce',
+        thumbnail: 'plant_2',
         price: 2,
         inventory: 12
       )
@@ -28,8 +28,12 @@ describe 'Items Index Page' do
     end
 
     it 'should show enabled item information' do
+      # --- FIX ME --- 
+      # within "#item-image-#{@i_1.id}" do
+      #  needs an expect for image but image is fingerprinted (maybe regex?)
+      # end
+      # --- FIX ME --- 
       expect(page).to have_content(@i_1.name)
-      expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content("$#{@i_1.price}")
       expect(page).to have_content("Inventory: #{@i_1.inventory}")

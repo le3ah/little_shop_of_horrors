@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   namespace :profile do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :destroy]
   end
 
   get '/dashboard', to: 'merchants#show'

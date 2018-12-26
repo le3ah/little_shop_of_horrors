@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   def new
     @user = User.new
   end
@@ -31,20 +31,30 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    params[:user].each do |attribute, value|
-      next if value.blank? || @user[attribute] == value
-      @user[attribute] = value unless attribute =~ /password/
-      @user.password = value if attribute =~ /password/
-    end
-    @user.save
-    flash[:success] = "You successfully edited your profile!"
+    updated = update_user(@user, params[:user])
+    @user.save if updated
+    flash[:success] = "You successfully edited your profile!" if updated
+    flash[:error] = ""
     redirect_to profile_path
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(:name, :password, :email, :address, :city, :state, :zip)
   end
 
+  def update_user(user, params)
+    params.each do |attribute, value|
+      next if value.blank? || user[attribute] == value
+
+      if attribute =~ /password/
+        user.password = value
+        return true
+      end
+
+      return false if attribute == "email" && User.email_in_use?(value)
+      user[attribute] = value
+    end
+  end
 end

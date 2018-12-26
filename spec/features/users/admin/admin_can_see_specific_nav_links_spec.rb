@@ -45,7 +45,7 @@ describe 'admin can see specific links in the nav bar' do
         expect(page).to have_content("Logged in as #{admin.name}")
     end
 
-    it "sad path - visiot cannot see admin merchants path" do
+    it "sad path - visitor cannot see admin merchants path" do
 
         visit admin_merchants_path
 

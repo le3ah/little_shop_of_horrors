@@ -10,12 +10,7 @@ class Profile::OrdersController < ApplicationController
   end
 
   def destroy
-    order = Order.find(params[:id])
-
-    order.status = "cancelled"
-    order.save
-    OrderItem.return_inventory_for(order.id)
-    OrderItem.unfulfill_items_for(order.id)
+    Order.cancel(params[:id])
 
     flash[:success] = "Order has been cancelled."
     redirect_to profile_path

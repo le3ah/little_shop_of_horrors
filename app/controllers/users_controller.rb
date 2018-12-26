@@ -32,10 +32,14 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     updated = update_user(@user, params[:user])
-    @user.save if updated
-    flash[:success] = "You successfully edited your profile!" if updated
-    flash[:error] = ""
-    redirect_to profile_path
+    if updated
+      @user.save
+      flash[:success] = "You successfully edited your profile!"
+      redirect_to profile_path
+    else
+      flash[:error] = "That email is already in use, please pick another"
+      redirect_to profile_edit_path
+    end
   end
 
   private

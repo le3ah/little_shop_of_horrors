@@ -1,24 +1,26 @@
 <h1><%= @user.name %></h1>
 <p>Date Registered: <%= @user.created_at.to_date %></p>
 <p>Enable/Disable: </p>
-<% if user.enabled? %>
-    <td><%= button_to "Enable", admin_toggle_user_path({user_id: user.id}) %></td>
+<% if @user.enabled? %>
+    <td><%= button_to "Enable", admin_toggle_user_path({user_id: @user.id}) %></td>
 <% else %>
-    <td><%= button_to "Disable", admin_toggle_user_path({user_id: user.id}) %></td>
+    <td><%= button_to "Disable", admin_toggle_user_path({user_id: @user.id}) %></td>
 <% end %>
 
-<% if user.orders %>
+<% if @user.orders %>
 <table>
     <thead>
         <th>Order ID</th>
         <th>Order Status</th>
         <th>Cancel Pending Orders</th>
     </thead>
-    <% user.orders.each do |o| %>
+    <% @user.orders.each do |o| %>
     <tr>
       <td><%= o.id %></td>
       <td><%= o.status %></td>
+      <% if o.status == 'pending' %>
       <td><% button_to "Cancel", admin_order_path(o) %></td>
+      <% end %>
     </tr>
     <% end %>
 </table>

@@ -24,15 +24,23 @@ describe 'Items Index Page' do
         inventory: 12
       )
 
+      @i_3 = m_1.items.create(
+        name: 'Cactus',
+        description: 'Messy Pot',
+        thumbnail: 'bad_path',
+        price: 4,
+        inventory: 5,
+        enabled: true
+      )
+
       visit items_path
     end
 
     it 'should show enabled item information' do
-      # --- FIX ME --- 
-      # within "#item-image-#{@i_1.id}" do
-      #  needs an expect for image but image is fingerprinted (maybe regex?)
-      # end
-      # --- FIX ME --- 
+      within "#item-image-#{@i_1.id}" do
+        expect(page).to have_css("##{@i_1.thumbnail}")
+      end
+
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content("$#{@i_1.price}")
@@ -55,6 +63,12 @@ describe 'Items Index Page' do
     it 'should link to item show through item thumbnail' do
       click_link "item-image-#{@i_1.id}"
       expect(current_path).to eq(item_path(@i_1))
+    end
+
+    it 'should render default image if there is no image' do
+      within "#item-image-#{@i_3.id}" do
+        expect(page).to have_css("#no_img")
+      end
     end
   end
 end

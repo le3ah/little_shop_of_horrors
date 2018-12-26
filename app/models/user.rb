@@ -67,7 +67,7 @@ class User < ApplicationRecord
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)
-      end
+      end 
     end 
 
     private

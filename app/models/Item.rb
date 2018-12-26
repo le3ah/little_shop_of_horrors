@@ -24,12 +24,12 @@ class Item < ApplicationRecord
     end
   end
 
-  def avg_fulfillment_time
+  def average_fulfillment_time
     results = ActiveRecord::Base.connection.execute("select avg(updated_at - created_at) as avg_f_time from order_items where item_id=#{self.id} and fulfilled='true'")
-    difference = results.first['avg_f_time']
-    expected_output = "#{difference[0..8]} hours #{difference[10..11]} minutes & #{difference[13..14]} seconds"
-    if results.present?
-      return expected_output
+    if results.present? && results.first['avg_f_time']
+      difference = results.first['avg_f_time']
+      output = "#{difference[0..8]} hours #{difference[10..11]} minutes & #{difference[13..14]} seconds"
+      return output
     else
       return nil
     end

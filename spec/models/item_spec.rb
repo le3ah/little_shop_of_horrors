@@ -145,7 +145,7 @@ describe Item, type: :model do
          updated_at: 2.days.ago
        )
 
-       expect(i_1.avg_fulfillment_time).to eq("6 days 00 hours 00 minutes & 00 seconds")
+       expect(i_1.average_fulfillment_time).to eq("6 days 00 hours 00 minutes & 00 seconds")
      end
     end
   end

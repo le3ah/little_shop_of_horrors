@@ -31,6 +31,7 @@ describe "Admin User Show" do
       expect(page).to have_content("#{o.status}")
       expect(page).to have_content("#{o.quantity_of_order}")
       expect(page).to have_content("#{o.grand_total}")
+      expect(page).to have_button("Cancel")
     end
   end
 end

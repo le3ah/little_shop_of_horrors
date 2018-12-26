@@ -98,6 +98,6 @@ describe "User Edit Profile" do
     click_on "Update User"
 
     expect(current_path).to eq(profile_edit_path)
-    expect(page).to have_content("That email is in use, please pick another")
+    expect(page).to have_content("That email is already in use, please pick another")
   end
 end

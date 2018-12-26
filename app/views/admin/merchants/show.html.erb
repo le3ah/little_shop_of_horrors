@@ -1,1 +1,7 @@
 Merchant Page
+
+<% if @user.role == "merchant" %>
+    <%= button_to "Downgrade to User", admin_toggle_role_path(id:params[:id]) %>
+<% elsif @user.role == 'default' %>
+    <%= button_to "Upgrade to Merchant", admin_toggle_role_path(id:params[:id]) %>
+<% end %>

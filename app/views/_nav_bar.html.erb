@@ -26,15 +26,9 @@
         <li class="nav-item">
           <%= link_to 'Users', admin_users_path, :class => "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
-        </li>
       <% else current_user && current_user.role == "admin" %>
         <li class="nav-item">
           <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Browse Merchants as Admin", admin_merchants_path, :class => "nav-link"  %>
         </li>
       <% end %>
       

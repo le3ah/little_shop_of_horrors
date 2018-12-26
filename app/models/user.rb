@@ -52,6 +52,15 @@ class User < ApplicationRecord
       save
     end
 
+    def toggle_role
+      if self.role == "default"
+        self.role = "merchant"
+      elsif self.role == "merchant"
+        self.role = "default"
+      end 
+      save
+    end 
+
     private
 
     def self.top_cities_or_states(city_or_state, amount)

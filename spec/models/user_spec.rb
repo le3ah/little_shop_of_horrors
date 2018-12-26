@@ -183,6 +183,13 @@ RSpec.describe User, type: :model do
         expect(m.enabled).to eq(true)
       end
 
+      it '.email_in_use?' do
+        user1 = create(:user, email: "j@gmail.com")
+
+        expect(User.email_in_use?(user1.email)).to be_truthy
+        expect(User.email_in_use?("latin_lover@hotmail.com")).to be_falsy
+      end
+
       it 'default class method finds all of the default users' do
         user1 = create(:user)
         user2 = create(:user)

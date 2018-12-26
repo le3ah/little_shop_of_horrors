@@ -12,13 +12,13 @@
     <thead>
         <th>Order ID</th>
         <th>Order Status</th>
-        <th>Cancel Order</th>
+        <th>Cancel Pending Orders</th>
     </thead>
     <% user.orders.each do |o| %>
     <tr>
       <td><%= o.id %></td>
       <td><%= o.status %></td>
-      <td><% link_to "Cancel Order", admin_order_path(o) %></td>
+      <td><% button_to "Cancel", admin_order_path(o) %></td>
     </tr>
     <% end %>
 </table>

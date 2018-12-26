@@ -20,7 +20,7 @@ class Order < ApplicationRecord
   end
 
   def self.cancel(order_id)
-    order = self.find(id: order_id)
+    order = self.find(order_id)
     order.status = "cancelled"
     order.save
     OrderItem.return_inventory_for(order.id)

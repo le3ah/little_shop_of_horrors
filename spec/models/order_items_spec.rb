@@ -14,36 +14,35 @@ RSpec.describe OrderItem, type: :model do
 
   describe 'class methods' do
     it '.avg_fulfillment_time' do
-      u_1 = create(:user)
+     u_1 = create(:user)
 
-      m_1 = create(:user, role: 1)
-      o_1 = Order.create(status: "pending", user_id: u_1.id)
-      o_2 = Order.create(status: "pending", user_id: u_1.id)
-      i_1 = create(:item, price: 1, user_id: m_1.id)
+     m_1 = create(:user, role: 1)
+     o_1 = Order.create(status: "pending", user_id: u_1.id)
+     o_2 = Order.create(status: "pending", user_id: u_1.id)
+     i_1 = create(:item, price: 1, user_id: m_1.id)
 
-      OrderItem.create(
-        quantity: 2,
-        price: i_1.price,
-        fulfilled: true,
-        order_id: o_1.id,
-        item_id: i_1.id,
-        created_at: 10.days.ago,
-        updated_at: 1.days.ago
-      )
+     OrderItem.create(
+       quantity: 2,
+       price: i_1.price,
+       fulfilled: true,
+       order_id: o_1.id,
+       item_id: i_1.id,
+       created_at: 10.days.ago,
+       updated_at: 1.days.ago
+     )
 
-      OrderItem.create(
-        quantity: 10,
-        price: i_1.price,
-        fulfilled: true,
-        order_id: o_2.id,
-        item_id: i_1.id,
-        created_at: 5.days.ago,
-        updated_at: 2.days.ago
-      )
+     OrderItem.create(
+       quantity: 10,
+       price: i_1.price,
+       fulfilled: true,
+       order_id: o_2.id,
+       item_id: i_1.id,
+       created_at: 5.days.ago,
+       updated_at: 2.days.ago
+     )
 
-      expect(OrderItem.avg_fulfillment_time(i_1)).to eq(6)
-    end
-
+     expect(OrderItem.avg_fulfillment_time(i_1)).to eq(6)
+   end
     it '.checkout_cart' do
       u = create(:user)
       m = create(:user, role: 1)

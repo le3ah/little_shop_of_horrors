@@ -18,8 +18,8 @@
       <p>Status: <%= order.status %></p>
       <p>Item Count: <%= order.quantity_of_order %></p>
       <p>Grand Total: <%= order.grand_total %></p>
-      <% if o.status == 'pending' %>
-      <td><%= button_to "Cancel", admin_order_path(o, user_id: @user.id), method: :delete %></td>
+      <% if order.status == 'pending' %>
+      <td><%= button_to "Cancel", admin_order_path(order, user_id: @user.id), method: :delete %></td>
       <% end %>
     </div>
   <% end %>

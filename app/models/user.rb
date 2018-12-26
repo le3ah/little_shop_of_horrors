@@ -52,6 +52,11 @@ class User < ApplicationRecord
       save
     end
 
+    def self.email_in_use?(email)
+      found_user = self.where(email: email)
+      !found_user.empty?
+    end
+
     private
 
     def self.top_cities_or_states(city_or_state, amount)

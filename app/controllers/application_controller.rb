@@ -1,7 +1,7 @@
  class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :power_users
+  helper_method :current_user
   before_action :create_cart
 
 
@@ -19,13 +19,6 @@
 
   def empty_cart
     @cart = Cart.new(nil)
-  end
-
-  def power_users
-    alpha_and_omega = (current_user && current_user.role == "default") ||
-    (current_user && current_user.role == 'admin' )  ||
-    (current_user && current_user.role == 'merchant')
-    alpha_and_omega
   end
 
   def render_404

@@ -6,17 +6,20 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
   resources :cart_items, only: [:create, :update]
+  resources :orders, only: [:create]
 
   namespace :admin do
     resources :merchants, only: [:index, :show]
     resources :users, only: [:index, :show]
+    resources :orders, only: [:destroy]
     get '/profile', to: 'admin_users#show'
     post '/toggle', to: "merchants#toggle_status"
     post '/toggle-user', to: "users#toggle_user"
+    post '/toggle-role', to: "merchants#toggle_role"
   end
 
   namespace :profile do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :destroy]
   end
 
   get '/dashboard', to: 'merchants#show'

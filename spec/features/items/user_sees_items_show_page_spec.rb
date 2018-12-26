@@ -34,8 +34,8 @@ describe  'Items Show Page' do
       expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content(@i_1.inventory)
-      expect(page).to have_content(@i_1.price)
-      expect(page).to have_content("Average Fulfillment Time: #{OrderItem.avg_fulfillment_time(@i_1)}")
+      expect(page).to have_content("Price: #{@i_1.price}")
+      expect(page).to have_content("Average Fulfillment Time: #{@i_1.average_fulfillment_time}")
     end
   end
   context 'as a visitor or regular user' do

@@ -14,7 +14,7 @@ describe "Merchants Index Page" do
         expect(page).to have_content(@merch_2.name)
         expect(page).to have_content(@merch_2.city)
         expect(page).to have_content(@merch_2.state)
-        expect(page).to have_content(@merch_2.created_at)
+        expect(page).to have_content(@merch_2.created_at.to_date)
       end
 
       it 'should not show inactive merchant information' do

@@ -9,9 +9,9 @@
                 <td><%= link_to user.name, admin_user_path(user) %></td>
                 <td><%= user.created_at.to_date%></td>
                 <% if user.enabled? %>
-                    <td><%= button_to "Enable", admin_toggle_user_path({user_id:user.id}) %></td>
+                    <td><%= button_to "Enable", admin_toggle_user_path({user_id: user.id}) %></td>
                 <% else %>
-                    <td><%= button_to "Disable", admin_toggle_user_path({user_id:user.id}) %></td>
+                    <td><%= button_to "Disable", admin_toggle_user_path({user_id: user.id}) %></td>
                 <% end %>
             </tbody>
         <% end %>

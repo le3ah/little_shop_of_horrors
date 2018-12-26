@@ -24,5 +24,8 @@
 </table>
 
 <% unless @cart_items.empty? %>
+  <% if current_user %>
+    <%= button_to "Checkout", orders_path(user_id: current_user.id) %>
+  <% end %>
   <%= link_to "Empty Cart", cart_items_path, method: :delete %>
 <% end %>

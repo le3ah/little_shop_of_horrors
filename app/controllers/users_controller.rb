@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render_404 unless current_session
+    render_404 unless current_session && current_user.role == 'default'
     @user = current_session
   end
 

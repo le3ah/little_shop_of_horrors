@@ -59,6 +59,19 @@ class User < ApplicationRecord
         self.role = "default"
       end 
       save
+    end
+
+    def top_5_id_quantity
+      OrderItem.joins(:order)
+      .where("status='complete' AND user_id=#{self.id}")
+      .select(:item_id, :quantity).group(:item_id)
+      .order('sum_quantity DESC').limit(5).sum(:quantity)
+    end
+
+    def top_5
+      top_5_id_quantity.keys.map do |id|
+        Item.find(id)
+      end
     end 
 
     private

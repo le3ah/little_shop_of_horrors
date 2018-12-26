@@ -53,8 +53,7 @@ class User < ApplicationRecord
     end
 
     def self.email_in_use?(email)
-      found_user = self.where(email: email)
-      !found_user.empty?
+      self.where(email: email).any?
     end
 
     private

@@ -53,11 +53,7 @@ class User < ApplicationRecord
     end
 
     def toggle_role
-      if self.role == "default"
-        self.role = "merchant"
-      elsif self.role == "merchant"
-        self.role = "default"
-      end 
+      self.role = self.role == "default" ? "merchant" : "default"
       save
     end
 

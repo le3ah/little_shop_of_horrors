@@ -4,9 +4,9 @@
 <ul>
   <% order.order_items.each do |order_item| %>
   <br>
-  <li>Order ID: <%= order_item.id %> </li>
-  <li>Order Created At: <%= order_item.created_at %> </li>
-  <li>Order Updated At: <%= order_item.updated_at %> </li>
+  <li>Order Item ID: <%= order_item.id %> </li>
+  <li>Order Item Created At: <%= order_item.created_at %> </li>
+  <li>Order Item Updated At: <%= order_item.updated_at %> </li>
   <li>Order Item Status: <%= order_item.fulfilled? == true ? "fulfilled" : "not fulfilled"  %> </li>
   <li>Item Name: <%= order_item.item.name %> </li>
   <li>Item Description: <%= order_item.item.description %> </li>

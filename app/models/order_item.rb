@@ -5,6 +5,18 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
+  def self.checkout_cart(cart, order_id)
+    cart.data.each do |c_i|
+      item = Item.find(c_i.first)
+      create(
+        quantity: c_i.last,
+        price: item.price,
+        order_id: order_id,
+        item_id: item.id
+      )
+    end
+  end
+
   def self.avg_fulfillment_time(item)
     where(fulfilled: true)
       .where(item_id: item.id)
@@ -14,5 +26,4 @@ class OrderItem < ApplicationRecord
   def subtotal
     quantity * price
   end
-
 end

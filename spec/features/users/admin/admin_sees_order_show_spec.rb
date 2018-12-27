@@ -36,7 +36,7 @@ describe  'Admin - User Order Show Page' do
       expect(page).to have_button("Cancel Order")
 
       @o.order_items.each do |order_item|
-        expect(page).to have_content("Item Name: #{order_item.item.id}")
+        expect(page).to have_content("Item Name: #{order_item.item.name}")
         expect(page).to have_content("Item Description: #{order_item.item.description}")
         expect(page).to have_content("Item Image: #{order_item.item.thumbnail}")
         expect(page).to have_content("Item Quantity: #{order_item.item.quantity}")

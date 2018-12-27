@@ -28,13 +28,13 @@ describe "Merchants Index Page" do
     describe 'Merchant Statistics' do
       before :each do
         u_1 = create(:user)
-        u_2 = create(:user, city: "San", state: "CO")
-        u_3 = create(:user, city: "San Fran", state: "CA")
-        u_4 = create(:user, city: "San Jan", state: "FL")
+        u_2 = create(:user)
+        u_3 = create(:user)
+        u_4 = create(:user)
 
-        u_5 = create(:user, city: "San", state: "NY")
-        u_6 = create(:user, city: "San Fran", state: "OR")
-        u_7 = create(:user, city: "San Jan", state: "BF")
+        u_5 = create(:user)
+        u_6 = create(:user)
+        u_7 = create(:user)
 
         @m_1 = create(:user, role: 1)
         @m_2 = create(:user, role: 1)
@@ -153,15 +153,17 @@ describe "Merchants Index Page" do
       it 'should show top 3 merchants by items sold price and quantity' do
         sorted = User.merchants_by_revenue(:top, 3)
 
-        within '.revenue-stats' do
-          expect(all('.revenue-stat')[0]).to have_content("Merchant: #{sorted[0].name}")
-          expect(all('.revenue-stat')[1]).to have_content("Merchant: #{sorted[1].name}")
-          expect(all('.revenue-stat')[2]).to have_content("Merchant: #{sorted[2].name}")
+        within '#revenue-stat-0' do
+          expect(page).to have_content("Merchant: #{sorted[0].name}")
+        end
+
+        within '#revenue-stat-2' do
+          expect(page).to have_content("Merchant: #{sorted[2].name}")
         end
       end
 
       it 'should not included unfulfilled order items in merchant revenue calculations' do
-        within '.revenue-stats' do
+        within '#revenue-stats' do
           expect(page).to_not have_content("Merchant: #{@m_1.name}")
         end
       end
@@ -169,40 +171,50 @@ describe "Merchants Index Page" do
       it 'should show best 3 merchants by order fulfillment time' do
         sorted = User.merchants_by_fullfillment_time(:top, 3)
 
-        within '.fast-order-stats' do
-          expect(all('.fast-order-stat')[0]).to have_content("Merchant: #{sorted[0].name}")
-          expect(all('.fast-order-stat')[1]).to have_content("Merchant: #{sorted[1].name}")
-          expect(all('.fast-order-stat')[2]).to have_content("Merchant: #{sorted[2].name}")
+        within '#fast-order-stat-0' do
+          expect(page).to have_content("Merchant: #{sorted[0].name}")
+        end
+
+        within '#fast-order-stat-2' do
+          expect(page).to have_content("Merchant: #{sorted[2].name}")
         end
       end
 
       it 'should show worst 3 merchants by order fulfillment time' do
         sorted = User.merchants_by_fullfillment_time(:bottom, 3)
 
-        within '.slow-order-stats' do
-          expect(all('.slow-order-stat')[0]).to have_content("Merchant: #{sorted[0].name}")
-          expect(all('.slow-order-stat')[1]).to have_content("Merchant: #{sorted[1].name}")
-          expect(all('.slow-order-stat')[2]).to have_content("Merchant: #{sorted[2].name}")
+        within '#slow-order-stat-0' do
+          expect(page).to have_content("Merchant: #{sorted[0].name}")
+        end
+
+        within '#slow-order-stat-2' do
+          expect(page).to have_content("Merchant: #{sorted[2].name}")
         end
       end
 
       it 'should show top 3 states where orders are shipped' do
         top_states = User.top_states(3)
 
-        within '.top-states' do
-          expect(page).to have_content("State: #{top_states[0].state} Order Count: #{top_states[0].order_count}")
-          expect(page).to have_content("State: #{top_states[1].state} Order Count: #{top_states[1].order_count}")
-          expect(page).to have_content("State: #{top_states[2].state} Order Count: #{top_states[2].order_count}")
+        within '#top-states' do
+          expect(page).to have_content("State: #{top_states[0].state}") 
+          expect(page).to have_content("Order Count: #{top_states[0].order_count}")
+          expect(page).to have_content("State: #{top_states[1].state}") 
+          expect(page).to have_content("Order Count: #{top_states[1].order_count}")
+          expect(page).to have_content("State: #{top_states[2].state}") 
+          expect(page).to have_content("Order Count: #{top_states[2].order_count}")
         end
       end
 
       it 'should show top 3 cities where orders where shipped' do
         top_cities = User.top_cities(3)
 
-        within '.top-cities' do
-          expect(page).to have_content("City: #{top_cities[0].city}, #{top_cities[0].state} Order Count: #{top_cities[0].order_count}")
-          expect(page).to have_content("City: #{top_cities[1].city}, #{top_cities[1].state} Order Count: #{top_cities[1].order_count}")
-          expect(page).to have_content("City: #{top_cities[2].city}, #{top_cities[2].state} Order Count: #{top_cities[2].order_count}")
+        within '#top-cities' do
+          expect(page).to have_content("City: #{top_cities[0].city}, #{top_cities[0].state}")
+          expect(page).to have_content("Order Count: #{top_cities[0].order_count}")
+          expect(page).to have_content("City: #{top_cities[1].city}, #{top_cities[1].state}")
+          expect(page).to have_content("Order Count: #{top_cities[1].order_count}")
+          expect(page).to have_content("City: #{top_cities[2].city}, #{top_cities[2].state}")
+          expect(page).to have_content("Order Count: #{top_cities[2].order_count}")
         end
       end
     end
@@ -252,7 +264,7 @@ describe "Merchants Index Page" do
 
         top_orders = Order.top_by_quantity(3)
 
-        within '.biggest-orders' do
+        within '#biggest-orders' do
           expect(page).to have_content("Largest Order: #{top_orders[0].total_quantity}")
           expect(page).to have_content("Second Largest Order: #{top_orders[1].total_quantity}")
           expect(page).to have_content("Third Largest Order: #{top_orders[2].total_quantity}")

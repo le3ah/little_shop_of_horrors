@@ -10,7 +10,7 @@ class Admin::MerchantsController < Admin::BaseController
   def toggle_status
     user = User.find(params[:user_id])
     user.switch_enabled
-    
+
     flash[:success] = user.enabled? ?
       "#{user.name}'s account is now enabled." :
       "#{user.name}'s account is now disabled."
@@ -22,7 +22,13 @@ class Admin::MerchantsController < Admin::BaseController
     user = User.find(params[:id])
     user.toggle_role
     user.reload
-    redirect_to admin_merchant_path(user)
+    if user.role == "default"
+      flash[:success] = "Merchant is now a default user"
+      redirect_to admin_user_path(user)
+    else
+      flash[:success] = "User has been updgraded to Merchant"
+      redirect_to admin_merchant_path(user)
+    end
   end
 
 end

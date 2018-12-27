@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render_404 unless current_default
+    render_404 unless current_default?
     @user = current_session
   end
 
@@ -26,21 +26,23 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render_404 unless current_default
+    render_404 unless current_default?
     @user = current_user
   end
 
   def update
-    @user = current_user
+    @user = current_user if current_default?
+    @user = User.find(params[:id]) if current_admin?
+
     updated = update_user(@user, params[:user])
     if updated
       @user.save
       flash[:success] = "You successfully edited your profile!"
-      redirect_to profile_path
+      flash[:success] = "You've successfully edited the user's profile!" if current_admin?
     else
       flash[:error] = "That email is already in use, please pick another"
-      redirect_to profile_edit_path
     end
+    redirect_after_update(updated)
   end
 
   private
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :password, :email, :address, :city, :state, :zip)
   end
 
-  def current_default
+  def current_default?
     current_session && current_user.role == 'default'
   end
 
@@ -64,6 +66,16 @@ class UsersController < ApplicationController
 
       return false if attribute == "email" && User.email_in_use?(value)
       user[attribute] = value
+    end
+  end
+
+  def redirect_after_update(successful_update)
+    if successful_update
+      redirect_to admin_user_path(@user) if current_admin?
+      redirect_to profile_path unless current_admin?
+    else
+      redirect_to edit_admin_user_path(@user) if current_admin?
+      redirect_to profile_edit_path unless current_admin?
     end
   end
 end

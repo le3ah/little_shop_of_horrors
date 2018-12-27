@@ -13,7 +13,7 @@
 <p>City: <%= @user.city %></p>
 <p>State: <%= @user.state %></p>
 <p>Zip: <%= @user.zip %></p>
-<p>Edit Profile</p>
+<%= link_to "Edit Profile", edit_admin_user_path(@user) %>
 
 <% if @user.orders %>
 <section class='orders'>

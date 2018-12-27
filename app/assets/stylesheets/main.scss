@@ -12,31 +12,3 @@ body {
   background-color: #212529;
   color: #fff;
 }
-
-.card_container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-}
-
-.card {
-  color: #222;
-  width: 15rem;
-  margin: 2rem 0;
-  img {
-    width: 100%;
-  }
-}
-
-.pop_container {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.pop_items {
-  display: inline-block;
-  margin-top: 2rem;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 1rem 2rem;
-}

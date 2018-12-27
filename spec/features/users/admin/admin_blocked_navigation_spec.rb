@@ -1,13 +1,14 @@
 require "rails_helper"
 
-describe "Merchant Blocked Navigation" do
+describe "Admin Blocked Navigation" do
   before :each do
     @m = create(:user, role: 1)
     @u = create(:user)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m)
+    @a = create(:user, role: 2)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@a)
   end
 
-  it 'should block visitors from profile paths' do
+  it 'should block admin from profile paths' do
     visit profile_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
     expect(page.status_code).to eq(404)
@@ -17,26 +18,18 @@ describe "Merchant Blocked Navigation" do
     expect(page.status_code).to eq(404)
   end
 
-  it 'should block visitors from cart path' do
+  it 'should block admin from cart path' do
     visit cart_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
     expect(page.status_code).to eq(404)
   end
 
-  it 'should block visitors from admin paths' do
-    visit admin_merchants_path
+  it 'should block admin from dashboard paths' do
+    visit dashboard_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
     expect(page.status_code).to eq(404)
 
-    visit admin_merchant_path(@m)
-    expect(page).to have_content("The page you were looking for doesn't exist.")
-    expect(page.status_code).to eq(404)
-
-    visit admin_users_path
-    expect(page).to have_content("The page you were looking for doesn't exist.")
-    expect(page.status_code).to eq(404)
-
-    visit admin_user_path(@u)
+    visit dashboard_items_path
     expect(page).to have_content("The page you were looking for doesn't exist.")
     expect(page.status_code).to eq(404)
   end

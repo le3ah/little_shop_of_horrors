@@ -54,7 +54,7 @@ describe 'As an admin merchant' do
 
   context "when I visit a merchant's dashboard" do
 
-    it 'should be able to downgrade the merchant to a regular user' do 
+    it 'should be able to downgrade the merchant to a regular user' do
       admin = create(:user, role: 2)
       brad = create(:user, role: 1, name: "brad")
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
@@ -62,16 +62,15 @@ describe 'As an admin merchant' do
       visit merchants_path
       click_on "brad"
 
-      expect(current_path).to eq(admin_merchant_path(brad)) 
-      expect(page).to have_button("Downgrade to User") 
+      expect(current_path).to eq(admin_merchant_path(brad))
+      expect(page).to have_button("Downgrade to User")
 
       click_button "Downgrade to User"
 
       brad.reload
-
-      expect(page).to have_button("Upgrade to Merchant")
+      expect(current_path).to eq(admin_user_path(brad))
+      expect(page).to have_content("Merchant is now a default user")
+      expect(page).to have_button("Upgrade User")
     end
-    
   end
-  
 end

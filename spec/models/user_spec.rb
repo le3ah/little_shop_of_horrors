@@ -200,7 +200,7 @@ RSpec.describe User, type: :model do
         expect(expected).to eq([user1, user2])
       end
 
-      it 'can switch roles between default and merchant' do 
+      it 'can switch roles between default and merchant' do
         dude = create(:user)
 
         dude.toggle_role
@@ -212,7 +212,7 @@ RSpec.describe User, type: :model do
         expect(dude.role).to eq("default")
       end
 
-      context "Merchant Statistics" do 
+      context "Merchant Statistics" do
         xit 'displays the top 5 items by quantity' do
           #FIXME - being addressed currently - just pushing up the nav bar & filtration
 
@@ -232,8 +232,42 @@ RSpec.describe User, type: :model do
           create(:fulfilled_order_item,  order:order, item: item_6, price: 1, quantity: 1)
           merchant.top_5
 
-          expect(merchant.top_5).to eq([item_1, item_2, item_3, item_4, item_5]) 
+          expect(merchant.top_5).to eq([item_1, item_2, item_3, item_4, item_5])
         end
+      end
+    end
+    describe  'instance methods'do
+      it ".pending_orders" do
+        merchant_1 = create(:user, role: 1)
+        merchant_2 = create(:user, role: 1)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+        user_1 = create(:user)
+        user_2 = create(:user)
+
+        item_1 = create(:item, user: merchant_1, enabled: true)
+        item_2 = create(:item, user: merchant_2, enabled: true)
+        item_3 = create(:item, user: merchant_1, enabled: true)
+        item_4 = create(:item, user: merchant_2, enabled: true)
+
+        order_fulfilled = create(:completed_order, user: user_1)
+        create(:fulfilled_order_item, order: order_fulfilled, item: item_1, price: 1, quantity: 1)
+
+        order_pending = create(:order, user: user_2)
+        create(:order_item, order: order_pending, item: item_2, price: 2, quantity: 1)
+        create(:fulfilled_order_item, order: order_pending, item: item_1, price: 2, quantity: 1)
+
+        order_pending_2 = create(:order, user: user_1)
+        create(:order_item, order: order_pending_2, item: item_3, price: 3, quantity: 3)
+        create(:order_item, order: order_pending_2, item: item_1, price: 1, quantity: 5)
+        create(:order_item, order: order_pending_2, item: item_2, price: 2, quantity: 2)
+
+        order_pending_3 = create(:order, user: user_2)
+        create(:order_item, order: order_pending, item: item_4, price: 2, quantity: 1)
+
+        expect(merchant_1.pending_orders).to eq([order_pending, order_pending_2])
+        expect(merchant_1.pending_orders).to_not eq([order_fulfilled, order_pending_3])
+
       end
     end
   end

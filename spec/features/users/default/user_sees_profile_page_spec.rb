@@ -54,9 +54,9 @@ describe 'Default User Profile Page' do
         expect(page).to have_content("View Order ##{@o_1.id}")
         expect(page).to have_content("Created at: #{@o_1.created_at}")
         expect(page).to have_content("Updated at: #{@o_1.updated_at}")
-        expect(page).to have_content("#{@o_1.status}")
-        expect(page).to have_content("#{@o_1.quantity_of_order}")
-        expect(page).to have_content("#{@o_1.grand_total}")
+        expect(page).to have_content("Status: #{@o_1.status}")
+        expect(page).to have_content("Item Count: #{@o_1.quantity_of_order}")
+        expect(page).to have_content("Grand Total: #{@o_1.grand_total}")
       end
 
       within "#order-#{@o_2.id}" do

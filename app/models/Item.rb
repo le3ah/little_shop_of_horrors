@@ -23,4 +23,15 @@ class Item < ApplicationRecord
       item.update(inventory: item.inventory + i_q.last)
     end
   end
+
+  def average_fulfillment_time
+    results = ActiveRecord::Base.connection.execute("select avg(updated_at - created_at) as avg_f_time from order_items where item_id=#{self.id} and fulfilled='true'")
+    if results.present? && results.first['avg_f_time']
+      difference = results.first['avg_f_time']
+      output = "#{difference[0..8]} hours #{difference[10..11]} minutes & #{difference[13..14]} seconds"
+      return output
+    else
+      return nil
+    end
+  end
 end

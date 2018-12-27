@@ -19,6 +19,14 @@ class Order < ApplicationRecord
     where(status: "complete").count > 0
   end
 
+  def self.cancel(order_id)
+    order = self.find(order_id)
+    order.status = "cancelled"
+    order.save
+    OrderItem.return_inventory_for(order.id)
+    OrderItem.unfulfill_items_for(order.id)
+  end
+
   def quantity_of_order
     order_items.pluck("sum(quantity)")[0]
   end

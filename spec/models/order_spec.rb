@@ -92,10 +92,10 @@ describe Order, type: :model do
     it '.any_complete? - true' do
       u = create(:user)
 
-      o_1 = create(:completed_order, user_id: u.id)
-      o_2 = create(:order, user_id: u.id)
-      o_3 = create(:order, user_id: u.id)
-      o_4 = create(:order, user_id: u.id)
+      create(:completed_order, user_id: u.id)
+      create(:order, user_id: u.id)
+      create(:order, user_id: u.id)
+      create(:order, user_id: u.id)
 
       expect(Order.any_complete?).to eq(true)
     end
@@ -103,12 +103,23 @@ describe Order, type: :model do
     it '.any_complete? - false' do
       u = create(:user)
 
-      o_1 = create(:order, status: "pending", user_id: u.id)
-      o_2 = create(:order, status: "pending", user_id: u.id)
-      o_3 = create(:order, status: "pending", user_id: u.id)
-      o_4 = create(:order, status: "pending", user_id: u.id)
+      create(:order, status: "pending", user_id: u.id)
+      create(:order, status: "pending", user_id: u.id)
+      create(:order, status: "pending", user_id: u.id)
+      create(:order, status: "pending", user_id: u.id)
 
       expect(Order.any_complete?).to eq(false)
+    end
+
+    it '.cancel - changes order status, saves, calls order item methods' do
+      u = create(:user)
+      o = create(:order, user: u)
+
+      expect(o.status).to eq("pending")
+
+      Order.cancel(o.id)
+      o.reload
+      expect(o.status).to eq("cancelled")
     end
   end
   describe  'instance methods' do

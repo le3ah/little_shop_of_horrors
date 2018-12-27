@@ -29,9 +29,8 @@ class MerchantsController < ApplicationController
   def admin_or_merchant
     current_user.role == "merchant" || current_user.role == "admin"
   end
-  
-  def not_today_satan
-    render file: "#{Rails.root}/public/404.html", status: :not_found unless current_merchant?
-  end
 
+  def not_today_satan
+    render_404 unless current_merchant?
+  end
 end

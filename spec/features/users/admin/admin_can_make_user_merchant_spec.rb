@@ -20,7 +20,7 @@ describe "Admin make User a Merchant" do
     click_button "Upgrade User"
 
     expect(current_path).to eq(admin_merchant_path(@u))
-    expect(page).to have_content("User successfully upgraded!")
+    expect(page).to have_content("User has been updgraded to Merchant")
   end
 
   it 'persits user upgrade next time they login' do

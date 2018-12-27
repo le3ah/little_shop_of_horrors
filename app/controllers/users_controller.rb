@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render_404 unless current_session && current_user.role == 'default'
+    render_404 unless current_default
     @user = current_session
   end
 
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    render_404 unless current_default
     @user = current_user
   end
 
@@ -46,6 +47,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :password, :email, :address, :city, :state, :zip)
+  end
+
+  def current_default
+    current_session && current_user.role == 'default'
   end
 
   def update_user(user, params)

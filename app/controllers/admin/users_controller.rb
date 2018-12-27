@@ -7,6 +7,10 @@ class Admin::UsersController < Admin::BaseController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def toggle_user
     user = User.find(params[:user_id])
     user.switch_enabled

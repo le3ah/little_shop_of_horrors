@@ -5,6 +5,7 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find(params[:id])
+    redirect_to admin_merchant_path(params[:id]) if @user.merchant?
   end
 
   def toggle_user

@@ -10,7 +10,7 @@ describe 'Items Index Page' do
       @i_1 = m_1.items.create(
         name: 'Flower Pot',
         description: 'Messy Pot',
-        thumbnail: 'thumbnail',
+        thumbnail: 'plant_1',
         price: 4,
         inventory: 5,
         enabled: true
@@ -19,17 +19,29 @@ describe 'Items Index Page' do
       @i_2 = m_2.items.create(
         name: 'Orchid sauce',
         description: 'Juicy sauce',
-        thumbnail: 'thumbnail for sauce',
+        thumbnail: 'plant_2',
         price: 2,
         inventory: 12
+      )
+
+      @i_3 = m_1.items.create(
+        name: 'Cactus',
+        description: 'Messy Pot',
+        thumbnail: 'bad_path',
+        price: 4,
+        inventory: 5,
+        enabled: true
       )
 
       visit items_path
     end
 
     it 'should show enabled item information' do
+      within "#item-image-#{@i_1.id}" do
+        expect(page).to have_css("##{@i_1.thumbnail}")
+      end
+
       expect(page).to have_content(@i_1.name)
-      expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content("$#{@i_1.price}")
       expect(page).to have_content("Inventory: #{@i_1.inventory}")
@@ -51,6 +63,12 @@ describe 'Items Index Page' do
     it 'should link to item show through item thumbnail' do
       click_link "item-image-#{@i_1.id}"
       expect(current_path).to eq(item_path(@i_1))
+    end
+
+    it 'should render default image if there is no image' do
+      within "#item-image-#{@i_3.id}" do
+        expect(page).to have_css("#no_img")
+      end
     end
   end
 end

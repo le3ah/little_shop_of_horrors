@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :merchants, only: [:index, :show]
     resources :users, only: [:index, :show]
     resources :orders, only: [:destroy]
-    get '/profile', to: 'admin_users#show'
     post '/toggle', to: "merchants#toggle_status"
     post '/toggle-user', to: "users#toggle_user"
     post '/toggle-role', to: "merchants#toggle_role"

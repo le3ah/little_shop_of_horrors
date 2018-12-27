@@ -1,7 +1,7 @@
 class MerchantsController < ApplicationController
 
   before_action :not_today_satan
-  skip_before_action :not_today_satan, only: [:index, :show]
+  skip_before_action :not_today_satan, only: [:index]
 
   def index
     @merchants = User.merchants
@@ -14,12 +14,8 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    if current_user && admin_or_merchant
-      @merchant = current_user || User.find(session[:user_id])
-      @top_5 = @merchant.top_5 if @merchant.orders
-    else
-      not_today_satan
-    end
+    @merchant = current_user || User.find(session[:user_id])
+    @top_5 = @merchant.top_5 if @merchant.orders
   end
 
   def current_merchant?
@@ -29,9 +25,8 @@ class MerchantsController < ApplicationController
   def admin_or_merchant
     current_user.role == "merchant" || current_user.role == "admin"
   end
-  
-  def not_today_satan
-    render file: "#{Rails.root}/public/404.html", status: :not_found unless current_merchant?
-  end
 
+  def not_today_satan
+    render_404 unless current_merchant?
+  end
 end

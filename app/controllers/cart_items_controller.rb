@@ -1,4 +1,6 @@
 class CartItemsController < ApplicationController
+  before_action :visitor_or_default?
+
   def index
     @cart_items = create_cart.items
   end
@@ -23,5 +25,11 @@ class CartItemsController < ApplicationController
     empty_cart
     session[:cart] = create_cart.data
     redirect_to cart_path
+  end
+
+  def visitor_or_default?
+    unless !current_user || (current_user && current_user.role == "default")
+      render_404
+    end
   end
 end

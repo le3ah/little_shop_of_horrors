@@ -6,6 +6,7 @@
 <% else %>
     <td><%= button_to "Disable", admin_toggle_user_path({user_id: @user.id}) %></td>
 <% end %>
+<%= button_to "Upgrade User", admin_toggle_role_path(@user) %>
 
 <% if @user.orders %>
 <table>

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render_404 unless current_default
+    render_404 unless current_default?
     @user = current_session
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render_404 unless current_default
+    render_404 unless current_default?
     @user = current_user
   end
 

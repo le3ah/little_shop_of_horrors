@@ -28,6 +28,9 @@ describe "Admin Edit User" do
       fill_in :user_email, with: "john@gmail.com"
 
       click_on "Update User"
+      @u.reload
+      expect(page).to have_content("John")
+      expect(page).to have_content("Email: john@gmail.com")
       expect(@u.name).to eq("John")
       expect(@u.email).to eq("john@gmail.com")
 

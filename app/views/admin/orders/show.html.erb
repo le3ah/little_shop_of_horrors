@@ -1,0 +1,17 @@
+<h1>Order #<%= @order.id %></h1>
+
+<p>Order Created At: <%= @order.created_at %></p>
+<p>Order Updated At: <%= @order.updated_at %></p>
+<p>Order Status: <%= @order.status %></p>
+<p>Total Item Quantity: <%= @quantity_of_order %></p>
+<p>Order Grand Total: <%= @grand_total %></p>
+<%= button_to "Cancel Order", admin_order_path(@order.id), method: :delete %>
+
+<% @order.order_items.each do |order_item| %>
+  <p>Item Name: <%= order_item.item.name %></p>
+  <p>Item Description: <%= order_item.item.description %></p>
+  <p>Item Image: <%= order_item.item.image %></p>
+  <p>Item Quantity: <%= order_item.item.quantity %></p>
+  <p>Item Price: $<%= order_item.item.price %></p>
+  <p>Item Subtotal: $<%= order_item.item.subtotal %></p>
+<% end %>

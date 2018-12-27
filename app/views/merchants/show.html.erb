@@ -28,5 +28,14 @@
     </ul>
 </div>
 
+<div id="pending-orders">
+  <h1>Pending Orders</h1>
+  <ul>
+    <% @pending_orders.each do |order| %>
+    <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
+    <% end %>
+  </ul>
+
+</div>
 
 <%= link_to "View My Items", '/dashboard/items' %>

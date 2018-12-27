@@ -43,12 +43,13 @@ describe "As a merchant" do
 
         visit dashboard_path
 
-        within "#pending-orders" do
+        # within "#pending-orders" do
+
           expect(page).to have_link("Order ID: #{order_pending.id}")
           expect(page).to have_link("Order ID: #{order_pending_2.id}")
           expect(page).to_not have_link("Order ID: #{order_pending_3.id}")
           expect(page).to_not have_link("Order ID: #{order_fulfilled.id}")
-        end
+        # end
       end
   end
 end

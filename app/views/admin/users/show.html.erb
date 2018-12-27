@@ -1,4 +1,12 @@
 <h1><%= @user.name %></h1>
+<p>Date Registered: <%= @user.created_at.to_date %></p>
+<p>Enable/Disable: </p>
+<% if @user.enabled? %>
+    <td><%= button_to "Enable", admin_toggle_user_path({user_id: @user.id}) %></td>
+<% else %>
+    <td><%= button_to "Disable", admin_toggle_user_path({user_id: @user.id}) %></td>
+<% end %>
+<%= button_to "Upgrade User", admin_toggle_role_path(id: @user.id) %>
 
 <p>Email: <%= @user.email %></p>
 <p>Address: <%= @user.address %></p>

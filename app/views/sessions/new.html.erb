@@ -1,8 +1,14 @@
-<h1>Registered User Login</h1>
-<%= form_tag login_path do %>
-<%= label_tag :email %>
-<%= text_field_tag :email %>
-<%= label_tag :password %>
-<%= password_field_tag :password %>
-<%= submit_tag "submit" %>
-<% end %>
+<div class="login-container">
+  <h1>Registered User Login</h1>
+  <%= form_tag login_path do %>
+    <div class="form-group">
+      <%= label_tag :email %>
+      <%= text_field_tag :email, nil, class: "form-control", placeholder: "Enter email" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :password %>
+      <%= password_field_tag :password, nil, class: "form-control", placeholder: "Enter Password"  %>
+    </div>
+    <%= submit_tag "submit", class: "btn btn-primary" %>
+  <% end %>
+</div>

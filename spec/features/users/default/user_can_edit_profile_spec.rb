@@ -62,7 +62,7 @@ describe "User Edit Profile" do
     fill_in :user_name, with: name
     fill_in :user_email, with: email
     fill_in :user_password, with: "test"
-    fill_in :user_confirm_password, with: "test"
+    fill_in :user_password_confirmation, with: "test"
     fill_in :user_address, with: address
     fill_in :user_city, with: city
     fill_in :user_state, with: state

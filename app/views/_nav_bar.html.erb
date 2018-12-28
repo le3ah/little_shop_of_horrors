@@ -24,7 +24,7 @@
         <%= link_to 'Orders', profile_orders_path, :class => "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %>
+        <%= link_to "Shopping Cart (#{ @cart.items_quantity })", cart_path, :class => "nav-link"  %>
       </li>
 
     <% elsif current_user && current_user.role == "merchant" %>
@@ -86,7 +86,7 @@
       <li class="nav-item">
         <%= link_to "Register", register_path, :class => "nav-link"  %> </li>
       <li class="nav-item">
-        <%= link_to "Shopping Cart (#{ @cart.items.count })", cart_path, :class => "nav-link"  %></li>
+        <%= link_to "Shopping Cart (#{ @cart.items_quantity})", cart_path, :class => "nav-link"  %></li>
     <% end %>
 
     </ul>

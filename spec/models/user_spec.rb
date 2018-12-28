@@ -267,7 +267,6 @@ RSpec.describe User, type: :model do
 
         expect(merchant_1.pending_orders).to eq([order_pending, order_pending_2])
         expect(merchant_1.pending_orders).to_not eq([order_fulfilled, order_pending_3])
-
       end
     end
   end

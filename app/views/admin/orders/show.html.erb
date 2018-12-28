@@ -12,7 +12,7 @@
 <% @order.order_items.each do |order_item| %>
   <p>Item Name: <%= order_item.item.name %></p>
   <p>Item Description: <%= order_item.item.description %></p>
-  <p>Item Image: <%= order_item.item.image %></p>
+  <p>Item Image: <%= order_item.item.thumbnail %></p>
   <p>Item Quantity: <%= order_item.item.quantity %></p>
   <p>Item Price: $<%= order_item.item.price %></p>
   <p>Item Subtotal: $<%= order_item.item.subtotal %></p>

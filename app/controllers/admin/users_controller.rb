@@ -13,8 +13,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def toggle_user
-    user = User.find(params[:user_id])
-    user.switch_enabled
+    toggle_enabled(params[:user_id])
     redirect_to admin_users_path
   end
 end

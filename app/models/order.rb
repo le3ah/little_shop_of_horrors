@@ -32,7 +32,7 @@ class Order < ApplicationRecord
   end
 
   def quantity_of_my_items
-    OrderItem.joins(:items)
+    OrderItem.joins(:item)
     .where("items.user_id=#{self.id}")
     .pluck("sum(quantity)")
   end

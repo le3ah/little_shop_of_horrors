@@ -81,12 +81,6 @@ class User < ApplicationRecord
       .group(:id)
     end
 
-    def order_items_by_merchant(order)
-      OrderItems.joins(:items)
-      .where(order: order)
-      .where("items.user_id=#{self.id}")
-    end
-
     private
 
     def self.top_cities_or_states(city_or_state, amount)

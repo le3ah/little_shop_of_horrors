@@ -49,7 +49,6 @@ describe "As a merchant" do
         expect(page).to_not have_link("Order ID: #{order_fulfilled.id}")
 
         expect(page).to have_content("Date Ordered: #{order_pending.created_at}")
-        
         expect(page).to have_content("Order Quantity: #{order_pending.quantity_of_order}")
         expect(page).to have_content("Total Value of Items: $#{order_pending.grand_total}")
 

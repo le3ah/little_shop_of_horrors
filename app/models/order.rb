@@ -31,6 +31,12 @@ class Order < ApplicationRecord
     order_items.pluck("sum(quantity)")[0]
   end
 
+  def quantity_of_my_items
+    OrderItem.joins(:items)
+    .where("items.user_id=#{self.id}")
+    .pluck("sum(quantity)")
+  end
+
   def grand_total
     order_items.pluck("sum(quantity * price)")[0]
   end

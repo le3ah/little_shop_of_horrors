@@ -44,5 +44,15 @@ describe  'Admin - User Order Show Page' do
         expect(page).to have_content("Item Subtotal: $#{order_item.item.subtotal}")
       end
     end
+
+    it "has link to cancel order and redirects correctly on admin_order_path" do
+      visit admin_order_path(@o)
+
+      click_button "Cancel Order"
+
+      @o.reload
+      expect(current_path).to eq(admin_user_path(@u))
+      expect(@o.status).to eq("cancelled")
+    end
   end
 end

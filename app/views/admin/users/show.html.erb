@@ -20,7 +20,7 @@
   <p><%= @user.name %>'s Orders</p>
   <% @user.orders.each do |order| %>
     <div id="order-<%= order.id %>" class="order">
-      <%= link_to "View Order ##{order.id}", profile_order_path(order) %>
+      <%= link_to "View Order ##{order.id}", admin_order_path(order) %>
       <p>Created at: <%= order.created_at %></p>
       <p>Updated at: <%= order.updated_at %></p>
       <p>Status: <%= order.status %></p>

@@ -8,14 +8,14 @@ describe "Admin merchant/user show page redirect" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@a)
   end
 
-  xit 'redirects to admin_user when visiting admin_merchant if id matches a default user' do
+  it 'redirects to admin_user when visiting admin_merchant if id matches a default user' do
 
     visit admin_merchant_path(@u)
 
     expect(current_path).to eq(admin_user_path(@u))
   end
 
-  xit 'redirects to admin_merchant when visiting admin_user if id matches a merchant' do
+  it 'redirects to admin_merchant when visiting admin_user if id matches a merchant' do
 
     visit admin_user_path(@m)
 

@@ -34,8 +34,8 @@
     <% @pending_orders.each do |order| %>
     <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
     <li> <%= order.created_at %> </li>
-    <li> <%= order.quantity_of_order %> </li>
-    <li> <%= order.grand_total %> </li>
+    <li> <%= @quantity_of_order %> </li>
+    <li> <%= @grand_total %> </li>
     <% end %>
   </ul>
 

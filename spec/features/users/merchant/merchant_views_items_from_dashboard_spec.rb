@@ -49,7 +49,9 @@ describe "As a merchant" do
         expect(page).to_not have_link("Order ID: #{order_pending_3.id}")
         expect(page).to_not have_link("Order ID: #{order_fulfilled.id}")
 
-        # expect(page).to have_content()
+        expect(page).to have_content(order_pending.created_at)
+        expect(page).to have_content(order_pending.quantity_of_order)
+        expect(page).to have_content(order_pending.grand_total)
 
         click_link "Order ID: #{order_pending.id}"
         expect(current_path).to eq "/dashboard/orders/#{order_pending.id}"

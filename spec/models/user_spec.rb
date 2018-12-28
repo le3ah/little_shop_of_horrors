@@ -274,6 +274,12 @@ RSpec.describe User, type: :model do
           expect(order_pending_2.quantity_of_my_items).to eq(8)
           expect(order_pending_3.quantity_of_my_items).to eq(0)
         end
+
+        it "#value_of_my_items" do
+          expect(order_pending.value_of_my_items).to eq(2)
+          expect(order_pending_2.value_of_my_items).to eq(14)
+          expect(order_pending_3.value_of_my_items).to eq(0)
+        end
       end
     end
   end

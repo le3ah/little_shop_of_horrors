@@ -40,7 +40,6 @@ describe "As a merchant" do
       order_pending_3 = create(:order, user: user_2)
       o_i_7 = create(:order_item, order: order_pending, item: item_4, price: 2, quantity: 1)
 
-
       visit dashboard_path
 
       within "#pending-orders" do
@@ -49,9 +48,10 @@ describe "As a merchant" do
         expect(page).to_not have_link("Order ID: #{order_pending_3.id}")
         expect(page).to_not have_link("Order ID: #{order_fulfilled.id}")
 
-        expect(page).to have_content(order_pending.created_at)
-        expect(page).to have_content(order_pending.quantity_of_order)
-        expect(page).to have_content(order_pending.grand_total)
+        expect(page).to have_content("Date Ordered: #{order_pending.created_at}")
+        
+        expect(page).to have_content("Order Quantity: #{order_pending.quantity_of_order}")
+        expect(page).to have_content("Total Value of Items: $#{order_pending.grand_total}")
 
         click_link "Order ID: #{order_pending.id}"
         expect(current_path).to eq "/dashboard/orders/#{order_pending.id}"

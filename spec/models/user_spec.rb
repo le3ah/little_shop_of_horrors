@@ -237,7 +237,7 @@ RSpec.describe User, type: :model do
       end
     end
     describe  'instance methods'do
-      it ".pending_orders" do
+      before :each do
         merchant_1 = create(:user, role: 1)
         merchant_2 = create(:user, role: 1)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
@@ -254,8 +254,8 @@ RSpec.describe User, type: :model do
         create(:fulfilled_order_item, order: order_fulfilled, item: item_1, price: 1, quantity: 1)
 
         order_pending = create(:order, user: user_2)
-        create(:order_item, order: order_pending, item: item_2, price: 2, quantity: 1)
-        create(:fulfilled_order_item, order: order_pending, item: item_1, price: 2, quantity: 1)
+        order_item_2 = create(:order_item, order: order_pending, item: item_2, price: 2, quantity: 1)
+        order_item_3 = create(:fulfilled_order_item, order: order_pending, item: item_1, price: 2, quantity: 1)
 
         order_pending_2 = create(:order, user: user_1)
         create(:order_item, order: order_pending_2, item: item_3, price: 3, quantity: 3)
@@ -265,8 +265,14 @@ RSpec.describe User, type: :model do
         order_pending_3 = create(:order, user: user_2)
         create(:order_item, order: order_pending, item: item_4, price: 2, quantity: 1)
 
-        expect(merchant_1.pending_orders).to eq([order_pending, order_pending_2])
-        expect(merchant_1.pending_orders).to_not eq([order_fulfilled, order_pending_3])
+        it "#pending_orders" do
+          expect(merchant_1.pending_orders).to eq([order_pending, order_pending_2])
+          expect(merchant_1.pending_orders).to_not eq([order_fulfilled, order_pending_3])
+        end
+
+        it "#order_items_by_merchant" do
+          expect(order_items_by_merchant(order_pending)).to eq([order_item_2, order_item_3])
+        end
       end
     end
   end

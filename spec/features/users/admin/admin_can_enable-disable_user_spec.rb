@@ -40,6 +40,13 @@ describe "Admin Enable/Disable User" do
 
     it 'allows or prevents user from logging in after enabling/disabling' do
       visit login_path
+      fill_in "email", with: @d_u.email
+      fill_in "password", with: @d_u.password
+      click_on "submit"
+      expect(current_path).to eq(login_path)
+      expect(page).to have_content("Incorrect username or password. 🤯 🥀")
+      
+      visit login_path
       fill_in "email", with: @a.email
       fill_in "password", with: @a.password
       click_on "submit"
@@ -60,7 +67,7 @@ describe "Admin Enable/Disable User" do
       fill_in "email", with: @a.email
       fill_in "password", with: @a.password
       click_on "submit"
-      
+
       visit admin_users_path
       within "#user-#{@u.id}" do
         click_button "Disable"

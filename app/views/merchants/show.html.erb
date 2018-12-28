@@ -35,7 +35,7 @@
     <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
     <li> Date Ordered: <%= order.created_at %></li>
     <li> Quantity of My Items in Order: <%= order.quantity_of_my_items %></li>
-    <li> Total Value of Items: $<%= order.grand_total %></li>
+    <li> Total Value of Items: $<%= order.value_of_my_items %></li>
     <% end %>
   </ul>
 

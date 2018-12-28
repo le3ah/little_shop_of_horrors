@@ -51,7 +51,7 @@ describe "As a merchant" do
         expect(page).to have_content("Date Ordered: #{order_pending.created_at}")
 
         expect(page).to have_content("Quantity of My Items in Order: #{order_pending.quantity_of_my_items}")
-        expect(page).to have_content("Total Value of Items: $#{order_pending.grand_total}")
+        expect(page).to have_content("Total Value of Items: $#{order_pending.value_of_my_items}")
 
         click_link "Order ID: #{order_pending.id}"
         expect(current_path).to eq "/dashboard/orders/#{order_pending.id}"

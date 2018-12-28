@@ -44,6 +44,6 @@ class Order < ApplicationRecord
   def value_of_my_items
     OrderItem.joins(:item)
     .where("items.user_id=#{self.id}")
-    .pluck("sum(quantity * price)")
+    .pluck("sum(quantity * order_items.price)")
   end
 end

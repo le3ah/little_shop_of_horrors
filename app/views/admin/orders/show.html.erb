@@ -5,7 +5,9 @@
 <p>Order Status: <%= @order.status %></p>
 <p>Total Item Quantity: <%= @quantity_of_order %></p>
 <p>Order Grand Total: <%= @grand_total %></p>
-<%= button_to "Cancel Order", admin_order_path(@order.id), method: :delete %>
+<% if @order.status == "pending" %>
+  <%= button_to "Cancel Order", admin_order_path(@order, user_id: @order.user.id), method: :delete %>
+<% end %>
 
 <% @order.order_items.each do |order_item| %>
   <p>Item Name: <%= order_item.item.name %></p>

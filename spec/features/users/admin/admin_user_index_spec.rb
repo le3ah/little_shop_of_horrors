@@ -18,15 +18,15 @@ describe "As an admin" do
         expect(page).to have_content(@user1.name)
         expect(page).to have_content(@user2.name)
         expect(page).to have_content(@user2.created_at.to_date)
-        expect(page).to have_button("Enable")
+        expect(page).to have_button("Disable", count: 2)
         expect(page).to_not have_content(@merchant.name)
 
         within("#user-#{@user1.id}") do
-            click_button('Enable')
+            click_button('Disable')
             @user1.reload
         end
         within("#user-#{@user1.id}") do
-            expect(page).to have_button("Disable")
+            expect(page).to have_button("Enable")
         end
     end
 

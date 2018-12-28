@@ -1,0 +1,23 @@
+.profile-info {
+  margin: 0 2rem 4rem;
+}
+
+.orders-title {
+  margin-left: 2rem;
+}
+
+.orders {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.order {
+  width: 20rem;
+}
+
+.tpad {
+  padding: 1rem;
+  margin: 0;
+}
+

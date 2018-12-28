@@ -5,7 +5,7 @@ describe  'Admin - User Order Show Page' do
     before :each do
       @u = create(:user)
       @a = create(:user, role: 2)
-      @o = create(:order, user: u)
+      @o = create(:order, user: @u)
 
       m = create(:user, role: 1)
       i_1 = create(:item, user: m)
@@ -39,9 +39,9 @@ describe  'Admin - User Order Show Page' do
         expect(page).to have_content("Item Name: #{order_item.item.name}")
         expect(page).to have_content("Item Description: #{order_item.item.description}")
         expect(page).to have_content("Item Image: #{order_item.item.thumbnail}")
-        expect(page).to have_content("Item Quantity: #{order_item.item.quantity}")
-        expect(page).to have_content("Item Price: $#{order_item.item.price}")
-        expect(page).to have_content("Item Subtotal: $#{order_item.item.subtotal}")
+        expect(page).to have_content("Item Quantity: #{order_item.quantity}")
+        expect(page).to have_content("Item Price: $#{order_item.price}")
+        expect(page).to have_content("Item Subtotal: $#{order_item.subtotal}")
       end
     end
 

@@ -1,4 +1,4 @@
-class Dashboard::OrdersController < ApplicationController
+class Dashboard::OrdersController < Dashboard::BaseController
   def index
 
   end

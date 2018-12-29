@@ -213,7 +213,7 @@ RSpec.describe User, type: :model do
       end
 
       context "Merchant Statistics" do 
-        xit 'displays the top 5 items by quantity' do
+        it 'displays the top 5 items by quantity' do
           #FIXME - being addressed currently - just pushing up the nav bar & filtration
 
           merchant = create(:user, role: 1)

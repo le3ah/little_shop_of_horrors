@@ -34,7 +34,7 @@
   <ul>
     <% @pending_orders.each do |order| %>
     <div id="pending-<%=order.id%>">
-      <li> <%= link_to "Order ID: #{order.id}", dashboard_order_path(order) %> </li>
+      <li> <%= link_to "Order ID: #{order.id}", dashboard_order_path(order, merchant_id: current_user.id) %> </li>
       <li> Date Ordered: <%= order.created_at %></li>
       <li> Quantity of My Items in Order: <%= order.quantity_of_my_items(current_user) %></li>
       <li> Total Value of My Items: $<%= order.value_of_my_items(current_user) %></li>

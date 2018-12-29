@@ -5,5 +5,6 @@ class Dashboard::OrdersController < Dashboard::BaseController
 
   def show
     @order = Order.find(params[:id])
+    @customer = @order.user
   end
 end

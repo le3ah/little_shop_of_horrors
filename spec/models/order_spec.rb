@@ -145,9 +145,9 @@ describe Order, type: :model do
       create(:fulfilled_order_item, order: @order_pending, item: item_1, price: 2, quantity: 1)
 
       @order_pending_2 = create(:order, user: user_3)
-      create(:order_item, order: @order_pending_2, item: item_3, price: 3, quantity: 3)
-      create(:order_item, order: @order_pending_2, item: item_1, price: 1, quantity: 5)
-      create(:order_item, order: @order_pending_2, item: item_2, price: 2, quantity: 2)
+      @oi_4 = create(:order_item, order: @order_pending_2, item: item_3, price: 3, quantity: 3)
+      @oi_5 = create(:order_item, order: @order_pending_2, item: item_1, price: 1, quantity: 5)
+      @oi_6 = create(:order_item, order: @order_pending_2, item: item_2, price: 2, quantity: 2)
 
       @order_pending_3 = create(:order, user: user_4)
       create(:order_item, order: @order_pending_3, item: item_4, price: 2, quantity: 1)
@@ -234,6 +234,12 @@ describe Order, type: :model do
       expect(@order_pending.value_of_my_items(merchant_1)).to eq(2)
       expect(@order_pending_2.value_of_my_items(merchant_1)).to eq(14)
       expect(@order_pending_3.value_of_my_items(merchant_1)).to eq(nil)
+    end
+
+    it "#order_items_for_merchant" do
+      order_items_for_merch_1 = @order_pending_2.order_items_for_merchant(@merchant_1.id)
+
+      expect(order_items_for_merch_1).to eq([@oi_4, @oi_5])
     end
   end
 end

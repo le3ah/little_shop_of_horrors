@@ -31,17 +31,13 @@ class MerchantsController < ApplicationController
     render_404 unless current_merchant?
   end
 
-  def new
-    @item = Item.new
-  end
-
-  def create    
+  def create
     thumbnail = params[:item][:thumbnail]
 
     File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
       file.write(thumbnail.read)
     end
-    
+
     @merchant = current_user
     @item = @merchant.items.create(item_params)
     redirect_to dashboard_items_path
@@ -55,7 +51,7 @@ class MerchantsController < ApplicationController
   def edit
     @item = Item.find(params[:item_id])
   end
-  
+
   def destroy
     item = Item.find(params[:item_id])
     item.destroy
@@ -66,7 +62,7 @@ class MerchantsController < ApplicationController
     item = Item.find(params[:item_id])
     item.toggle_enabled
     redirect_to dashboard_items_path
-  end 
+  end
 
 
   private

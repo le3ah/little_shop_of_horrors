@@ -19,33 +19,12 @@ class MerchantsController < ApplicationController
     @pending_orders = @merchant.pending_orders if @merchant.orders
   end
 
-  def current_merchant?
-    current_user && current_user.merchant?
-  end
-
   def admin_or_merchant
     current_user.role == "merchant" || current_user.role == "admin"
   end
 
   def not_today_satan
     render_404 unless current_merchant?
-  end
-
-  def create
-    thumbnail = params[:item][:thumbnail]
-
-    File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
-      file.write(thumbnail.read)
-    end
-
-    @merchant = current_user
-    @item = @merchant.items.create(item_params)
-    redirect_to dashboard_items_path
-  end
-
-  def items_index
-    @merchant = current_user
-    @items = @merchant.items
   end
 
   def edit
@@ -62,14 +41,5 @@ class MerchantsController < ApplicationController
     item = Item.find(params[:item_id])
     item.toggle_enabled
     redirect_to dashboard_items_path
-  end
-
-
-  private
-
-  def item_params
-    thing = params[:item][:thumbnail].original_filename
-    params[:item][:thumbnail] = thing
-    params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
   end
 end

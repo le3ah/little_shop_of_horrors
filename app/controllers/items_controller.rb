@@ -47,6 +47,12 @@ class ItemsController < ApplicationController
     redirect_to items_path if current_admin?
   end
 
+  def toggle_item
+    item = Item.find(params[:id])
+    item.toggle_enabled
+    redirect_to dashboard_items_path
+  end
+
   private
 
   def item_params

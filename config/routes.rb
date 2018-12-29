@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'merchants#show'
-  post '/toggle-item', to: 'merchants#toggle_item', as: 'toggle_item'
+  post '/toggle-item', to: 'items#toggle_item'
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'

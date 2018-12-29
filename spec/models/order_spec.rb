@@ -122,30 +122,7 @@ describe Order, type: :model do
       expect(o.status).to eq("cancelled")
     end
   end
-  describe  'instance methods' do
-    it "#quantity_of_order" do
-      user = create(:user)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      m_1 = create(:user, role: 1)
-      o_1 = create(:order, user_id: user.id)
-      item_2 = create(:item, price: 2, user_id: m_1.id)
-      item_3 = create(:item, price: 4, user_id: m_1.id)
-      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
-      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
-      expect(o_1.quantity_of_order).to eq(4)
-    end
-    it "#grand_total" do
-      user = create(:user)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      m_1 = create(:user, role: 1)
-      o_1 = create(:order, user_id: user.id)
-      item_2 = create(:item, price: 2, user_id: m_1.id)
-      item_3 = create(:item, price: 4, user_id: m_1.id)
-      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
-      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
 
-      expect(o_1.grand_total).to eq(12)
-    end
   describe 'instance methods' do
     before :each do
       merchant_1 = create(:user, role: 1)
@@ -175,6 +152,20 @@ describe Order, type: :model do
       order_pending_3 = create(:order, user: user_2)
       create(:order_item, order: order_pending, item: item_4, price: 2, quantity: 1)
 
+      it "#quantity_of_order" do
+        expect(order_fulfilled.quantity_of_order).to eq(1)
+        expect(order_pending.quantity_of_order).to eq(4)
+        expect(order_pending_2.quantity_of_order).to eq(18)
+        expect(order_pending_3.quantity_of_order).to eq(2)
+      end
+
+      it "#grand_total" do
+        expect(order_fulfilled.grand_total).to eq(1)
+        expect(order_pending.grand_total).to eq(2)
+        expect(order_pending_2.grand_total).to eq(10)
+        expect(order_pending_3.grand_total).to eq(1)
+      end
+
       it "#quantity_of_my_items" do
         expect(order_pending.quantity_of_my_items(merchant_1)).to eq(1)
         expect(order_pending_2.quantity_of_my_items(merchant_1)).to eq(8)
@@ -187,6 +178,5 @@ describe Order, type: :model do
         expect(order_pending_3.value_of_my_items).to eq(0)
       end
     end
-  end 
   end
 end

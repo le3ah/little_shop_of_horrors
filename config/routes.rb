@@ -27,6 +27,12 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'merchants#show'
+  get '/dashboard/items/new', to: 'merchants#new'
+  post '/items', to: 'merchants#create'
+  delete '/dashboard/items', to: 'merchants#destroy', as: 'delete_item'
+  get '/dashboard/items/update', to: 'merchants#edit', as: 'edit_item'
+  patch '/items', to: 'merchants#update'
+  post '/toggle-item-enable', to: 'merchants#toggle_item', as: 'toggle_item'
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'

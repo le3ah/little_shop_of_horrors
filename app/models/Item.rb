@@ -34,4 +34,13 @@ class Item < ApplicationRecord
       return nil
     end
   end
+
+  def ordered?
+    OrderItem.find_by(item: self)
+  end
+
+  def toggle_enabled
+    self.enabled = !self.enabled
+    save
+  end 
 end

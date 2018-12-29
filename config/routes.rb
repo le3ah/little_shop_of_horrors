@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :new, :create, :update, :destroy]
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
   resources :cart_items, only: [:create, :update]
@@ -23,12 +23,10 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     resources :orders, only: [:show]
-    resources :items
+    resources :items, only: [:index, :show]
   end
 
   get '/dashboard', to: 'merchants#show'
-
-  patch '/items', to: 'merchants#update'
   post '/toggle-item', to: 'merchants#toggle_item', as: 'toggle_item'
 
   get '/profile', to: 'users#show'

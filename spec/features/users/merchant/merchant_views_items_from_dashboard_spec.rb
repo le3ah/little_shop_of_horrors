@@ -58,6 +58,6 @@ describe "As a merchant" do
         click_link "Order ID: #{order_pending.id}"
         expect(current_path).to eq "/dashboard/orders/#{order_pending.id}"
       end
-    end
+    end 
   end
 end

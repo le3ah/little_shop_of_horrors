@@ -31,9 +31,9 @@ class Order < ApplicationRecord
     order_items.pluck("sum(quantity)")[0]
   end
 
-  def quantity_of_my_items
+  def quantity_of_my_items(user_id)
     OrderItem.joins(:item)
-    .where("items.user_id=#{self.id}")
+    .where("order_id=? AND items.user_id=", self.id, user_id)
     .pluck("sum(quantity)")
   end
 

@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :merchants, only: [:index, :show]
-    resources :users, only: [:index, :show]
-    resources :orders, only: [:destroy]
+    resources :users, only: [:index, :show, :edit]
+    resources :orders, only: [:destroy, :show]
     post '/toggle', to: "merchants#toggle_status"
     post '/toggle-user', to: "users#toggle_user"
     post '/toggle-role', to: "merchants#toggle_role"
@@ -19,6 +19,10 @@ Rails.application.routes.draw do
 
   namespace :profile do
     resources :orders, only: [:index, :show, :destroy]
+  end
+
+  namespace :dashboard do
+    resources :orders, only: [:index, :show]
   end
 
   get '/dashboard', to: 'merchants#show'

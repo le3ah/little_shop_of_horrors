@@ -28,10 +28,13 @@ describe  'Items Show Page' do
   context 'as any kind of user' do
     it "should show all item information" do
       visit item_path(@i_1)
+      
+      within "#item-image-#{@i_1.id}" do
+        expect(page).to have_css("##{@i_1.thumbnail}")
+      end
 
       expect(page).to have_content(@i_1.name)
       expect(page).to have_content(@i_1.description)
-      expect(page).to have_content(@i_1.thumbnail)
       expect(page).to have_content(@i_1.user.name)
       expect(page).to have_content(@i_1.inventory)
       expect(page).to have_content("Price: #{@i_1.price}")

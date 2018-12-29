@@ -13,25 +13,28 @@ describe 'As a visitor or default user' do
     click_button "Add to Cart"
 
     expect(current_path).to eq items_path
-
+    expect(page).to have_content("Item has been added to your cart")
+    
     within ".nav" do
       expect(page).to have_content("Shopping Cart (1)")
     end
-
-    expect(page).to have_content("Item has been added to your cart")
-
+    
     visit item_path(item)
     click_button "Add to Cart"
+    
+    expect(page).to have_content("Item has been added to your cart")
 
     within ".nav" do
-      expect(page).to have_content("Shopping Cart (1)")
+      expect(page).to have_content("Shopping Cart (2)")
     end
 
     visit item_path(item_2)
     click_button "Add to Cart"
 
+    expect(page).to have_content("Item has been added to your cart")
+
     within ".nav" do
-      expect(page).to have_content("Shopping Cart (2)")
+      expect(page).to have_content("Shopping Cart (3)")
     end
 
     click_link "Shopping Cart"

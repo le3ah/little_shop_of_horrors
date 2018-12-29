@@ -122,30 +122,118 @@ describe Order, type: :model do
       expect(o.status).to eq("cancelled")
     end
   end
-  describe  'instance methods' do
-    it "#quantity_of_order" do
-      user = create(:user)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      m_1 = create(:user, role: 1)
-      o_1 = create(:order, user_id: user.id)
-      item_2 = create(:item, price: 2, user_id: m_1.id)
-      item_3 = create(:item, price: 4, user_id: m_1.id)
-      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
-      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
 
-      expect(o_1.quantity_of_order).to eq(4)
+  describe 'instance methods' do
+    before :each do
+      merchant_1 = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      user_1 = create(:user)
+      user_2 = create(:user)
+      user_3 = create(:user)
+      user_4 = create(:user)
+
+      item_1 = create(:item, user: merchant_1, enabled: true)
+      item_2 = create(:item, user: merchant_2, enabled: true)
+      item_3 = create(:item, user: merchant_1, enabled: true)
+      item_4 = create(:item, user: merchant_2, enabled: true)
+
+      @order_fulfilled = create(:completed_order, user: user_1)
+      create(:fulfilled_order_item, order: @order_fulfilled, item: item_1, price: 1, quantity: 1)
+
+      @order_pending = create(:order, user: user_2)
+      create(:order_item, order: @order_pending, item: item_2, price: 2, quantity: 1)
+      create(:fulfilled_order_item, order: @order_pending, item: item_1, price: 2, quantity: 1)
+
+      @order_pending_2 = create(:order, user: user_3)
+      create(:order_item, order: @order_pending_2, item: item_3, price: 3, quantity: 3)
+      create(:order_item, order: @order_pending_2, item: item_1, price: 1, quantity: 5)
+      create(:order_item, order: @order_pending_2, item: item_2, price: 2, quantity: 2)
+
+      @order_pending_3 = create(:order, user: user_4)
+      create(:order_item, order: @order_pending_3, item: item_4, price: 2, quantity: 1)
+
     end
-    it "#grand_total" do
-      user = create(:user)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      m_1 = create(:user, role: 1)
-      o_1 = create(:order, user_id: user.id)
-      item_2 = create(:item, price: 2, user_id: m_1.id)
-      item_3 = create(:item, price: 4, user_id: m_1.id)
-      create(:fulfilled_order_item, order: o_1, item: item_2, price: 2, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
-      create(:order_item, order: o_1, item: item_3, price: 4, quantity: 2, created_at: 7.days.ago, updated_at: 2.days.ago)
 
-      expect(o_1.grand_total).to eq(12)
+    it "#quantity_of_order" do
+      expect(@order_fulfilled.quantity_of_order).to eq(1)
+      expect(@order_pending.quantity_of_order).to eq(2)
+      expect(@order_pending_2.quantity_of_order).to eq(10)
+      expect(@order_pending_3.quantity_of_order).to eq(1)
+    end
+
+    it "#grand_total" do
+      expect(@order_fulfilled.grand_total).to eq(1)
+      expect(@order_pending.grand_total).to eq(4)
+      expect(@order_pending_2.grand_total).to eq(18)
+      expect(@order_pending_3.grand_total).to eq(2)
+    end
+
+    it "#quantity_of_my_items" do
+      merchant_1 = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      user_1 = create(:user)
+      user_2 = create(:user)
+      user_3 = create(:user)
+      user_4 = create(:user)
+
+      item_1 = create(:item, user: merchant_1, enabled: true)
+      item_2 = create(:item, user: merchant_2, enabled: true)
+      item_3 = create(:item, user: merchant_1, enabled: true)
+      item_4 = create(:item, user: merchant_2, enabled: true)
+
+      @order_fulfilled = create(:completed_order, user: user_1)
+      create(:fulfilled_order_item, order: @order_fulfilled, item: item_1, price: 1, quantity: 1)
+
+      @order_pending = create(:order, user: user_2)
+      create(:order_item, order: @order_pending, item: item_2, price: 2, quantity: 1)
+      create(:fulfilled_order_item, order: @order_pending, item: item_1, price: 2, quantity: 1)
+
+      @order_pending_2 = create(:order, user: user_3)
+      create(:order_item, order: @order_pending_2, item: item_3, price: 3, quantity: 3)
+      create(:order_item, order: @order_pending_2, item: item_1, price: 1, quantity: 5)
+      create(:order_item, order: @order_pending_2, item: item_2, price: 2, quantity: 2)
+
+      @order_pending_3 = create(:order, user: user_4)
+      create(:order_item, order: @order_pending_3, item: item_4, price: 2, quantity: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+      expect(@order_pending.quantity_of_my_items(merchant_1)).to eq(1)
+      expect(@order_pending_2.quantity_of_my_items(merchant_1)).to eq(8)
+      expect(@order_pending_3.quantity_of_my_items(merchant_1)).to eq(nil)
+    end
+
+    it "#value_of_my_items" do
+      merchant_1 = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      user_1 = create(:user)
+      user_2 = create(:user)
+      user_3 = create(:user)
+      user_4 = create(:user)
+
+      item_1 = create(:item, user: merchant_1, enabled: true)
+      item_2 = create(:item, user: merchant_2, enabled: true)
+      item_3 = create(:item, user: merchant_1, enabled: true)
+      item_4 = create(:item, user: merchant_2, enabled: true)
+
+      @order_fulfilled = create(:completed_order, user: user_1)
+      create(:fulfilled_order_item, order: @order_fulfilled, item: item_1, price: 1, quantity: 1)
+
+      @order_pending = create(:order, user: user_2)
+      create(:order_item, order: @order_pending, item: item_2, price: 2, quantity: 1)
+      create(:fulfilled_order_item, order: @order_pending, item: item_1, price: 2, quantity: 1)
+
+      @order_pending_2 = create(:order, user: user_3)
+      create(:order_item, order: @order_pending_2, item: item_3, price: 3, quantity: 3)
+      create(:order_item, order: @order_pending_2, item: item_1, price: 1, quantity: 5)
+      create(:order_item, order: @order_pending_2, item: item_2, price: 2, quantity: 2)
+
+      @order_pending_3 = create(:order, user: user_4)
+      create(:order_item, order: @order_pending_3, item: item_4, price: 2, quantity: 1)
+
+      expect(@order_pending.value_of_my_items(merchant_1)).to eq(2)
+      expect(@order_pending_2.value_of_my_items(merchant_1)).to eq(14)
+      expect(@order_pending_3.value_of_my_items(merchant_1)).to eq(nil)
     end
   end
 end

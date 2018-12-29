@@ -5,16 +5,11 @@ class Admin::MerchantsController < Admin::BaseController
 
   def show
     @user = User.find(params[:id])
+    redirect_to admin_user_path(params[:id]) if @user.default?
   end
 
   def toggle_status
-    user = User.find(params[:user_id])
-    user.switch_enabled
-
-    flash[:success] = user.enabled? ?
-      "#{user.name}'s account is now enabled." :
-      "#{user.name}'s account is now disabled."
-
+    toggle_enabled(params[:user_id])
     redirect_to admin_merchants_path
   end
 

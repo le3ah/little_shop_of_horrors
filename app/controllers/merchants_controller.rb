@@ -16,6 +16,7 @@ class MerchantsController < ApplicationController
   def show
     @merchant = current_user || User.find(session[:user_id])
     @top_5 = @merchant.top_5 if @merchant.orders
+    @pending_orders = @merchant.pending_orders if @merchant.orders
   end
 
   def current_merchant?

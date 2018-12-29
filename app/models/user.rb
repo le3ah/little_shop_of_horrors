@@ -2,6 +2,7 @@ class User < ApplicationRecord
     validates_presence_of :name, :email, :role,
                           :address, :city, :zip, :state
     validates_presence_of :password, if: :password
+    validates :password, confirmation: { case_sensitive: true }
     validates_inclusion_of :enabled, :in => [true, false]
     validates_uniqueness_of :email
 
@@ -72,6 +73,13 @@ class User < ApplicationRecord
       top_5_id_quantity.keys.map do |id|
         Item.find(id)
       end
+    end
+
+    def pending_orders
+      Order.joins(:items)
+      .select("orders.*")
+      .where("items.user_id=#{self.id} AND status = 'pending'")
+      .group(:id)
     end
 
     private

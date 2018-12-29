@@ -1,32 +1,48 @@
-<h1>Welcome, merchant <%= @merchant.name %>!</h1>
+<section class="merchant-info">
+  <h1>Welcome, merchant <%= @merchant.name %>!</h1>
+  <div>
+    <table class="table table-bordered table-striped table-dark">
+      <thead>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Zip</th>
+      </thead>
 
-<table>
-    <thead>
-        <th>Email</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zip</th>
-    </thead>
+      <tbody>
+          <td><%= current_user.email %></td>
+          <td><%= current_user.address %></td>
+          <td><%= current_user.city %></td>
+          <td><%= current_user.state %></td>
+          <td><%= current_user.zip %></td>
+      </tbody>
+    </table>
+  </div>
 
-    <tbody>
-        <td><%= current_user.email %></td>
-        <td><%= current_user.address %></td>
-        <td><%= current_user.city %></td>
-        <td><%= current_user.state %></td>
-        <td><%= current_user.zip %></td>
-    </tbody>
-</table>
-
-
-<div id="top-5-items">
+  <div id="top-5-items">
     <h1>Top 5 Items</h1>
     <ul>
-        <% @top_5.each do |item| %>
-        <li><%= item.name %></li>
-        <% end %>
+      <% @top_5.each do |item| %>
+      <li><%= item.name %></li>
+      <% end %>
     </ul>
+  </div>
+
+<div id="pending-orders">
+  <h1>Pending Orders</h1>
+  <ul>
+    <% @pending_orders.each do |order| %>
+    <div id="pending-<%=order.id%>">
+      <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
+      <li> Date Ordered: <%= order.created_at %></li>
+      <li> Quantity of My Items in Order: <%= order.quantity_of_my_items(current_user) %></li>
+      <li> Total Value of My Items: $<%= order.value_of_my_items(current_user) %></li>
+    </div>
+    <% end %>
+  </ul>
+
 </div>
 
-
-<%= link_to "View My Items", '/dashboard/items' %>
+  <%= link_to "View My Items", '/dashboard/items' %>
+</section>

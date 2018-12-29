@@ -1,25 +1,27 @@
-<h1>Welcome, <%= current_user.name %>!</h1>
-
-<p>Email: <%= current_user.email %></p>
-<p>Address: <%= current_user.address %></p>
-<p>City: <%= current_user.city %></p>
-<p>State: <%= current_user.state %></p>
-<p>Zip: <%= current_user.zip %></p>
-
-<%= link_to "Edit Profile", profile_edit_path %>
+<section class="profile-info">
+  <h1>Welcome, <%= current_user.name %>!</h1>
+  <div class="order card text-white bg-dark mb-3">
+    <p class="card-text tpad">Email: <%= current_user.email %></p>
+    <p class="card-text tpad">Address: <%= current_user.address %></p>
+    <p class="card-text tpad">City: <%= current_user.city %></p>
+    <p class="card-text tpad">State: <%= current_user.state %></p>
+    <p class="card-text tpad">Zip: <%= current_user.zip %></p>
+  </div>
+  <%= link_to "Edit Profile", profile_edit_path %>
+</section>
 
 <% if current_user.orders %>
-<section class='orders'>
-  <p>Your Orders</p>
-  <% current_user.orders.each do |order| %>
-    <div id="order-<%= order.id %>" class="order">
-      <%= link_to "View Order ##{order.id}", profile_order_path(order) %>
-      <p>Created at: <%= order.created_at %></p>
-      <p>Updated at: <%= order.updated_at %></p>
-      <p>Status: <%= order.status %></p>
-      <p>Item Count: <%= order.quantity_of_order %></p>
-      <p>Grand Total: <%= order.grand_total %></p>
-    </div>
-  <% end %>
-</section>
+  <h2 class="orders-title">Your Orders</h2>
+  <section class='orders'>
+    <% current_user.orders.each do |order| %>
+      <div id="order-<%= order.id %>" class="order card text-white bg-dark mb-3">
+      <div class="card-header"><%= link_to "View Order ##{order.id}", profile_order_path(order) %></div>
+        <p class="card-text tpad">Created at: <%= order.created_at %></p>
+        <p class="card-text tpad">Updated at: <%= order.updated_at %></p>
+        <p class="card-text tpad">Status: <%= order.status %></p>
+        <p class="card-text tpad">Item Count: <%= order.quantity_of_order %></p>
+        <p class="card-text tpad">Grand Total: <%= order.grand_total %></p>
+      </div>
+    <% end %>
+  </section>
 <% end %>

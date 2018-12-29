@@ -11,6 +11,10 @@ class Cart
     end
   end
 
+  def items_quantity
+    @data.inject(0){ |acc, (_id, quantity)| acc += quantity }
+  end
+
   def add_item(item)
     data[item.id.to_s] ||= 0
     data[item.id.to_s] += 1

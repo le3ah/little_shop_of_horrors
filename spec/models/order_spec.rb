@@ -173,9 +173,9 @@ describe Order, type: :model do
       end
 
       it "#value_of_my_items" do
-        expect(order_pending.value_of_my_items).to eq(2)
-        expect(order_pending_2.value_of_my_items).to eq(14)
-        expect(order_pending_3.value_of_my_items).to eq(0)
+        expect(order_pending.value_of_my_items(merchant_1)).to eq(2)
+        expect(order_pending_2.value_of_my_items(merchant_1)).to eq(14)
+        expect(order_pending_3.value_of_my_items(merchant_1)).to eq(0)
       end
     end
   end

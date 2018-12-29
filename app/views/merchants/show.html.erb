@@ -32,10 +32,12 @@
   <h1>Pending Orders</h1>
   <ul>
     <% @pending_orders.each do |order| %>
-    <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
-    <li> Date Ordered: <%= order.created_at %></li>
-    <li> Quantity of My Items in Order: <%= order.quantity_of_my_items %></li>
-    <li> Total Value of My Items: $<%= order.value_of_my_items %></li>
+    <div id="pending-<%=order.id%>">
+      <li> <%= link_to "Order ID: #{order.id}", "/dashboard/orders/#{order.id}" %> </li>
+      <li> Date Ordered: <%= order.created_at %></li>
+      <li> Quantity of My Items in Order: <%= order.quantity_of_my_items(current_user) %></li>
+      <li> Total Value of My Items: $<%= order.value_of_my_items(current_user) %></li>
+    </div>
     <% end %>
   </ul>
 

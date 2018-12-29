@@ -33,17 +33,17 @@ class Order < ApplicationRecord
 
   def quantity_of_my_items(user_id)
     OrderItem.joins(:item)
-    .where("order_id=? AND items.user_id=", self.id, user_id)
-    .pluck("sum(quantity)")
+    .where("order_id=? AND items.user_id=?", self.id, user_id)
+    .pluck("sum(quantity)")[0]
   end
 
   def grand_total
     order_items.pluck("sum(quantity * price)")[0]
   end
 
-  def value_of_my_items
+  def value_of_my_items(user_id)
     OrderItem.joins(:item)
-    .where("items.user_id=#{self.id}")
-    .pluck("sum(quantity * order_items.price)")
+    .where("order_id=? AND items.user_id=?", self.id, user_id)
+    .pluck("sum(quantity * order_items.price)")[0]
   end
 end

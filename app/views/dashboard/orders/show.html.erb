@@ -3,3 +3,11 @@
 <p>Customer Information</p>
 <p>Name: <%= @customer.name %></p>
 <p>Address: <%= @customer.address %></p>
+
+<p>Item Information</p>
+<% @order_items.each do |order_item| %>
+  <%= link_to "Name: #{order_item.item.name}", dashboard_item_path(order_item.item) %>
+  <p><%= order_item.item.thumbnail %></p>
+  <p>Price: $<%= order_item.price %></p>
+  <p>Quantity Ordered: <%= order_item.quantity %></p>
+<% end %>

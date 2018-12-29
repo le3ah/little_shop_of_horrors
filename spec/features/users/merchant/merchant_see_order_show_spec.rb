@@ -11,7 +11,7 @@ describe "Merchant Order Show Page" do
 
       @u = create(:user)
 
-      @o = create(:order)
+      @o = create(:order, user: @u)
       @oi_1 = create(:order_item, order: @o, item: @i_1)
       @oi_2 = create(:order_item, order: @o, item: @i_2)
 
@@ -19,7 +19,7 @@ describe "Merchant Order Show Page" do
       visit dashboard_path
     end
 
-    xit "shows customer's name and address" do
+    it "shows customer's name and address" do
       click_link "Order ID: #{@o.id}"
       expect(current_path).to eq(dashboard_order_path(@o))
 
@@ -27,24 +27,25 @@ describe "Merchant Order Show Page" do
       expect(page).to have_content("Address: #{@o.user.address}")
     end
 
-    xit "only shows items from current merchant's inventory" do
+    it "only shows items from current merchant's inventory" do
       click_link "Order ID: #{@o.id}"
 
       expect(page).to_not have_link("Name: #{@i_2.name}")
       expect(page).to_not have_content("#{@i_2.thumbnail}")
-      expect(page).to_not have_content("Price #{@oi_2.price}")
+      expect(page).to_not have_content("Price: $#{@oi_2.price}")
       expect(page).to_not have_content("Quantity Ordered: #{@oi_2.quantity}")
     end
 
-    xit 'shows item information for this order' do
+    it 'shows item information for this order' do
       click_link "Order ID: #{@o.id}"
 
       expect(page).to have_link("Name: #{@i_1.name}")
-      expect(current_path).to eq(dashboard_item_path(@i_1))
-
       expect(page).to have_content("#{@i_1.thumbnail}")
-      expect(page).to have_content("Price #{@oi_1.price}")
+      expect(page).to have_content("Price: $#{@oi_1.price}")
       expect(page).to have_content("Quantity Ordered: #{@oi_1.quantity}")
+
+      click_link "Name: #{@i_1.name}"
+      expect(current_path).to eq(dashboard_item_path(@i_1))
     end
   end
 end

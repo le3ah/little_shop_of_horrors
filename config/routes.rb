@@ -23,12 +23,11 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     resources :orders, only: [:show]
-    resources :items, only: [:index, :show, :new, :create, :update, :destroy]
+    resources :items
   end
 
   get '/dashboard', to: 'merchants#show'
 
-  get '/dashboard/items/update', to: 'merchants#edit', as: 'edit_item'
   patch '/items', to: 'merchants#update'
   post '/toggle-item', to: 'merchants#toggle_item', as: 'toggle_item'
 

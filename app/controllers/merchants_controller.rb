@@ -27,10 +27,6 @@ class MerchantsController < ApplicationController
     render_404 unless current_merchant?
   end
 
-  def edit
-    @item = Item.find(params[:item_id])
-  end
-
   def toggle_item
     item = Item.find(params[:item_id])
     item.toggle_enabled

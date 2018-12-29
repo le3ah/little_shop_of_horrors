@@ -24,7 +24,7 @@
                 <% else %>
                     <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
                 <% end %>
-                <td><%= link_to 'edit', edit_item_path(item_id: item.id) %></td>
+                <td><%= link_to 'edit', dashboard_item_path(item), method: :patch %></td>
                 <% unless item.ordered? %>
                     <td><%= button_to 'delete', dashboard_item_path(item), method: :delete %></td>
                 <% end %>

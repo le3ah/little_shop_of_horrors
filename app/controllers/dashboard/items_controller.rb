@@ -7,4 +7,10 @@ class Dashboard::ItemsController < Dashboard::BaseController
   def show
     @item = Item.find(params[:id])
   end
+
+  def new
+    @item = Item.new
+  end
+
+  
 end

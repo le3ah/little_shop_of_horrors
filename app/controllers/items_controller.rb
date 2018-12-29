@@ -15,6 +15,10 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   def create
     render_404 unless current_merchant?
 
@@ -25,10 +29,6 @@ class ItemsController < ApplicationController
 
     current_user.items.create(item_params)
     redirect_to dashboard_items_path
-  end
-
-  def edit
-    @item = Item.find(params[:id])
   end
 
   def update

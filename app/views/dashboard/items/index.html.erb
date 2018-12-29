@@ -26,11 +26,11 @@
                 <% end %>
                 <td><%= link_to 'edit', edit_item_path(item_id: item.id) %></td>
                 <% unless item.ordered? %>
-                    <td><%= button_to 'delete', delete_item_path(item_id: item.id), method: :delete %></td>
+                    <td><%= button_to 'delete', dashboard_item_path(item), method: :delete %></td>
                 <% end %>
             </tr>
         <% end %>
     </tbody>
 </table>
 
-<%= link_to 'add new item', dashboard_items_new_path %> 
+<%= link_to 'add new item', dashboard_items_new_path %>

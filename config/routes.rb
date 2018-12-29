@@ -27,8 +27,7 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'merchants#show'
-  
-  delete '/dashboard/items', to: 'merchants#destroy', as: 'delete_item'
+
   get '/dashboard/items/update', to: 'merchants#edit', as: 'edit_item'
   patch '/items', to: 'merchants#update'
   post '/toggle-item', to: 'merchants#toggle_item', as: 'toggle_item'

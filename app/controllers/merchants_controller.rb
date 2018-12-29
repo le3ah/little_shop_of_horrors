@@ -31,12 +31,6 @@ class MerchantsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def destroy
-    item = Item.find(params[:item_id])
-    item.destroy
-    redirect_to dashboard_items_path
-  end
-
   def toggle_item
     item = Item.find(params[:item_id])
     item.toggle_enabled

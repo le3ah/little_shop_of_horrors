@@ -8,11 +8,18 @@ describe "As a Merchant" do
       item = create(:item, user: merchant, thumbnail: "plant_10")
       visit dashboard_items_path
 
-      within "#item-#{item.id}" do 
+      within "#item-#{item.id}" do
         click_link "edit"
       end
-      
-      expect(current_path).to eq(edit_item_path) 
+      expect(current_path).to eq(edit_item_path(item))
+
+      fill_in "thumbnail", with: "new_thumb"
+      click_button "Update Item"
+
+      item.reload
+      expect(current_path).to eq(dashboard_items_path)
+      expect(page).to have_content("new_thumb")
+      expect(item.thumbnail).to eq("new_thumb")
     end
   end
 end

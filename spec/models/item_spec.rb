@@ -116,6 +116,7 @@ describe Item, type: :model do
       expect(items[1].inventory).to eq(before_inventories[1] + o_i_2.quantity)
       expect(items[2].inventory).to eq(before_inventories[2] + o_i_3.quantity)
     end
+
     describe  'instance methods' do
       it '.avg_fulfillment_time' do
        u_1 = create(:user)
@@ -146,7 +147,37 @@ describe Item, type: :model do
        )
 
        expect(i_1.average_fulfillment_time).to eq("6 days 00 hours 00 minutes & 00 seconds")
-     end
+    end    
+
+      it '.ordered? - has the item been ordered?' do 
+        user = create(:user)
+        merchant = create(:user, role: 1)
+
+        item1 = create(:item, user: merchant)
+        item2 = create(:item, user: merchant)
+        item3 = create(:item, user: merchant)
+        
+        order = create(:completed_order, user: user)
+        order_item1 = create(:fulfilled_order_item, quantity: 2, price:2, item:item1, order: order)
+        order_item2 = create(:fulfilled_order_item, quantity: 2, price:3, item:item2, order: order)
+
+        expect(item1.ordered?).to be_truthy
+        expect(item2.ordered?).to be_truthy
+        expect(item3.ordered?).to_not be_truthy
+      end
+
+      it '.toggle_enabled' do
+        merchant = create(:user, role: 1)
+        item = create(:item, user: merchant)
+
+        item.toggle_enabled
+
+        expect(item.enabled).to eq(true) 
+
+        item.toggle_enabled
+
+        expect(item.enabled).to eq(false) 
+      end
     end
   end
 end

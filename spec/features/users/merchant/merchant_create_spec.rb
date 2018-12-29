@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "As a Merchant" do
   context "on dashboard/items i see" do
-    it "a link to create and see an item" do
+    xit "a link to create and see an item" do
       merchant = create(:user, role: 1)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 

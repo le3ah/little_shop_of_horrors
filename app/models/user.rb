@@ -75,6 +75,13 @@ class User < ApplicationRecord
       end
     end
 
+    def pending_orders
+      Order.joins(:items)
+      .select("orders.*")
+      .where("items.user_id=#{self.id} AND status = 'pending'")
+      .group(:id)
+    end
+
     private
 
     def self.top_cities_or_states(city_or_state, amount)

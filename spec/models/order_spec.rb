@@ -125,16 +125,16 @@ describe Order, type: :model do
 
   describe 'instance methods' do
     before :each do
-      merchant_1 = create(:user, role: 1)
+      @merchant_1 = create(:user, role: 1)
       merchant_2 = create(:user, role: 1)
       user_1 = create(:user)
       user_2 = create(:user)
       user_3 = create(:user)
       user_4 = create(:user)
 
-      item_1 = create(:item, user: merchant_1, enabled: true)
+      item_1 = create(:item, user: @merchant_1, enabled: true)
       item_2 = create(:item, user: merchant_2, enabled: true)
-      item_3 = create(:item, user: merchant_1, enabled: true)
+      item_3 = create(:item, user: @merchant_1, enabled: true)
       item_4 = create(:item, user: merchant_2, enabled: true)
 
       @order_fulfilled = create(:completed_order, user: user_1)
@@ -239,7 +239,13 @@ describe Order, type: :model do
     it "#order_items_for_merchant" do
       order_items_for_merch_1 = @order_pending_2.order_items_for_merchant(@merchant_1.id)
 
-      expect(order_items_for_merch_1).to eq([@oi_4, @oi_5])
+      expect(order_items_for_merch_1.size).to eq(2)
+
+      expect(order_items_for_merch_1.first.user_id).to eq(@merchant_1.id)
+      expect(order_items_for_merch_1.first.order_id).to eq(@order_pending_2.id)
+
+      expect(order_items_for_merch_1.second.user_id).to eq(@merchant_1.id)
+      expect(order_items_for_merch_1.second.order_id).to eq(@order_pending_2.id)
     end
   end
 end

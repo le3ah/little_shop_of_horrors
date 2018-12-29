@@ -27,7 +27,6 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'merchants#show'
-  get '/dashboard/items', to: 'merchants#items_index', as: 'dashboard_items'
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'

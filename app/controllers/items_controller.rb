@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :merchant_or_admin?
-  skip_before_action :merchant_or_admin, only: [:index, :show]
+  skip_before_action :merchant_or_admin?, only: [:index, :show]
 
   def index
     @items = Item.all
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   end
 
   def toggle_item
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     item.toggle_enabled
     redirect_to dashboard_items_path
   end

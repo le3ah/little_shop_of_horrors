@@ -4,11 +4,11 @@ describe "Merchant Enable/Disable Item" do
   context 'when merchant visits dashboard_items page' do
     before :each do
       @m = create(:user, role: 1)
-      @i_1 = create(:item, user: @m, enabled: true)
-      @i_2 = create(:item, user: @m)
+      @i_1 = create(:item, user: @m, enabled: true, thumbnail:"oldguy.jpeg")
+      @i_2 = create(:item, user: @m, thumbnail:"oldguy.jpeg")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m)
-      visit dashboard_items
+      visit dashboard_items_path
     end
 
     it 'shows button to enable or disable and clicking redirects back to dashboard_items' do
@@ -16,11 +16,11 @@ describe "Merchant Enable/Disable Item" do
       expect(page).to have_button("Disable", count: 1)
 
       click_button "Enable"
-      expect(current_path).to eq(dashboard_items)
+      expect(current_path).to eq(dashboard_items_path)
       expect(page).to have_button("Disable", count: 2)
 
       first(:button, "Disable").click
-      expect(current_path).to eq(dashboard_items)
+      expect(current_path).to eq(dashboard_items_path)
     end
 
     it 'clicking button to enable or disable updates item and show appropriate flash m' do

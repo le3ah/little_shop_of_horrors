@@ -25,9 +25,9 @@
     <% if i.enabled %>
       <div class="card item" id="item-<%= i.id %>">
         <% begin %>
-          <%= link_to image_tag(i.thumbnail, id: "#{i.thumbnail}"), item_path(i), id: "item-image-#{i.id}" %>
+          <%= link_to image_tag("#{i.thumbnail}.jpg", id: "#{i.thumbnail}"), item_path(i), id: "item-image-#{i.id}" %>
         <% rescue %>
-          <%= link_to image_tag("no_img", id: "no_img"), item_path(i), id: "item-image-#{i.id}" %>
+          <%= link_to image_tag("no_img.jpg", id: "no_img"), item_path(i), id: "item-image-#{i.id}" %>
         <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= link_to i.name, item_path(i) %></h5>

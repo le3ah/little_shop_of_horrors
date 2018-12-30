@@ -24,9 +24,9 @@
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
                 <% if item.enabled? %>
-                    <td><%= button_to "Disable", toggle_item_path(item) %></td>
+                    <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
                 <% else %>
-                    <td><%= button_to "Enable", toggle_item_path(item) %></td>
+                    <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
                 <% end %>
                 <td><%= link_to 'edit', edit_item_path(item) %></td>
                 <% unless item.ordered? %>

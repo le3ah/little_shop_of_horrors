@@ -148,16 +148,16 @@ describe Item, type: :model do
        )
 
        expect(i_1.average_fulfillment_time).to eq("6 days 00 hours 00 minutes & 00 seconds")
-    end    
+    end
 
-      it '.ordered? - has the item been ordered?' do 
+      it '.ordered? - has the item been ordered?' do
         user = create(:user)
         merchant = create(:user, role: 1)
 
         item1 = create(:item, user: merchant)
         item2 = create(:item, user: merchant)
         item3 = create(:item, user: merchant)
-        
+
         order = create(:completed_order, user: user)
         order_item1 = create(:fulfilled_order_item, quantity: 2, price:2, item:item1, order: order)
         order_item2 = create(:fulfilled_order_item, quantity: 2, price:3, item:item2, order: order)
@@ -173,11 +173,20 @@ describe Item, type: :model do
 
         item.toggle_enabled
 
-        expect(item.enabled).to eq(true) 
+        expect(item.enabled).to eq(true)
 
         item.toggle_enabled
 
-        expect(item.enabled).to eq(false) 
+        expect(item.enabled).to eq(false)
+      end
+
+      it '#decrease_inventory' do
+        u = create(:user, role: 1)
+        i = create(:item, user: u, inventory: 4)
+
+        expect(i.inventory).to eq(4)
+        i.decrease_inventory(2)
+        expect(i.inventory).to eq(2)
       end
     end
   end

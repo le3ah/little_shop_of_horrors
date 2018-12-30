@@ -85,8 +85,4 @@ class ItemsController < ApplicationController
     end
     item.save
   end
-
-  def merchant_or_admin?
-    render_404 unless current_admin? || current_merchant?
-  end
 end

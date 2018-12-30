@@ -30,7 +30,7 @@ describe "Merchant Order Show Page" do
     it "only shows items from current merchant's inventory" do
       click_link "Order ID: #{@o.id}"
 
-      expect(page).to_not have_link("Name: #{@i_2.name}")
+      expect(page).to_not have_link("#{@i_2.name}")
       expect(page).to_not have_content("#{@i_2.thumbnail}")
       expect(page).to_not have_content("Price: $#{@oi_2.price}")
       expect(page).to_not have_content("Quantity Ordered: #{@oi_2.quantity}")
@@ -39,12 +39,12 @@ describe "Merchant Order Show Page" do
     it 'shows item information for this order' do
       click_link "Order ID: #{@o.id}"
 
-      expect(page).to have_link("Name: #{@i_1.name}")
-      expect(page).to have_content("#{@i_1.thumbnail}")
-      expect(page).to have_content("Price: $#{@oi_1.price}")
-      expect(page).to have_content("Quantity Ordered: #{@oi_1.quantity}")
+      expect(page).to have_link("#{@i_1.name}")
+      expect(page).to have_css("#no_img")
+      expect(page).to have_content("$#{@oi_1.price}")
+      expect(page).to have_content("#{@oi_1.quantity}")
 
-      click_link "Name: #{@i_1.name}"
+      click_link "#{@i_1.name}"
       expect(current_path).to eq(dashboard_item_path(@i_1))
     end
   end

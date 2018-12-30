@@ -105,6 +105,7 @@ describe "As a Merchant" do
             item_1 = create(:item, user: merchant, thumbnail: 'oldguy.jpeg')
             
             visit dashboard_items_path 
+            
             within "#item-#{item_1.id}" do
                 click_button "Enable"
             end

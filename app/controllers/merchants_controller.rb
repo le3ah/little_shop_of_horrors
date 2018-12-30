@@ -19,10 +19,6 @@ class MerchantsController < ApplicationController
     @pending_orders = @merchant.pending_orders if @merchant.orders
   end
 
-  def current_merchant?
-    current_user && current_user.merchant?
-  end
-
   def admin_or_merchant
     current_user.role == "merchant" || current_user.role == "admin"
   end

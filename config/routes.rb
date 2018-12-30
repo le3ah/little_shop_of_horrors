@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'merchants#show'
   post '/toggle-item', to: 'items#toggle_item'
+  post '/fulfill-order-item', to: 'order_items#fulfill_order_item'
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'

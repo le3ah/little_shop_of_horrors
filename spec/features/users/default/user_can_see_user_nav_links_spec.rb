@@ -11,15 +11,11 @@ RSpec.describe "As a user" do
 
         within(".nav") do
             expect(page).to have_content("Profile")
-            expect(page).to have_content("Orders")
             expect(page).to have_content("Logout")
         end
 
         click_on('Profile')
         expect(current_path).to eq(profile_path)
-
-        click_on('Orders')
-        expect(current_path).to eq(profile_orders_path)
 
         click_on('Logout')
         expect(current_path).to eq(root_path)

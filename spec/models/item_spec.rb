@@ -188,6 +188,14 @@ describe Item, type: :model do
         i.decrease_inventory(2)
         expect(i.inventory).to eq(2)
       end
+
+      it "#enough_inventory?" do
+        u = create(:user, role: 1)
+        i = create(:item, user: u, inventory: 4)
+
+        expect(i.enough_inventory?(5)).to be_falsy
+        expect(i.enough_inventory?(3)).to be_truthy
+      end
     end
   end
 end

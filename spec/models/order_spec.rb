@@ -283,13 +283,14 @@ describe Order, type: :model do
 
       expect(o.status).to eq("pending")
       expect(o.complete?).to be_falsy
-
+      
       oi_2.fulfilled = true
       oi_2.save
       oi_2.reload
       o.reload
 
       expect(o.complete?).to be_truthy
+      o.update_status
       expect(o.status).to eq("complete")
     end
   end

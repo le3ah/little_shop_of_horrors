@@ -5,6 +5,6 @@ class OrderItemsController < ApplicationController
     order_item.fulfilled = true
     order_item.save
     order_item.order.check_complete
-    redirect_to dashboard_order_path(item.order)
+    redirect_to dashboard_order_path(order_item.order)
   end
 end

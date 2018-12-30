@@ -40,5 +40,22 @@ describe "Merchant Order Item Fulfillment" do
     it 'shows text indicating an item has already been fulfilled' do
       expect(page).to have_content("Fulfilled")
     end
+
+    it "shows notice instead of fulfill button when quantity ordered exceeds item inventory" do
+      m = create(:user, role: 1)
+      i = create(:item, inventory: 3, user: m)
+
+      u = create(:user)
+      o = create(:order, user: u)
+      oi = create(:order_item, order: o, item: i, quantity: 5)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(m)
+      visit dashboard_order_path(o)
+
+      expect(i.inventory).to be < oi.quantity
+      expect(page).to_not have_button("Fulfill")
+      expect(page).to have_css(".red-notice")
+      expect(page).to have_content("Not Enough Inventory")
+    end
   end
 end

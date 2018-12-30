@@ -27,7 +27,11 @@
         <% if order_item.fulfilled %>
           <td>Fulfilled</td>
         <% else %>
-          <td><%= button_to "Fulfill", fulfill_order_item_path(order_item_id: order_item.order_item_id) %></td>
+          <% if order_item.order_item_quantity < order_item.item.inventory %>
+            <td><%= button_to "Fulfill", fulfill_order_item_path(order_item_id: order_item.order_item_id) %></td>
+          <% else %>
+            <td class="red-notice">Not Enough Inventory</td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

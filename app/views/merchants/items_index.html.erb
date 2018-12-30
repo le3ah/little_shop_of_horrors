@@ -19,7 +19,7 @@
                 <% if item.thumbnail %>
                     <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
                 <% else %>
-                    <td></td>
+                    <td>><%=image_tag("no_img.jpg", id:("#{item.thumbnail}")) %></td>
                 <% end %>
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>

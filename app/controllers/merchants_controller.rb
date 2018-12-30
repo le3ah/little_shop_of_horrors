@@ -44,9 +44,14 @@ class MerchantsController < ApplicationController
       end
     end 
     @merchant = current_user
-    @item = @merchant.items.create(item_params)
-    flash[:sucess] = "Item added!"
-    redirect_to dashboard_items_path
+    @item = @merchant.items.new(item_params)
+    if @item.save
+      flash[:success] = "Item added!"
+      redirect_to dashboard_items_path
+    else
+      flash[:error] = "Something went wrong!"
+      render template: 'merchants/new'
+    end
   end
 
   def items_index

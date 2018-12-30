@@ -15,7 +15,9 @@
   <section class='orders'>
     <% current_user.orders.each do |order| %>
       <div id="order-<%= order.id %>" class="order card text-white bg-dark mb-3">
-      <div class="card-header"><%= link_to "View Order ##{order.id}", profile_order_path(order) %></div>
+        <div class="card-header">
+          <%= link_to "View Order ##{order.id}", profile_order_path(order) %>
+        </div>
         <p class="card-text tpad">Created at: <%= order.created_at %></p>
         <p class="card-text tpad">Updated at: <%= order.updated_at %></p>
         <p class="card-text tpad">Status: <%= order.status %></p>

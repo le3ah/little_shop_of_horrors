@@ -43,5 +43,9 @@ class Item < ApplicationRecord
   def toggle_enabled
     self.enabled = !self.enabled
     save
-  end 
+  end
+
+  def decrease_inventory(amount)
+    update(inventory: self.inventory - amount)
+  end
 end

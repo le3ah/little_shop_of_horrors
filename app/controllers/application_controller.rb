@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     current_user && current_user.merchant?
   end
 
+  def merchant_or_admin?
+    render_404 unless current_admin? || current_merchant?
+  end
+
   def create_cart
     @cart ||= Cart.new(session[:cart])
   end

@@ -13,13 +13,13 @@
 
     <tbody>
         <% @items.each do |item| %>
-            <tr id=<%="item-#{item.id}"%>> 
+            <tr id=<%="item-#{item.id}"%>>
                 <td><%= item.id%></td>
                 <td><%= item.name%></td>
-                <% if item.thumbnail %>
-                    <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
-                <% else %>
-                    <td>><%=image_tag("no_img.jpg", id:("#{item.thumbnail}")) %></td>
+                <% begin %>
+                  <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
+                <% rescue %>
+                  <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
                 <% end %>
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
@@ -37,4 +37,4 @@
     </tbody>
 </table>
 
-<%= link_to 'add new item', new_item_path %> 
+<%= link_to 'add new item', new_item_path %>

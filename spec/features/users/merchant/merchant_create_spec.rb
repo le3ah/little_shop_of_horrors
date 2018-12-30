@@ -9,11 +9,9 @@ describe "As a Merchant" do
       visit dashboard_items_path
 
       click_on 'add new item'
-      save_and_open_page
       expect(current_path).to eq(new_item_path)
       fill_in "Name",	with: "Testing"
       fill_in "Description",	with: "123"
-      binding.pry
       attach_file("Thumbnail", Rails.root.join('spec', 'test_image', 'oldguy.jpeg'))
       fill_in "Price",	with: "11"
       fill_in "Inventory",	with: "456"

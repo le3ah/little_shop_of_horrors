@@ -19,22 +19,21 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def create    
+  def create
     thumbnail = params[:item][:thumbnail]
-
     if thumbnail
       File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
         file.write(thumbnail.read)
       end
-    end 
-    @merchant = current_user
-    @item = @merchant.items.new(item_params)
+    end
+
+    @item = current_user.items.create(item_params)
     if @item.save
       flash[:success] = "Item added!"
       redirect_to dashboard_items_path
     else
       flash[:error] = "Something went wrong!"
-      render template: 'merchants/new'
+      redirect_to items_path
     end
   end
 
@@ -50,6 +49,7 @@ class ItemsController < ApplicationController
   def destroy
     item = Item.find(params[:id])
     item.destroy
+    flash[:success] = "item successfully deleted!"
     redirect_to dashboard_items_path if current_merchant?
     redirect_to items_path if current_admin?
   end
@@ -57,6 +57,12 @@ class ItemsController < ApplicationController
   def toggle_item
     item = Item.find(params[:item_id])
     item.toggle_enabled
+    item.reload
+
+    flash[:success] = item.enabled? ?
+      "Item is available for sale!" :
+      "Item is no longer available for sale!"
+
     redirect_to dashboard_items_path
   end
 
@@ -67,7 +73,7 @@ class ItemsController < ApplicationController
       thing = params[:item][:thumbnail].original_filename
       params[:item][:thumbnail] = thing
       params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
-    else 
+    else
       params.require(:item).permit(:name, :description, :thumbnail, :price, :inventory)
     end
   end

@@ -26,30 +26,4 @@ class MerchantsController < ApplicationController
   def not_today_satan
     render_404 unless current_merchant?
   end
-
-  def new
-    @item = Item.new
-  end
-
-  def items_index
-    @merchant = current_user
-    @items = @merchant.items
-  end
-
-  def edit
-    @item = Item.find(params[:item_id])
-  end
-  
-  def destroy
-    item = Item.find(params[:item_id])
-    item.destroy
-    flash[:success] = "item successfully deleted!"
-    redirect_to dashboard_items_path
-  end
-
-  def toggle_item
-    item = Item.find(params[:item_id])
-    item.toggle_enabled
-    redirect_to dashboard_items_path
-  end 
 end

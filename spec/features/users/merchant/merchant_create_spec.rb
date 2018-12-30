@@ -25,12 +25,15 @@ describe "As a Merchant" do
       expect(page).to have_content("11")
       expect(page).to have_content("456")
 
+      expect(page).to have_content("Item added!")
+
       item = Item.find_by(name: "Testing")
 
       within "#item-#{item.id}" do
         expect(page).to have_button("delete")
         click_button "delete"
       end
+
 
       item = Item.find_by(name: "Testing")
 

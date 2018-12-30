@@ -46,4 +46,15 @@ class Order < ApplicationRecord
     .where("order_id=? AND items.user_id=?", self.id, user_id)
     .pluck("sum(quantity * order_items.price)")[0]
   end
+
+  def order_items_for_merchant(merchant_id)
+    OrderItem.joins(:item)
+      .select("
+        order_items.price AS order_item_price,
+        order_items.quantity AS order_item_quantity,
+        order_items.item_id AS item_id,
+        order_items.order_id as order_id,
+        items.*")
+      .where("order_id=? AND items.user_id=?", self.id, merchant_id)
+  end
 end

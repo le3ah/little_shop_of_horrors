@@ -6,7 +6,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :thumbnail
       t.integer :price
       t.integer :inventory
-      t.boolean :enabled, default: false, null: false
+      t.boolean :enabled, default: true, null: false
 
       t.timestamps
     end

@@ -19,7 +19,8 @@ describe "As a Merchant" do
       click_on "Create Item"
 
       expect(current_path).to eq(dashboard_items_path)
-
+      expect(page).to have_content("Item added!")
+      
       expect(page).to have_content("Testing") 
       expect(page).to have_content("11") 
       expect(page).to have_content("456") 
@@ -30,6 +31,7 @@ describe "As a Merchant" do
         expect(page).to have_button("delete")
         click_button "delete"
       end 
+
 
       item = Item.find_by(name: "Testing")
 

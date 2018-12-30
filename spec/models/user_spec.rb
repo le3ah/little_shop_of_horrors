@@ -115,53 +115,17 @@ RSpec.describe User, type: :model do
       i_5 = create(:item, price: 10, user_id: m_3.id)
       i_6 = create(:item, price: 10, user_id: m_3.id)
 
-      OrderItem.create(
-        quantity: 2,
-        price: i_1.price,
-        fulfilled: true,
-        order_id: o_1.id,
-        item_id: i_1.id
-      )
+      OrderItem.create(quantity: 2, price: i_1.price,fulfilled: true, order_id: o_1.id,item_id: i_1.id)
 
-      OrderItem.create(
-        quantity: 10,
-        price: i_2.price,
-        fulfilled: false,
-        order_id: o_2.id,
-        item_id: i_2.id
-      )
+      OrderItem.create(quantity: 10, price: i_2.price, fulfilled: false, order_id: o_2.id, item_id: i_2.id)
 
-      OrderItem.create(
-        quantity: 1,
-        price: i_3.price,
-        fulfilled: true,
-        order_id: o_1.id,
-        item_id: i_3.id
-      )
+      OrderItem.create(quantity: 1, price: i_3.price,fulfilled: true, order_id: o_1.id, item_id: i_3.id)
 
-      OrderItem.create(
-        quantity: 1,
-        price: i_4.price,
-        fulfilled: true,
-        order_id: o_2.id,
-        item_id: i_4.id
-      )
+      OrderItem.create(quantity: 1, price: i_4.price,fulfilled: true, order_id: o_2.id, item_id: i_4.id)
 
-      OrderItem.create(
-        quantity: 1,
-        price: i_5.price,
-        fulfilled: true,
-        order_id: o_1.id,
-        item_id: i_5.id
-      )
+      OrderItem.create(quantity: 1, price: i_5.price,fulfilled: true, order_id: o_1.id, item_id: i_5.id)
 
-      OrderItem.create(
-        quantity: 1,
-        price: i_6.price,
-        fulfilled: true,
-        order_id: o_2.id,
-        item_id: i_6.id
-      )
+      OrderItem.create(quantity: 1, price: i_6.price,fulfilled: true, order_id: o_2.id, item_id: i_6.id)
 
       top_sorted = User.merchants_by_revenue(:top, 3)
       bottom_sorted = User.merchants_by_revenue(:bottom, 3)
@@ -261,10 +225,27 @@ RSpec.describe User, type: :model do
       create(:fulfilled_order_item,  order:order, item: item_4, price: 1, quantity: 25)
       create(:fulfilled_order_item,  order:order, item: item_5, price: 1, quantity: 26)
       create(:fulfilled_order_item,  order:order, item: item_6, price: 1, quantity: 1)
-      merchant.top_5
 
       expect(merchant.top_5).to eq([item_5, item_4, item_3, item_2, item_1])
       expect(merchant.top_5).to_not eq([item_6])
+    end
+
+    it "#total_sold" do
+      merchant = create(:user, role: 1)
+      item_1 = create(:item, user:merchant)
+      item_2 = create(:item, user:merchant)
+      item_3 = create(:item, user:merchant)
+      item_4 = create(:item, user:merchant)
+
+      order_1 = create(:completed_order, user: merchant)
+      create(:fulfilled_order_item,  order:order_1, item: item_1, price: 1, quantity: 20)
+      create(:fulfilled_order_item,  order:order_1, item: item_2, price: 1, quantity: 23)
+      order_2 = create(:completed_order, user: merchant)
+      create(:fulfilled_order_item,  order:order_2, item: item_3, price: 1, quantity: 24)
+      order_3 = create(:order, user: merchant)
+      create(:order_item,  order:order_3, item: item_4, price: 1, quantity: 10)
+
+      expect(merchant.total_sold).to eq(67)
     end
   end
 end

@@ -69,6 +69,11 @@ class User < ApplicationRecord
       .order('sum_quantity DESC').limit(5).sum(:quantity)
     end
 
+    def total_sold
+      OrderItem.joins(:item, :order)
+      .where("status ='complete'")
+      .sum(:quantity)
+    end
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)

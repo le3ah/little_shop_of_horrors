@@ -250,10 +250,10 @@ RSpec.describe User, type: :model do
     it "#total_inventory" do
       merchant = create(:user, role: 1)
       merchant_2 = create(:user, role: 1)
-      item_1 = create(:item, user:merchant, inventory: 1_000)
-      item_2 = create(:item, user:merchant, inventory: 2_000)
-      item_3 = create(:item, user:merchant, inventory: 3_000)
-      item_4 = create(:item, user:merchant_2, inventory: 3_000)
+      create(:item, user:merchant, inventory: 1_000)
+      create(:item, user:merchant, inventory: 2_000)
+      create(:item, user:merchant, inventory: 3_000)
+      create(:item, user:merchant_2, inventory: 3_000)
 
       expect(merchant.total_inventory).to eq(6_000)
     end
@@ -275,6 +275,38 @@ RSpec.describe User, type: :model do
       create(:order_item,  order:order_3, item: item_4, price: 1, quantity: 10)
 
       expect(merchant.percentage_of_inventory).to eq(38.33)
+    end
+    it "#state_count" do
+      merchant = create(:user, role: 1)
+      item_1 = create(:item, user:merchant, inventory: 1_000)
+      item_2 = create(:item, user:merchant, inventory: 2_000)
+      item_3 = create(:item, user:merchant, inventory: 3_000)
+      item_4 = create(:item, user:merchant, inventory: 500)
+
+      user_1 = create(:user, city: 'San Diego', state: 'CA')
+      order_1 = create(:completed_order, user: user_1)
+      order_2 = create(:completed_order, user: user_1)
+
+      user_2 = create(:user, city: 'San Diego', state: 'CA')
+      order_3 = create(:completed_order, user: user_2)
+
+      user_3 = create(:user, city: 'Denver', state: 'CO')
+      order_4 = create(:completed_order, user: user_3)
+      order_5 = create(:completed_order, user: user_3)
+      order_6 = create(:completed_order, user: user_3)
+
+      user_4 = create(:user, city: 'Miami', state: 'FL')
+      order_7 = create(:order, user: user_4)
+      order_8 = create(:order, user: user_4)
+
+      user_5 = create(:user, city: 'Oakland', state: 'CA')
+      order_9 = create(:completed_order, user: user_5)
+
+      user_6 = create(:user, city: 'New York', state: 'NY')
+      order_10 = create(:completed_order, user: user_6)
+      order_11 = create(:completed_order, user: user_6)
+
+      expect(merchant.state_count).to eq({"CA"=>4, "CO"=>3, "NY"=>2})
     end
   end
 end

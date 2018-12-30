@@ -97,6 +97,12 @@ class User < ApplicationRecord
       .group(:id)
     end
 
+    def state_count
+      User.joins(:orders)
+      .where("status = 'complete'")
+      .group(:state).count
+    end
+
     private
 
     def self.top_cities_or_states(city_or_state, amount)

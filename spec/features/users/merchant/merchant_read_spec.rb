@@ -104,7 +104,7 @@ describe "As a Merchant" do
 
         visit dashboard_items_path
         within "#item-#{item_1.id}" do
-            click_button "Enable"
+          click_button "Enable"
         end
 
         item_1.reload

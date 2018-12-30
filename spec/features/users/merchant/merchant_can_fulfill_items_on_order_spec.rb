@@ -54,7 +54,8 @@ describe "Merchant Order Item Fulfillment" do
 
       expect(i.inventory).to be < oi.quantity
       expect(page).to_not have_button("Fulfill")
-      expect(page).to have_css("#red-notice")
+      expect(page).to have_css(".red-notice")
+      expect(page).to have_content("Not Enough Inventory")
     end
   end
 end

@@ -11,14 +11,14 @@
     <th>Item Image</th>
     <th>Price</th>
     <th>Quantity Ordered</th>
-    <th>Fufill Item / Fulfilled Status</th>
+    <th>Fufill Order Item / Fulfilled Status</th>
   </thead>
   <tbody>
     <% @order_items.each do |order_item| %>
       <tr>
         <td><%= link_to "#{order_item.item.name}", dashboard_item_path(order_item.item) %></td>
         <% begin %>
-          <td><%= image_tag(order_item.item.thumbnail)) %></td>
+          <td><%= image_tag(order_item.item.thumbnail) %></td>
         <% rescue %>
           <td><%= image_tag("no_img", id:("no_img")) %></td>
         <% end %>
@@ -27,7 +27,7 @@
         <% if order_item.fulfilled %>
           <td>Fulfilled</td>
         <% else %>
-          <td></td>
+          <td><%= button_to "Fulfill", fulfill_order_item_path(order_item_id: order_item.order_item_id) %></td>
         <% end %>
       </tr>
     <% end %>

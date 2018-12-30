@@ -53,7 +53,9 @@ class Order < ApplicationRecord
         order_items.price AS order_item_price,
         order_items.quantity AS order_item_quantity,
         order_items.item_id AS item_id,
-        order_items.order_id as order_id,
+        order_items.order_id AS order_id,
+        order_items.fulfilled AS fulfilled,
+        order_items.id AS order_item_id,
         items.*")
       .where("order_id=? AND items.user_id=?", self.id, merchant_id)
   end

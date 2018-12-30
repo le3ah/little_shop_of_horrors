@@ -247,5 +247,26 @@ describe Order, type: :model do
       expect(order_items_for_merch_1.second.user_id).to eq(@merchant_1.id)
       expect(order_items_for_merch_1.second.order_id).to eq(@order_pending_2.id)
     end
+
+    it "#check_complete" do
+      u = create(:user)
+      o = create(:order, user: u)
+
+      i_1 = create(:item)
+      i_2 = create(:item)
+
+      oi_1 = create(:fulfill_order_item, order: o, item: i_1)
+      oi_2 = create(:order_item, order: o, item: i_2)
+
+      expect(o.status).to eq("pending")
+      expect(o.check_complete).to be_falsy
+
+      oi_2.fulfilled = true
+      oi_2.reload
+      o.reload
+
+      expect(o.check_complete).to be_truthy
+      expect(o.status).to eq("complete")
+    end
   end
 end

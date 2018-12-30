@@ -57,4 +57,15 @@ class Order < ApplicationRecord
         items.*")
       .where("order_id=? AND items.user_id=?", self.id, merchant_id)
   end
+
+  def update_status
+    if self.complete?
+      self.status = "complete"
+      self.save
+    end
+  end
+
+  def complete?
+    order_items.where(fulfilled: false).empty?
+  end
 end

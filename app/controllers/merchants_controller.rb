@@ -59,6 +59,7 @@ class MerchantsController < ApplicationController
   def destroy
     item = Item.find(params[:item_id])
     item.destroy
+    flash[:success] = "item successfully deleted!"
     redirect_to dashboard_items_path
   end
 

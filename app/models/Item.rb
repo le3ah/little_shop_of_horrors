@@ -48,4 +48,8 @@ class Item < ApplicationRecord
   def decrease_inventory(amount)
     update(inventory: self.inventory - amount)
   end
+
+  def enough_inventory?(quantity_ordered)
+    inventory >= quantity_ordered
+  end
 end

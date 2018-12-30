@@ -22,3 +22,6 @@ coverage
 public/assets
 
 .gitignore
+
+# Ignore application configuration
+/config/application.yml

@@ -194,6 +194,7 @@ describe Item, type: :model do
         i = create(:item, user: u, inventory: 4)
 
         expect(i.enough_inventory?(5)).to be_falsy
+        expect(i.enough_inventory?(4)).to be_truthy
         expect(i.enough_inventory?(3)).to be_truthy
       end
     end

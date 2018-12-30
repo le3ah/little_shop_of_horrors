@@ -12,6 +12,7 @@ describe "Merchant Order Item Fulfillment" do
       @oi_1 = create(:order_item, order: @o, item: @i_1, quantity: 2)
       @oi_2 = create(:fulfilled_order_item, order: @o, item: @i_2)
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m)
       visit dashboard_order_path(@o)
     end
     it 'shows button to fulfill order item which redirects back to dashboard_order page' do
@@ -25,7 +26,7 @@ describe "Merchant Order Item Fulfillment" do
       click_button "Fulfill"
       @oi_1.reload
       expect(@oi_1.fulfilled).to eq(true)
-      expect(page).to have_content("Item is now fulfilled!")
+      expect(page).to have_content("Order Item has been fulfilled!")
     end
 
     it 'clicking fulfill permanently reduces item inventory by quantity ordered' do

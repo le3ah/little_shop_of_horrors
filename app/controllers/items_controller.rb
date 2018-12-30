@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
 
   def create
     thumbnail = params[:item][:thumbnail]
-    if thumbnail
+    if thumbnail.class != String
       File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
         file.write(thumbnail.read)
       end
@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
   end
 
   def toggle_item
-    item = Item.find(params[:format])
+    item = Item.find(params[:item_id])
     item.toggle_enabled
     item.reload
 
@@ -69,11 +69,12 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    if params[:item][:thumbnail]
+    if params[:item][:thumbnail].class != String
       thing = params[:item][:thumbnail].original_filename
       params[:item][:thumbnail] = thing
       params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
     else
+      params[:item][:thumbnail] = "no_img.jpg"
       params.require(:item).permit(:name, :description, :thumbnail, :price, :inventory)
     end
   end

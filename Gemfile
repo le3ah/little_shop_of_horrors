@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
+gem 'factory_bot_rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -45,7 +46,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'simplecov'
-  gem 'factory_bot_rails'
   gem 'pry'
 end
 

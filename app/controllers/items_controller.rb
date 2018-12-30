@@ -59,6 +59,12 @@ class ItemsController < ApplicationController
   def toggle_item
     item = Item.find(params[:item_id])
     item.toggle_enabled
+    item.reload
+
+    flash[:success] = item.enabled? ?
+      "Item is available for sale!" :
+      "Item is no longer available for sale!"
+
     redirect_to dashboard_items_path
   end
 

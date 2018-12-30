@@ -20,7 +20,7 @@
         <% begin %>
           <td><%= image_tag(order_item.item.thumbnail) %></td>
         <% rescue %>
-          <td><%= image_tag("no_img", id:("no_img")) %></td>
+          <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
         <% end %>
         <td>$<%= order_item.order_item_price %></td>
         <td>Quantity Ordered: <%= order_item.order_item_quantity %></td>

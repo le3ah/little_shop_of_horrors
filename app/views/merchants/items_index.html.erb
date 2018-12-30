@@ -1,36 +1,37 @@
-<h1><%= current_user.name %> Items</h1>
+<div class="merchant_items-container">
+  <h1><%= current_user.name %> Items</h1>
+      <table class="table table-bordered table-striped table-dark">
+          <thead>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Thumbnail</th>
+              <th scope="col">Price</th>
+              <th scope="col">Inventory</th>
+              <th scope="col">Enable/Disable</th>
+              <th scope="col">Edit</th>
+          </thead>
 
-<table>
-    <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Thumbnail</th>
-        <th>Price</th>
-        <th>Inventory</th>
-        <th>Enable/Disable</th>
-        <th>Edit</th>
-    </thead>
+          <tbody>
+              <% @items.each do |item| %>
+                  <tr id=<%="item-#{item.id}"%>> 
+                      <td><%= item.id%></td>
+                      <td><%= item.name%></td>
+                      <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
+                      <td><%= item.price%></td>
+                      <td><%= item.inventory%></td>
+                      <% if item.enabled? %>
+                          <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
+                      <% else %>
+                          <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
+                      <% end %>
+                      <td><%= link_to 'edit', edit_item_path(item_id: item.id) %></td>
+                      <% unless item.ordered? %>
+                          <td><%= button_to 'delete', delete_item_path(item_id: item.id), method: :delete %></td>
+                      <% end %>
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+  <%= link_to 'add new item', dashboard_items_new_path %> 
+</div>
 
-    <tbody>
-        <% @items.each do |item| %>
-            <tr id=<%="item-#{item.id}"%>> 
-                <td><%= item.id%></td>
-                <td><%= item.name%></td>
-                <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
-                <td><%= item.price%></td>
-                <td><%= item.inventory%></td>
-                <% if item.enabled? %>
-                    <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
-                <% else %>
-                    <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
-                <% end %>
-                <td><%= link_to 'edit', edit_item_path(item_id: item.id) %></td>
-                <% unless item.ordered? %>
-                    <td><%= button_to 'delete', delete_item_path(item_id: item.id), method: :delete %></td>
-                <% end %>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<%= link_to 'add new item', dashboard_items_new_path %> 

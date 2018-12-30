@@ -13,20 +13,20 @@
 
     <tbody>
         <% @items.each do |item| %>
-            <tr id=<%="item-#{item.id}"%>> 
+            <tr id=<%="item-#{item.id}"%>>
                 <td><%= item.id%></td>
                 <td><%= item.name%></td>
-                <% if item.thumbnail %>
+                <% begin %>
                     <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
-                <% else %>
-                    <td>><%=image_tag("no_img.jpg", id:("#{item.thumbnail}")) %></td>
+                <% rescue %>
+                    <td><%=image_tag("no_img.jpg", id:("no_img")) %></td>
                 <% end %>
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
                 <% if item.enabled? %>
-                    <td><%= button_to "Disable", toggle_item_path(item) %></td>
+                    <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
                 <% else %>
-                    <td><%= button_to "Enable", toggle_item_path(item) %></td>
+                    <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
                 <% end %>
                 <td><%= link_to 'edit', edit_item_path(item) %></td>
                 <% unless item.ordered? %>
@@ -37,4 +37,4 @@
     </tbody>
 </table>
 
-<%= link_to 'add new item', new_item_path %> 
+<%= link_to 'add new item', new_item_path %>

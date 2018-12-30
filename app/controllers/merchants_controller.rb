@@ -38,12 +38,14 @@ class MerchantsController < ApplicationController
   def create    
     thumbnail = params[:item][:thumbnail]
 
-    File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
-      file.write(thumbnail.read)
-    end
-    
+    if thumbnail
+      File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|
+        file.write(thumbnail.read)
+      end
+    end 
     @merchant = current_user
     @item = @merchant.items.create(item_params)
+    flash[:sucess] = "Item added!"
     redirect_to dashboard_items_path
   end
 
@@ -72,8 +74,12 @@ class MerchantsController < ApplicationController
   private
 
   def item_params
-    thing = params[:item][:thumbnail].original_filename
-    params[:item][:thumbnail] = thing
-    params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
+    if params[:item][:thumbnail]
+      thing = params[:item][:thumbnail].original_filename
+      params[:item][:thumbnail] = thing
+      params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
+    else 
+      params.require(:item).permit(:name, :description, :thumbnail, :price, :inventory)
+    end
   end
 end

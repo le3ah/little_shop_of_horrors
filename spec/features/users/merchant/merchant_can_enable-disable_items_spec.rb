@@ -23,7 +23,7 @@ describe "Merchant Enable/Disable Item" do
       expect(current_path).to eq(dashboard_items_path)
     end
 
-    it 'clicking button to enable or disable updates item and show appropriate flash m' do
+    it 'clicking button to enable or disable updates item and show appropriate flash message' do
       click_button "Enable"
       expect(page).to have_content("Item is available for sale!")
 
@@ -32,8 +32,8 @@ describe "Merchant Enable/Disable Item" do
 
       first(:button, "Disable").click
       expect(page).to have_content("Item is no longer available for sale!")
-      @i_1.reload
-      expect(@i_1.enabled).to be_falsy
+      @i_2.reload
+      expect(@i_2.enabled).to be_falsey
     end
   end
 end

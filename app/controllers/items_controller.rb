@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
   end
 
   def toggle_item
-    item = Item.find(params[:item_id])
+    item = Item.find(params[:format])
     item.toggle_enabled
     item.reload
 

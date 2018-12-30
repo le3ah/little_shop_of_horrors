@@ -19,14 +19,14 @@
                 <% begin %>
                   <td><%= image_tag(item.thumbnail, id:("#{item.thumbnail}")) %></td>
                 <% rescue %>
-                  <td><%= image_tag("no_img", id:("no_img")) %></td>
+                  <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
                 <% end %>
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
                 <% if item.enabled? %>
-                    <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
+                    <td><%= button_to "Disable", toggle_item_path(item) %></td>
                 <% else %>
-                    <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
+                    <td><%= button_to "Enable", toggle_item_path(item) %></td>
                 <% end %>
                 <td><%= link_to 'edit', edit_item_path(item) %></td>
                 <% unless item.ordered? %>

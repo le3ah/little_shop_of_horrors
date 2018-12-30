@@ -20,8 +20,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    render_404 unless current_merchant?
-
     thumbnail = params[:item][:thumbnail]
     if thumbnail
       File.open(Rails.root.join('app', 'assets', 'images', thumbnail.original_filename), 'wb') do |file|

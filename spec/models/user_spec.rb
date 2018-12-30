@@ -257,5 +257,24 @@ RSpec.describe User, type: :model do
 
       expect(merchant.total_inventory).to eq(6_000)
     end
+    it "#percentage_of_inventory" do
+      merchant = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      item_1 = create(:item, user:merchant, inventory: 1_000)
+      item_2 = create(:item, user:merchant, inventory: 2_000)
+      item_3 = create(:item, user:merchant, inventory: 3_000)
+      item_4 = create(:item, user:merchant_2, inventory: 3_000)
+
+      order_1 = create(:completed_order, user: merchant)
+      create(:fulfilled_order_item,  order:order_1, item: item_1, price: 1, quantity: 200)
+      create(:fulfilled_order_item,  order:order_1, item: item_2, price: 1, quantity: 2_000)
+      order_2 = create(:completed_order, user: merchant)
+      create(:fulfilled_order_item,  order:order_2, item: item_3, price: 1, quantity: 100)
+      order_3 = create(:order, user: merchant)
+      create(:order_item,  order:order_3, item: item_3, price: 1, quantity: 10)
+      create(:order_item,  order:order_3, item: item_4, price: 1, quantity: 10)
+
+      expect(merchant.percentage_of_inventory).to eq(38.33)
+    end
   end
 end

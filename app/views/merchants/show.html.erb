@@ -45,6 +45,9 @@
 <div id="total-sold">
   <p>Total Items Sold: <%= @merchant.total_sold %></p>
 </div>
+<div id="percentage-inventory">
+  <p>You've Sold <%= @merchant.percentage_of_inventory %>% of Your Inventory.</p>
+</div>
 
   <%= link_to "View My Items", dashboard_items_path %>
 </section>

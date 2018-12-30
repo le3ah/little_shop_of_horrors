@@ -36,6 +36,9 @@ describe  'as a merchant' do
       within "#total-sold" do
         expect(page).to have_content("Total Items Sold: #{@merchant.total_sold}")
       end
+      within "#percentage-inventory" do
+        expect(page).to have_content("You've Sold #{@merchant.percentage_of_inventory}% of Your Inventory.")
+      end
     end
   end
 end

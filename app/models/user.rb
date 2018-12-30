@@ -80,6 +80,10 @@ class User < ApplicationRecord
       .sum(:inventory)
     end
 
+    def percentage_of_inventory
+      ((total_sold.to_f / total_inventory) * 100).round(2)
+    end
+
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)

@@ -74,6 +74,12 @@ class User < ApplicationRecord
       .where("status ='complete'")
       .sum(:quantity)
     end
+
+    def total_inventory
+      Item.where("user_id = #{self.id}")
+      .sum(:inventory)
+    end
+
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)

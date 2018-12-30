@@ -247,5 +247,15 @@ RSpec.describe User, type: :model do
 
       expect(merchant.total_sold).to eq(67)
     end
+    it "#total_inventory" do
+      merchant = create(:user, role: 1)
+      merchant_2 = create(:user, role: 1)
+      item_1 = create(:item, user:merchant, inventory: 1_000)
+      item_2 = create(:item, user:merchant, inventory: 2_000)
+      item_3 = create(:item, user:merchant, inventory: 3_000)
+      item_4 = create(:item, user:merchant_2, inventory: 3_000)
+
+      expect(merchant.total_inventory).to eq(6_000)
+    end
   end
 end

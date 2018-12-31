@@ -352,7 +352,7 @@ RSpec.describe User, type: :model do
       expect(expectation_group.last.state).to eq("NY")
     end
 
-    xit "#most_user_orders" do
+    it "#most_user_orders" do
       merchant = create(:user, role: 1)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
@@ -367,8 +367,28 @@ RSpec.describe User, type: :model do
       order_item1 = create(:fulfilled_order_item, quantity: 11, item:item1, order: order1)
       order_item2 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
       order_item3 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
-binding.pry
-      expect(merchant.most_user_orders.last.user_id).to eq(user1.id)
+      user_expectation = merchant.most_user_orders
+      expect(user_expectation.first.user_id).to eq(user1.id)
+    end
+    it "#most_items_ordered" do
+      merchant = create(:user, role: 1)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+      user1 = create(:user, name:"user1", state: 'NY', city: "Oakfield")
+      user2 = create(:user, name:"user2", state: 'AL', city: "Cullman")
+      user3 = create(:user, name:"user3", state: 'SC', city: "Charleston")
+      item1 = create(:item, user:merchant)
+
+      order1 = create(:completed_order, user:user1)
+      order2 = create(:completed_order, user:user2)
+      order3 = create(:completed_order, user:user3)
+
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order1)
+      order_item2 = create(:fulfilled_order_item, quantity: 2, item:item1, order: order2)
+      order_item3 = create(:fulfilled_order_item, quantity: 11, item:item1, order: order3)
+      user_expectation = merchant.most_items_ordered
+      # binding.pry
+      expect(user_expectation.first.user_id).to eq(user3.id)
     end
   end
 end

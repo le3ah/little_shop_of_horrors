@@ -123,7 +123,16 @@ class User < ApplicationRecord
       .where("items.user_id=#{self.id}")
       .where("order_items.fulfilled=true")
       .group("orders.user_id")
-      .order("customer_order_quantity")
+      .order("customer_order_quantity desc")
+    end
+
+    def most_items_ordered
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
+      .select("orders.user_id AS user_id, sum(order_items.quantity) as customer_order_quantity")
+      .where("items.user_id=#{self.id}")
+      .where("order_items.fulfilled=true")
+      .group("orders.user_id")
+      .order("customer_order_quantity desc")
     end
 
     private

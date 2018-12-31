@@ -106,13 +106,14 @@ class User < ApplicationRecord
       .order("order_item_quantity desc")
       .limit(3)
     end
+
     def top_shipment_city_states
       User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")
       .select("users.city, users.state, SUM(order_items.quantity) as order_item_quantity")
       .where("orders.status = 'complete'")
       .where("items.user_id=#{self.id}")
       .group("users.city, users.state")
-      .order("order_item_quantity")
+      .order("order_item_quantity desc")
       .limit(3)
     end
 

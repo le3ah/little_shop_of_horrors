@@ -312,7 +312,7 @@ RSpec.describe User, type: :model do
       expect(expectation.last.state).to eq("UT")
     end
 
-    xit "#top_shipment_city_states" do
+    it "#top_shipment_city_states" do
       merchant1 = create(:user, role: 1)
       user1 = create(:user, city: "Springfield", state: 'CA')
       user2 = create(:user, city: "Denver", state: 'CO')
@@ -342,9 +342,14 @@ RSpec.describe User, type: :model do
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order8)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order9)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order10)
-      expect(merchant1.top_shipment_states.first.state).to eq("Springfield, CA")
-      expect(merchant1.top_shipment_states.second.state).to eq("Denver, CO")
-      expect(merchant1.top_shipment_states.last.state).to eq("Staten Island, NY")
+      expectation_group = merchant1.top_shipment_city_states
+
+      expect(expectation_group.first.city).to eq("Springfield")
+      expect(expectation_group.first.state).to eq("CA")
+      expect(expectation_group.second.city).to eq("Denver")
+      expect(expectation_group.second.state).to eq("CO")
+      expect(expectation_group.last.city).to eq("Staten Island")
+      expect(expectation_group.last.state).to eq("NY")
     end
 
     xit "#most_user_orders" do

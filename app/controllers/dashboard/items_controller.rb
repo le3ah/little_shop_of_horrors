@@ -80,7 +80,7 @@ class Dashboard::ItemsController < Dashboard::BaseController
 
   def update_item(item, params)
     params.each do |attribute, value|
-      next if value.blank? || item[attribute] == value
+      next if value.blank? || item[attribute] == value unless attribute == "thumbnail"
       item[attribute] = value
     end
     item.save

@@ -61,6 +61,7 @@
 <h3>My Top Users</h3>
 <ul>
   <li>User with the Most Orders: <%= @merchant.most_user_orders.name if @merchant.most_user_orders %></li>
+  <li>User Purchasing the Most Total Items: <%= @merchant.most_items_ordered.name if @merchant.most_user_orders %></li>
 </ul>
 
 <div id="top-cities">

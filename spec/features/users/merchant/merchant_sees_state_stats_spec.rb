@@ -42,5 +42,9 @@ describe 'as a merchant'do
       visit dashboard_path
       expect(page).to have_content("User with the Most Orders: #{@merchant_1.most_user_orders.name}")
     end
+    it "should see name of user purchasing most total items from merchant" do
+      visit dashboard_path
+      expect(page).to have_content("User Purchasing the Most Total Items: #{@merchant_1.most_items_ordered.name}")
+    end
   end
 end

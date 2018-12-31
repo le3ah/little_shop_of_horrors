@@ -23,17 +23,20 @@ describe 'as a merchant'do
     it "should see top states where merchant shipped items" do
       visit dashboard_path
       top_states = @merchant_1.top_shipment_states
-      expect(page).to have_content(top_states.first.state)
-      expect(page).to have_content(top_states.second.state)
-      expect(page).to have_content(top_states.last.state)
+      within "#top-states" do
+        expect(page).to have_content(top_states.first.state)
+        expect(page).to have_content(top_states.second.state)
+        expect(page).to have_content(top_states.last.state)
+      end
     end
     it "should see top city states where merchant shipped items" do
       visit dashboard_path
       top_city_states = @merchant_1.top_shipment_city_states
-
-      expect(page).to have_content("#{top_city_states.first.city}", "#{top_city_states.first.state}")
-      expect(page).to have_content("#{top_city_states.second.city}", "#{top_city_states.second.state}")
-      expect(page).to have_content("#{top_city_states.last.city}", "#{top_city_states.last.state}")
+      within "#top-cities" do
+        expect(page).to have_content("#{top_city_states.first.city}", "#{top_city_states.first.state}")
+        expect(page).to have_content("#{top_city_states.second.city}", "#{top_city_states.second.state}")
+        expect(page).to have_content("#{top_city_states.last.city}", "#{top_city_states.last.state}")
+      end 
     end
   end
 end

@@ -71,6 +71,28 @@ describe "As a Merchant" do
       end 
     end 
     
+    it 'shows flash messages if required fields are blank on update' do
+      merchant = create(:user, role: 1)
+      item = create(:item, user: merchant, thumbnail: "plant_10")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+
+      visit dashboard_items_path
+
+      within "#item-#{item.id}" do
+        click_link "edit"
+      end
+
+      fill_in "Name", with: ""
+      fill_in "Description", with: ""
+      fill_in "Price", with: ""
+
+      click_button "Update Item"
+
+      item.reload
+
+      expect(page).to have_content("name cannot be blank")
+      expect(page).to have_content("description cannot be blank")
+      expect(page).to have_content("price cannot be blank")
+    end
   end
-  
 end

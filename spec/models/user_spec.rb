@@ -276,37 +276,92 @@ RSpec.describe User, type: :model do
 
       expect(merchant.percentage_of_inventory).to eq(38.33)
     end
-    it "#state_count" do
+    xit "#top_shipment_states" do
+      merchant1 = create(:user, role: 1)
+      merchant2 = create(:user, role: 1)
+      user1 = create(:user, state: 'CA')
+      user2 = create(:user, state: 'CO')
+      user3 = create(:user, state: 'NY')
+      user4 = create(:user, state: 'UT')
+
+      item1 = create(:item, user:merchant1)
+      item2 = create(:item, user:merchant2)
+
+      order1 = create(:completed_order, user:user1)
+      order2 = create(:completed_order, user:user1)
+      order3 = create(:completed_order, user:user2)
+      order4 = create(:completed_order, user:user2)
+      order5 = create(:completed_order, user:user3)
+      order6 = create(:completed_order, user:user3)
+      order7 = create(:completed_order, user:user4)
+      order8 = create(:completed_order, user:user1)
+      order9 = create(:completed_order, user:user1)
+
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order1)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order4)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order5)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order6)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order7)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order8)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order9)
+      expect(merchant1.top_shipment_states.first.state).to eq("CA")
+      expect(merchant1.top_shipment_states.second.state).to eq("UT")
+      expect(merchant1.top_shipment_states.last.state).to eq("CO")
+    end
+
+    xit "#top_shipment_city_states" do
+      merchant1 = create(:user, role: 1)
+      user1 = create(:user, city: "Springfield", state: 'CA')
+      user2 = create(:user, city: "Denver", state: 'CO')
+      user3 = create(:user, city: "Staten Island", state: 'NY')
+      user4 = create(:user, city: "Springfield", state: 'UT')
+
+      item1 = create(:item, user:merchant1)
+
+      order1 = create(:completed_order, user:user1)
+      order2 = create(:completed_order, user:user1)
+      order3 = create(:completed_order, user:user1)
+      order4 = create(:completed_order, user:user1)
+      order5 = create(:completed_order, user:user2)
+      order6 = create(:completed_order, user:user2)
+      order7 = create(:completed_order, user:user2)
+      order8 = create(:completed_order, user:user3)
+      order9 = create(:completed_order, user:user3)
+      order10 = create(:completed_order, user:user4)
+
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order1)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order4)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order5)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order6)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order7)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order8)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order9)
+      expect(merchant1.top_shipment_states.first.state).to eq("CA")
+      expect(merchant1.top_shipment_states.second.state).to eq("UT")
+      expect(merchant1.top_shipment_states.last.state).to eq("CO")
+    end
+
+    it "#most_user_orders" do
       merchant = create(:user, role: 1)
-      item_1 = create(:item, user:merchant, inventory: 1_000)
-      item_2 = create(:item, user:merchant, inventory: 2_000)
-      item_3 = create(:item, user:merchant, inventory: 3_000)
-      item_4 = create(:item, user:merchant, inventory: 500)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
-      user_1 = create(:user, city: 'San Diego', state: 'CA')
-      order_1 = create(:completed_order, user: user_1)
-      order_2 = create(:completed_order, user: user_1)
+      user1 = create(:user, name:"user1", state: 'NY', city: "New York")
+      user2 = create(:user, name:"user2", state: 'AL', city: "Cullman")
+      item1 = create(:item, user:merchant)
 
-      user_2 = create(:user, city: 'San Diego', state: 'CA')
-      order_3 = create(:completed_order, user: user_2)
+      order1 = create(:completed_order, user:user1)
+      order2 = create(:completed_order, user:user1)
+      order3 = create(:completed_order, user:user2)
 
-      user_3 = create(:user, city: 'Denver', state: 'CO')
-      order_4 = create(:completed_order, user: user_3)
-      order_5 = create(:completed_order, user: user_3)
-      order_6 = create(:completed_order, user: user_3)
-
-      user_4 = create(:user, city: 'Miami', state: 'FL')
-      order_7 = create(:order, user: user_4)
-      order_8 = create(:order, user: user_4)
-
-      user_5 = create(:user, city: 'Oakland', state: 'CA')
-      order_9 = create(:completed_order, user: user_5)
-
-      user_6 = create(:user, city: 'New York', state: 'NY')
-      order_10 = create(:completed_order, user: user_6)
-      order_11 = create(:completed_order, user: user_6)
-
-      expect(merchant.state_count).to eq({"CA"=>4, "CO"=>3, "NY"=>2})
+      order_item1 = create(:fulfilled_order_item, quantity: 11, item:item1, order: order1)
+      order_item2 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
+      order_item3 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
+binding.pry
+      expect(merchant.most_user_orders.last.user_id).to eq(user1.id)
     end
   end
 end

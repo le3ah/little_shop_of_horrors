@@ -97,10 +97,32 @@ class User < ApplicationRecord
       .group(:id)
     end
 
-    def state_count
-      User.joins(:orders)
-      .where("status = 'complete'")
-      .group(:state).count
+    def top_shipment_states
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")
+      .select("users.state, SUM(order_items.quantity) as order_item_quantity")
+      .where("orders.status = 'complete'")
+      .where("items.user_id=#{self.id}")
+      .group("users.state")
+      .order("order_item_quantity")
+      .limit(3)
+    end
+    def top_shipment_city_states
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")
+      .select("users.city, users.state, SUM(order_items.quantity) as order_item_quantity")
+      .where("orders.status = 'complete'")
+      .where("items.user_id=#{self.id}")
+      .group("users.city, users.state")
+      .order("order_item_quantity")
+      .limit(3)
+    end
+
+    def most_user_orders
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
+      .select("orders.user_id AS user_id, count(orders.id) as customer_order_quantity")
+      .where("items.user_id=#{self.id}")
+      .where("order_items.fulfilled=true")
+      .group("orders.user_id")
+      .order("customer_order_quantity")
     end
 
     private

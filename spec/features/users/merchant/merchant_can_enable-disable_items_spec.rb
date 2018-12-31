@@ -29,11 +29,11 @@ describe "Merchant Enable/Disable Item" do
 
       @i_2.reload
       expect(@i_2.enabled).to be_truthy
-
+      
       first(:button, "Disable").click
       expect(page).to have_content("Item is no longer available for sale!")
-      @i_2.reload
-      expect(@i_2.enabled).to be_falsey
+      @i_1.reload
+      expect(@i_1.enabled).to be_falsey
     end
   end
 end

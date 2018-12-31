@@ -83,7 +83,17 @@ class Dashboard::ItemsController < Dashboard::BaseController
       next if value.blank? || item[attribute] == value unless attribute == "thumbnail"
       item[attribute] = value
     end
+    flash_warnings(params)
     item.save
   end
 
+  def flash_warnings(params)
+    messages = []
+    params.each do |attribute, value|
+      if value.blank? && attribute != "thumbnail"
+        messages << "#{attribute} cannot be blank. Using previous value."
+      end
+    end
+    flash[:error] = messages
+  end
 end

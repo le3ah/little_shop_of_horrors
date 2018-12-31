@@ -1,4 +1,4 @@
-require '../../app/models/Item.rb'
+require_relative '../../app/models/Item.rb'
 
 FactoryBot.define do
   factory :item, class: Item do

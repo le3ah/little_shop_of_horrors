@@ -10,7 +10,7 @@ RSpec.describe 'as an Admin' do
           visit root_path
           click_link "Browse Merchants"
 
-          expect(current_path).to eq(merchants_path)
+          expect(current_path).to eq(admin_merchants_path)
         end
         it "can visit and see data" do
             admin = create(:user, role:2)

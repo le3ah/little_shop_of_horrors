@@ -368,7 +368,7 @@ RSpec.describe User, type: :model do
       order_item2 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
       order_item3 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
       user_expectation = merchant.most_user_orders
-      expect(user_expectation.first.user_id).to eq(user1.id)
+      expect(user_expectation.first.name).to eq(user1.name)
     end
     it "#most_items_ordered" do
       merchant = create(:user, role: 1)
@@ -388,7 +388,8 @@ RSpec.describe User, type: :model do
       order_item3 = create(:fulfilled_order_item, quantity: 11, item:item1, order: order3)
       user_expectation = merchant.most_items_ordered
 
-      expect(user_expectation.first.user_id).to eq(user3.id)
+      # expect(user_expectation.first.user_id).to eq(user3.id)
+      expect(user_expectation.first.name).to eq(user3.name)
     end
 
     it "#top_user_spenders" do
@@ -409,9 +410,9 @@ RSpec.describe User, type: :model do
       order_item3 = create(:fulfilled_order_item, quantity: 5, price: 10, item:item1, order: order3)
       user_expectation = merchant.top_user_spenders
 
-      expect(user_expectation.first.user_id).to eq(user2.id)
-      expect(user_expectation.second.user_id).to eq(user3.id)
-      expect(user_expectation.last.user_id).to eq(user1.id)
+      expect(user_expectation.first.name).to eq(user2.name)
+      expect(user_expectation.second.name).to eq(user3.name)
+      expect(user_expectation.last.name).to eq(user1.name)
 
     end
   end

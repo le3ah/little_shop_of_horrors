@@ -119,28 +119,31 @@ class User < ApplicationRecord
 
     def most_user_orders
       User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
-      .select("orders.user_id AS user_id, count(orders.id) as customer_order_quantity")
+      .select("users.*, count(orders.id) as customer_order_quantity")
       .where("items.user_id=#{self.id}")
       .where("order_items.fulfilled=true")
-      .group("orders.user_id")
+      .group("users.id")
       .order("customer_order_quantity desc")
+      .limit(1)
     end
 
     def most_items_ordered
       User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
-      .select("orders.user_id AS user_id, sum(order_items.quantity) as customer_order_quantity")
+      .select("users.*, sum(order_items.quantity) as customer_order_quantity")
       .where("items.user_id=#{self.id}")
       .where("order_items.fulfilled=true")
-      .group("orders.user_id")
+      .group("users.id")
       .order("customer_order_quantity desc")
+      .limit(1)
     end
     def top_user_spenders
       User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
-      .select("orders.user_id AS user_id, sum(order_items.quantity * order_items.price) as customer_spend_total")
+      .select("users.*, sum(order_items.quantity * order_items.price) as customer_spend_total")
       .where("items.user_id=#{self.id}")
       .where("order_items.fulfilled=true")
-      .group("orders.user_id")
+      .group("users.id")
       .order("customer_spend_total desc")
+      .limit(3)
     end
     private
 

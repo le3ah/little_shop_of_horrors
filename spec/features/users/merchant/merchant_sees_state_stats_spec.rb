@@ -17,8 +17,8 @@ describe 'as a merchant'do
     order_item1 = create(:fulfilled_order_item, quantity: 1, item:@item1, order: order1)
     order_item2 = create(:fulfilled_order_item, quantity: 2, item:@item1, order: order2)
     order_item3 = create(:fulfilled_order_item, quantity: 11, item:@item1, order: order3)
-
   end
+
   context "sees sales details for users" do
     it "should see top states where merchant shipped items" do
       visit dashboard_path
@@ -46,5 +46,16 @@ describe 'as a merchant'do
       visit dashboard_path
       expect(page).to have_content("User Purchasing the Most Total Items: #{@merchant_1.most_items_ordered.name}")
     end
+    it "should see top 3 users spending the most money on my items" do
+      visit dashboard_path
+      top_spenders = @merchant_1.top_user_spenders
+
+      within "#top-3-spenders" do
+        expect(page).to have_content(top_spenders.first.name)
+        expect(page).to have_content(top_spenders.second.name)
+        expect(page).to have_content(top_spenders.last.name)
+      end
+    end
   end
+
 end

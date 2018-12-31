@@ -58,17 +58,24 @@
   </ul>
   <% end %>
 </div>
-<h3>My Top Users</h3>
-<ul>
-  <li>User with the Most Orders: <%= @merchant.most_user_orders.name if @merchant.most_user_orders %></li>
-  <li>User Purchasing the Most Total Items: <%= @merchant.most_items_ordered.name if @merchant.most_user_orders %></li>
-</ul>
-
 <div id="top-cities">
   <h3>Top 3 Cities Where I Shipped My Items</h3>
   <% @merchant.top_shipment_city_states.each do |citystate| %>
   <ul>
     <li><%= citystate.city %>, <%= citystate.state %></li>
+  </ul>
+  <% end %>
+</div>
+<h3>My Top Users</h3>
+<ul>
+  <li>User with the Most Orders: <%= @merchant.most_user_orders.name if @merchant.most_user_orders %></li>
+  <li>User Purchasing the Most Total Items: <%= @merchant.most_items_ordered.name if @merchant.most_items_ordered %></li>
+</ul>
+<div id="top-3-spenders">
+  <h3>Top 3 Spenders</h3>
+  <% @merchant.top_user_spenders.each do |spender| %>
+  <ul>
+    <li><%= spender.name %></li>
   </ul>
   <% end %>
 </div>

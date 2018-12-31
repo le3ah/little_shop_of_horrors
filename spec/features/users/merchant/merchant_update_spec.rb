@@ -11,16 +11,14 @@ describe "As a Merchant" do
       within "#item-#{item.id}" do
         click_link "edit"
       end
-
       expect(current_path).to eq(edit_item_path(item))
 
-      fill_in "Price",	with: "11"      
+      fill_in "Thumbnail", with: "plant_11"
       click_button "Update Item"
 
       item.reload
       expect(current_path).to eq(dashboard_items_path)
-      expect(page).to have_content(11)
-      expect(item.price).to eq(11)
+      expect(page.find('#plant_11')['alt']).to match("Plant 11")
     end
   end
 end

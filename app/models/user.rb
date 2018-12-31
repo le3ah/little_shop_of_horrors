@@ -103,7 +103,7 @@ class User < ApplicationRecord
       .where("orders.status = 'complete'")
       .where("items.user_id=#{self.id}")
       .group("users.state")
-      .order("order_item_quantity")
+      .order("order_item_quantity desc")
       .limit(3)
     end
     def top_shipment_city_states

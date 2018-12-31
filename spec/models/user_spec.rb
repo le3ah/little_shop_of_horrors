@@ -276,7 +276,7 @@ RSpec.describe User, type: :model do
 
       expect(merchant.percentage_of_inventory).to eq(38.33)
     end
-    xit "#top_shipment_states" do
+    it "#top_shipment_states" do
       merchant1 = create(:user, role: 1)
       merchant2 = create(:user, role: 1)
       user1 = create(:user, state: 'CA')
@@ -306,9 +306,10 @@ RSpec.describe User, type: :model do
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order7)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order8)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order9)
-      expect(merchant1.top_shipment_states.first.state).to eq("CA")
-      expect(merchant1.top_shipment_states.second.state).to eq("UT")
-      expect(merchant1.top_shipment_states.last.state).to eq("CO")
+      expectation = merchant1.top_shipment_states
+      expect(expectation.first.state).to eq("CA")
+      expect(expectation.second.state).to eq("CO")
+      expect(expectation.last.state).to eq("UT")
     end
 
     xit "#top_shipment_city_states" do
@@ -335,17 +336,18 @@ RSpec.describe User, type: :model do
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order2)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order3)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order4)
-      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order5)
-      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item2, order: order6)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order5)
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order6)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order7)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order8)
       order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order9)
-      expect(merchant1.top_shipment_states.first.state).to eq("CA")
-      expect(merchant1.top_shipment_states.second.state).to eq("UT")
-      expect(merchant1.top_shipment_states.last.state).to eq("CO")
+      order_item1 = create(:fulfilled_order_item, quantity: 1, item:item1, order: order10)
+      expect(merchant1.top_shipment_states.first.state).to eq("Springfield, CA")
+      expect(merchant1.top_shipment_states.second.state).to eq("Denver, CO")
+      expect(merchant1.top_shipment_states.last.state).to eq("Staten Island, NY")
     end
 
-    it "#most_user_orders" do
+    xit "#most_user_orders" do
       merchant = create(:user, role: 1)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 

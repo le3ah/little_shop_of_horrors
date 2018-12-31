@@ -1,35 +1,42 @@
-<h1>Order #<%= @order.id %></h1>
+<div class="vw-80">
+  <h1>Order #<%= @order.id %></h1>
 
-<p>Customer Information</p>
-<p>Name: <%= @customer.name %></p>
-<p>Address: <%= @customer.address %></p>
+  <p>Customer Information</p>
+  <p>Name: <%= @customer.name %></p>
+  <p>Address: <%= @customer.address %></p>
 
-<p>Item Information</p>
-<table>
-  <thead>
-    <th>Item Name</th>
-    <th>Item Image</th>
-    <th>Price</th>
-    <th>Quantity Ordered</th>
-    <th>Fufill Order Item / Fulfilled Status</th>
-  </thead>
-  <tbody>
-    <% @order_items.each do |order_item| %>
-      <tr>
-        <td><%= link_to "#{order_item.item.name}", dashboard_item_path(order_item.item) %></td>
-        <% begin %>
-          <td><%= image_tag(order_item.item.thumbnail) %></td>
-        <% rescue %>
-          <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
-        <% end %>
-        <td>$<%= order_item.order_item_price %></td>
-        <td>Quantity Ordered: <%= order_item.order_item_quantity %></td>
-        <% if order_item.fulfilled %>
-          <td>Fulfilled</td>
-        <% else %>
-          <td><%= button_to "Fulfill", fulfill_order_item_path(order_item_id: order_item.order_item_id) %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <p>Item Information</p>
+  <table class="table table-bordered table-striped table-dark">
+    <thead>
+      <th scope="col">Item Name</th>
+      <th scope="col">Item Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity Ordered</th>
+      <th scope="col">Fufill Order Item / Fulfilled Status</th>
+    </thead>
+    <tbody>
+      <% @order_items.each do |order_item| %>
+        <tr>
+          <td><%= link_to "#{order_item.item.name}", dashboard_item_path(order_item.item) %></td>
+          <% begin %>
+            <td><%= image_tag(order_item.item.thumbnail) %></td>
+          <% rescue %>
+            <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
+          <% end %>
+          <td>$<%= order_item.order_item_price %></td>
+          <td>Quantity Ordered: <%= order_item.order_item_quantity %></td>
+          <% if order_item.fulfilled %>
+            <td>Fulfilled</td>
+          <% else %>
+            <% if order_item.order_item_quantity < order_item.item.inventory %>
+              <td><%= button_to "Fulfill", fulfill_order_item_path(order_item_id: order_item.order_item_id) %></td>
+            <% else %>
+              <td class="red-notice">Not Enough Inventory</td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

@@ -1,31 +1,41 @@
-<h1>Your Cart</h1>
+<div class="vw-80 mt-5">
+  <h1>Your Cart</h1>
 
-<% if @cart_items.empty? %>
-  <p>Your cart is empty!</p>
-<% else %>
-
-<table>
-  <th>    </th>
-  <th>Name</th>
-  <th>Quantity</th>
+  <% if @cart_items.empty? %>
+    <p>Your cart is empty!</p>
+  <% else %>
+  <table class="table table-bordered table-striped table-dark">
+    <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Increase/Decrease Quantity</th>
+      <th scope="col">Remove Item</th>
+    </thead>
     <% if !current_user %>
       <p>You must register or be logged in to checkout</p>
     <% end %>
-    <% @cart_items.each_with_index do |cart_item, index| %>
-      <tr>
-        <td><%= button_to "Remove", cart_item_path(cart_item.id), id: "rem-cart-item-#{index}", method: :patch %></td>
-        <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
-        <td class="quantity_<%= index %>"><%= cart_item.quantity %></td>
-        <td><%= button_to "+", cart_item_path(cart_item.id, add: true), id: "plus-cart-item-#{index}", method: :patch %></td>
-        <td><%= button_to "-", cart_item_path(cart_item.id, add: nil), id: "minus-cart-item-#{index}", method: :patch %></td>
-      </tr>
+      <% @cart_items.each_with_index do |cart_item, index| %>
+      <tbody>
+        <tr>
+          <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
+          <td class="quantity_<%= index %>"><%= cart_item.quantity %></td>
+          <td>
+            <div class="btn-group">
+              <%= button_to "+", cart_item_path(cart_item.id, add: true), id: "plus-cart-item-#{index}", method: :patch, class: "btn btn-primary mr-2" %><%= button_to "-", cart_item_path(cart_item.id, add: nil), id: "minus-cart-item-#{index}", method: :patch, class: "btn btn-primary" %>
+            </div>
+          </td>
+          <td><%= button_to "Remove", cart_item_path(cart_item.id), id: "rem-cart-item-#{index}", method: :patch, class: "btn btn-primary" %></td>
+        </tr>
+      </tbody>
+      <% end %>
     <% end %>
-  <% end %>
-</table>
-
-<% unless @cart_items.empty? %>
-  <% if current_user %>
-    <%= button_to "Checkout", orders_path(user_id: current_user.id) %>
-  <% end %>
-  <%= link_to "Empty Cart", cart_items_path, method: :delete %>
-<% end %>
+  </table>
+  <div class="btn-group">
+    <% unless @cart_items.empty? %>
+      <% if current_user %>
+        <%= button_to "Checkout", orders_path(user_id: current_user.id), class: "btn btn-primary mr-2" %>
+      <% end %>
+      <%= button_to "Empty Cart", cart_items_path, method: :delete, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

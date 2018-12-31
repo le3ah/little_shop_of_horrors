@@ -21,9 +21,6 @@
         <%= link_to 'Profile', profile_path, :class => "nav-link"  %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Orders', profile_orders_path, :class => "nav-link" %>
-      </li>
-      <li class="nav-item">
         <%= link_to "Shopping Cart (#{ @cart.items_quantity })", cart_path, :class => "nav-link"  %>
       </li>
 
@@ -40,9 +37,6 @@
       <li class="nav-item">
         <%= link_to 'Dashboard', dashboard_path, :class => "nav-link" %>
       </li>
-      <li class="nav-item">
-        <%= link_to 'Orders', profile_orders_path, :class => "nav-link" %>
-      </li>
 
     <% elsif current_user && current_user.role == "admin" %>
       <li class="nav-item active">
@@ -52,16 +46,10 @@
         <%= link_to "Browse Items", items_path, :class => "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Browse Merchants", merchants_path, :class => "nav-link"  %>
+        <%= link_to "Browse Merchants", admin_merchants_path, :class => "nav-link"  %>
       </li>
       <li class="nav-item">
         <%= link_to 'Users', admin_users_path, :class => "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Orders', profile_orders_path, :class => "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'Dashboard', dashboard_path, :class => "nav-link" %>
       </li>
 
     <% else %>

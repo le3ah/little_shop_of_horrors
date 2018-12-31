@@ -1,35 +1,48 @@
-<h1><%= @user.name %></h1>
-<p>Date Registered: <%= @user.created_at.to_date %></p>
-<p>Enable/Disable: </p>
-<% if @user.enabled? %>
-    <td><%= button_to "Enable", admin_toggle_user_path({user_id: @user.id}) %></td>
-<% else %>
-    <td><%= button_to "Disable", admin_toggle_user_path({user_id: @user.id}) %></td>
-<% end %>
-<%= button_to "Upgrade User", admin_toggle_role_path(id: @user.id) %>
-
-<p>Email: <%= @user.email %></p>
-<p>Address: <%= @user.address %></p>
-<p>City: <%= @user.city %></p>
-<p>State: <%= @user.state %></p>
-<p>Zip: <%= @user.zip %></p>
-<%= link_to "Edit Profile", edit_admin_user_path(@user) %>
-
-<% if @user.orders %>
-<section class='orders'>
-  <p><%= @user.name %>'s Orders</p>
-  <% @user.orders.each do |order| %>
-    <div id="order-<%= order.id %>" class="order">
-      <%= link_to "View Order ##{order.id}", admin_order_path(order) %>
-      <p>Created at: <%= order.created_at %></p>
-      <p>Updated at: <%= order.updated_at %></p>
-      <p>Status: <%= order.status %></p>
-      <p>Item Count: <%= order.quantity_of_order %></p>
-      <p>Grand Total: <%= order.grand_total %></p>
-      <% if order.status == 'pending' %>
-      <td><%= button_to "Cancel", admin_order_path(order, user_id: @user.id), method: :delete %></td>
-      <% end %>
+<div class="vw-80">
+  <section class="info-group">
+    <div class="order card text-white bg-dark mb-3 tpad">
+      <h1 class="card-title"><%= @user.name %></h1>
+      <p class="card-text tpad">Date Registered: <%= @user.created_at.to_date %></p>
+      <p class="card-text tpad">Enable/Disable: </p>
+      <div class="btn-group">
+        <% if @user.enabled? %>
+            <td><%= button_to "Enable", admin_toggle_user_path({user_id: @user.id}), class: "btn btn-primary mr-3" %></td>
+        <% else %>
+            <td><%= button_to "Disable", admin_toggle_user_path({user_id: @user.id}), class: "btn btn-primary" %></td>
+        <% end %>
+        <%= button_to "Upgrade User", admin_toggle_role_path(id: @user.id), class: "btn btn-primary" %>
+      </div>
     </div>
-  <% end %>
-</section>
-<% end %>
+    <div class="order card text-white bg-dark mb-3 tpad">
+      <p class="card-text">Email: <%= @user.email %></p>
+      <p class="card-text">Address: <%= @user.address %></p>
+      <p class="card-text">City: <%= @user.city %></p>
+      <p class="card-text">State: <%= @user.state %></p>
+      <p class="card-text">Zip: <%= @user.zip %></p>
+      <%= link_to "Edit Profile", edit_admin_user_path(@user) %>
+    </div>
+  </section>
+  <section class="order-group">
+    <% if @user.orders %>
+      <h2 class="orders-title"><%= @user.name %>'s Orders</h2>
+      <section class='orders'>
+        <% @user.orders.each do |order| %>
+          <div id="order-<%= order.id %>" class="order card text-white bg-dark mb-3 tpad">
+            <div class="card-header">
+              <%= link_to "View Order ##{order.id}", admin_order_path(order) %>
+            </div>
+            <p class="card-text">Created at: <%= order.created_at %></p>
+            <p class="card-text">Updated at: <%= order.updated_at %></p>
+            <p class="card-text">Status: <%= order.status %></p>
+            <p class="card-text">Item Count: <%= order.quantity_of_order %></p>
+            <p class="card-text">Grand Total: <%= order.grand_total %></p>
+            <% if order.status == 'pending' %>
+              <td><%= button_to "Cancel", admin_order_path(order, user_id: @user.id), method: :delete, class: "btn btn-primary" %></td>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
+    <% end %>
+  </section>
+</div>
+

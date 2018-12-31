@@ -1,3 +1,5 @@
+require_relative '../../app/models/Item.rb'
+
 FactoryBot.define do
   factory :item, class: Item do
     association :user, factor: :merchant

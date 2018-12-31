@@ -14,7 +14,7 @@ describe Cart do
       expect(@cart.items.first).to be_a_kind_of(CartItem)
     end
 
-    it '#items_quantity returns number of total items in card' do
+    it '#items_quantity returns number of total items in cart' do
       expect(@cart.items_quantity).to eq(2)
       item_2 = create(:item, user_id: @user.id, inventory: 3)
       @cart.add_item(item_2)
@@ -73,6 +73,14 @@ describe Cart do
       cart = Cart.new({@item.id.to_s => 2})
 
       expect(cart.enough_inventory_for_more?(@item.id)).to eq(true)
+    end
+
+    it '#clear emptys the cart' do
+      expect(@cart.data).to eq({@item.id.to_s => 2})
+      
+      @cart.clear
+      
+      expect(@cart.data).to eq({})
     end
   end
 end

@@ -1,27 +1,22 @@
-<h1>
-    All da merchants
-</h1>
-
-<table>
+<div class="vw-80">
+  <h1>All Merchants</h1>
+  <table class="table table-bordered table-striped table-dark">
     <thead>
-        <th>Name</th>
-        <th>City</th>
-        <th>State</th>
+      <th scope="col">Name</th>
+      <th scope="col">City</th>
+      <th scope="col">State</th>
     </thead>
-
     <% @merchants.each do |merchant| %>
-        <tbody id="merchant-<%=merchant.id%>">
-                <td> <%= link_to merchant.name, admin_merchant_path(merchant) %></td>
-                <td><%= merchant.city %></td>
-                <td><%= merchant.state %></td>
-                <% if merchant.enabled? %>
-                    <td><%= button_to 'disable', admin_toggle_path(user_id: merchant.id) %></td>
-                <% else %>
-                    <td><%= button_to 'enable', admin_toggle_path(user_id: merchant.id) %></td>
-                <% end %>
-        </tbody>
+      <tbody id="merchant-<%=merchant.id%>">
+        <td> <%= link_to merchant.name, admin_merchant_path(merchant) %></td>
+        <td><%= merchant.city %></td>
+        <td><%= merchant.state %></td>
+        <% if merchant.enabled? %>
+          <td><%= button_to 'disable', admin_toggle_path(user_id: merchant.id) %></td>
+        <% else %>
+          <td><%= button_to 'enable', admin_toggle_path(user_id: merchant.id) %></td>
+        <% end %>
+      </tbody>
     <% end %>
-
-</table>
-
-(required for spec/views/admin/merchants/index.html.erb)
+  </table>
+</div>

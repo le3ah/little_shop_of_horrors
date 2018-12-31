@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "As a Merchant" do
   context "on dashboard/items i see" do
-    xit "a link to create and see an item" do
+    it "a link to create and see an item" do
       merchant = create(:user, role: 1)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
@@ -12,7 +12,6 @@ describe "As a Merchant" do
       expect(current_path).to eq(new_item_path)
       fill_in "Name",	with: "Testing"
       fill_in "Description",	with: "123"
-      attach_file("Thumbnail", Rails.root.join('spec', 'test_image', 'oldguy.jpeg'))
       fill_in "Price",	with: "11"
       fill_in "Inventory",	with: "456"
       click_on "Create Item"

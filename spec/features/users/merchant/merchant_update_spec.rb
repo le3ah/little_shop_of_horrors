@@ -46,8 +46,8 @@ describe "As a Merchant" do
         visit dashboard_items_path
         click_on 'add new item'
 
-        fill_in "Price",	with: "11"
-        fill_in "Inventory",	with: "456"
+        fill_in "Name",	with: "blah"
+        fill_in "Description",	with: "blah blah"
         click_on "Create Item"
 
         expect(page).to have_content("Price cannot be blank")

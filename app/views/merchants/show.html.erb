@@ -53,9 +53,19 @@
 <div id="top-states">
   <h3>Top 3 States Where I Shipped My Items</h3>
   <% @merchant.top_shipment_states.each do |state| %>
-  <%= state.state %>
+  <ul>
+    <li><%= state.state %></li>
+  </ul>
   <% end %>
 </div>
 
+<div id="top-cities">
+  <h3>Top 3 Cities Where I Shipped My Items</h3>
+  <% @merchant.top_shipment_city_states.each do |citystate| %>
+  <ul>
+    <li><%= citystate.city %>, <%= citystate.state %></li>
+  </ul>
+  <% end %>
+</div>
   <%= link_to "View My Items", dashboard_items_path %>
 </section>

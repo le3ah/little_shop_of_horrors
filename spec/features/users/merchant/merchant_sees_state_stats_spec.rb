@@ -7,7 +7,7 @@ describe 'as a merchant'do
 
     @user1 = create(:user, name:"user1", state: 'NY', city: "Oakfield")
     @user2 = create(:user, name:"user2", state: 'AL', city: "Cullman")
-    @user3 = create(:user, name:"user3", state: 'SC', city: "Charleston")
+    @user3 = create(:user, name:"user3", state: 'SC', city: "Oakfield")
     @item1 = create(:item, user:@merchant_1)
 
     order1 = create(:completed_order, user:@user1)
@@ -26,6 +26,14 @@ describe 'as a merchant'do
       expect(page).to have_content(top_states.first.state)
       expect(page).to have_content(top_states.second.state)
       expect(page).to have_content(top_states.last.state)
+    end
+    it "should see top city states where merchant shipped items" do
+      visit dashboard_path
+      top_city_states = @merchant_1.top_shipment_city_states
+
+      expect(page).to have_content("#{top_city_states.first.city}", "#{top_city_states.first.state}")
+      expect(page).to have_content("#{top_city_states.second.city}", "#{top_city_states.second.state}")
+      expect(page).to have_content("#{top_city_states.last.city}", "#{top_city_states.last.state}")
     end
   end
 end

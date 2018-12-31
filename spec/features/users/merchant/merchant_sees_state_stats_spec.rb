@@ -36,7 +36,11 @@ describe 'as a merchant'do
         expect(page).to have_content("#{top_city_states.first.city}", "#{top_city_states.first.state}")
         expect(page).to have_content("#{top_city_states.second.city}", "#{top_city_states.second.state}")
         expect(page).to have_content("#{top_city_states.last.city}", "#{top_city_states.last.state}")
-      end 
+      end
+    end
+    it "should see name of user with most orders from merchant" do
+      visit dashboard_path
+      expect(page).to have_content("User with the Most Orders: #{@merchant_1.most_user_orders.name}")
     end
   end
 end

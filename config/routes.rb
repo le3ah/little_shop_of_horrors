@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
 
-  resources :items, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+  resources :items, only: [:index, :show]
   resources :merchants, only: [:index]
   resources :users, only: [:create, :update]
   resources :cart_items, only: [:create, :update]
@@ -16,18 +16,18 @@ Rails.application.routes.draw do
     post '/toggle-user', to: "users#toggle_user"
     post '/toggle-role', to: "merchants#toggle_role"
   end
-
+  
   namespace :profile do
     resources :orders, only: [:index, :show, :destroy]
   end
-
+  
   namespace :dashboard do
     resources :orders, only: [:show]
-    resources :items, only: [:index, :show]
+    resources :items, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    post '/toggle-item', to: 'items#toggle_item'
   end
 
   get '/dashboard', to: 'merchants#show'
-  post '/toggle-item', to: 'items#toggle_item'
   post '/fulfill-order-item', to: 'order_items#fulfill_order_item'
 
   get '/profile', to: 'users#show'

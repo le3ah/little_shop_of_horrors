@@ -1,5 +1,8 @@
 class Item < ApplicationRecord
-  validates_presence_of :name, :description, :price, :inventory
+  validates_presence_of :name, message: "can't be blank"
+  validates_presence_of :description, message: "can't be blank" 
+  validates_presence_of :price, message: "can't be blank"
+  validates_presence_of :inventory, message: "can't be blank"
   validates :price, :inventory, numericality: { greater_than: 0 }
 
   validates_inclusion_of :enabled, :in => [true, false]

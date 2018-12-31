@@ -24,17 +24,17 @@
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
                 <% if item.enabled? %>
-                    <td><%= button_to "Disable", toggle_item_path(item_id: item.id) %></td>
+                    <td><%= button_to "Disable", dashboard_toggle_item_path(item_id: item.id) %></td>
                 <% else %>
-                    <td><%= button_to "Enable", toggle_item_path(item_id: item.id) %></td>
+                    <td><%= button_to "Enable", dashboard_toggle_item_path(item_id: item.id) %></td>
                 <% end %>
-                <td><%= link_to 'edit', edit_item_path(item) %></td>
+                <td><%= link_to 'edit', edit_dashboard_item_path(item) %></td>
                 <% unless item.ordered? %>
-                    <td><%= button_to 'delete', item_path(item), method: :delete %></td>
+                    <td><%= button_to 'delete', dashboard_item_path(item), method: :delete %></td>
                 <% end %>
             </tr>
         <% end %>
     </tbody>
 </table>
 
-<%= link_to 'add new item', new_item_path %>
+<%= link_to 'add new item', new_dashboard_item_path %>

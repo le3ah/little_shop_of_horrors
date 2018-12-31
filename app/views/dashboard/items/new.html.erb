@@ -1,0 +1,8 @@
+<% if @errors %>
+        <div class="alert alert-success" role="alert">
+            <%= @errors.join(", ") %>
+        </div>
+<% end %>
+
+
+<%= render partial: '/dashboard/items/item_form' %>

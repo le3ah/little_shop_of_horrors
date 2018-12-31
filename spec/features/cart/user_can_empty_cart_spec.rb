@@ -17,19 +17,19 @@ describe "Emptying Cart" do
     end
 
     it 'should redirect to cart_path when clicking empty cart' do
-      click_link "Empty Cart"
+      click_button "Empty Cart"
 
       expect(current_path).to eq(cart_path)
     end
 
     it 'should remove items from cart when clicking empty cart' do
-      click_link "Empty Cart"
+      click_button "Empty Cart"
 
       expect(page).to have_content("Your cart is empty!")
     end
 
     it 'should show 0 items in nav bar after clicking empty cart' do
-      click_link "Empty Cart"
+      click_button "Empty Cart"
 
       within '.nav' do
         expect(page).to have_content("Shopping Cart (0)")

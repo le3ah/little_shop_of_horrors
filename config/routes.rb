@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :orders, only: [:create]
 
   namespace :admin do
-    resources :merchants, only: [:index, :show]
+    resources :merchants, shallow: true, only: [:index, :show] do
+      resources :items, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
     resources :users, only: [:index, :show, :edit]
     resources :orders, only: [:destroy, :show]
     post '/toggle', to: "merchants#toggle_status"

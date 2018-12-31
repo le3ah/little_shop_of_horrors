@@ -1,0 +1,41 @@
+<div class="vw-80">
+  <h1><%= @merchant.name %>'s Items</h1>
+  <table class="table table-bordered table-striped table-dark">
+    <thead>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Thumbnail</th>
+      <th scope="col">Price</th>
+      <th scope="col">Inventory</th>
+      <th scope="col">Enable/Disable</th>
+      <th scope="col">Edit</th>
+    </thead>
+    <tbody>
+        <% @items.each do |item| %>
+            <tr id=<%="item-#{item.id}"%>>
+                <td><%= item.id%></td>
+                <td><%= item.name%></td>
+               <% item.thumbnail = "no_img" if item.thumbnail == ""%>
+                <% begin %>
+                  <td><%= image_tag("#{item.thumbnail}.jpg", id:("#{item.thumbnail}")) %></td>
+                <% rescue %>
+                  <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
+                <% end %>
+                <td><%= item.price%></td>
+                <td><%= item.inventory%></td>
+                <% if item.enabled? %>
+                    <td><%= button_to "Disable", dashboard_toggle_item_path(item_id: item.id) %></td>
+                <% else %>
+                    <td><%= button_to "Enable", dashboard_toggle_item_path(item_id: item.id) %></td>
+                <% end %>
+                <td><%= link_to 'edit', edit_dashboard_item_path(item) %></td>
+                <% unless item.ordered? %>
+                    <td><%= button_to 'delete', admin_item_path(item), method: :delete %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+  </table>
+<%= link_to 'add new item', new_admin_merchant_item_path %>
+</div>
+

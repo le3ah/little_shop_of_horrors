@@ -34,4 +34,8 @@ class Cart
   def enough_inventory_for_more?(item_id)
     data[item_id.to_s] < Item.find(item_id).inventory
   end
+
+  def clear
+    @data = Hash.new
+  end
 end

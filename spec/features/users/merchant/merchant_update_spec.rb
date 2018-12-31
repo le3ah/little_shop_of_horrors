@@ -11,7 +11,7 @@ describe "As a Merchant" do
       within "#item-#{item.id}" do
         click_link "edit"
       end
-      expect(current_path).to eq(edit_item_path(item))
+      expect(current_path).to eq(edit_dashboard_item_path(item))
 
       fill_in "Thumbnail", with: "plant_11"
       click_button "Update Item"
@@ -31,12 +31,12 @@ describe "As a Merchant" do
         visit dashboard_items_path
         click_on 'add new item'
 
-        fill_in "Price",	with: "11"
-        fill_in "Inventory",	with: "456"
+        fill_in "Price",	with: 11
+        fill_in "Inventory",	with: 456
         click_on "Create Item"
 
-        expect(page).to have_content("Name cannot be blank")
-        expect(page).to have_content("Description cannot be blank")
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Description can't be blank")
       end 
 
       it 'sees an error for missing price, inventory' do 
@@ -49,9 +49,9 @@ describe "As a Merchant" do
         fill_in "Name",	with: "blah"
         fill_in "Description",	with: "blah blah"
         click_on "Create Item"
-
-        expect(page).to have_content("Price cannot be blank")
-        expect(page).to have_content("Inventory cannot be blank")
+      
+        expect(page).to have_content("Price can't be blank")
+        expect(page).to have_content("Inventory can't be blank")
       end 
     end 
     

@@ -9,7 +9,7 @@ describe "As a Merchant" do
       visit dashboard_items_path
 
       click_on 'add new item'
-      expect(current_path).to eq(new_item_path)
+      expect(current_path).to eq(new_dashboard_item_path)
       fill_in "Name",	with: "Testing"
       fill_in "Description",	with: "123"
       fill_in "Price",	with: "11"

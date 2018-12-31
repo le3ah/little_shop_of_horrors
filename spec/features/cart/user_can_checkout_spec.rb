@@ -68,5 +68,11 @@ describe "Cart Checkout" do
       expect(page).to have_content("Order Grand Total: $#{order.grand_total}")
       expect(page).to have_content("Order Status: #{order.status}")
     end
+
+    it 'clears cart on checkout' do
+      click_button "Checkout"
+
+      expect(page).to have_content("Shopping Cart (0)")
+    end
   end
 end

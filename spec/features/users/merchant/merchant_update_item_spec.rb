@@ -9,7 +9,7 @@ describe "As a Merchant" do
       visit dashboard_items_path
     end
     it "sees a link to edit and can edit images" do
- 
+
 
       within "#item-#{@item.id}" do
         click_link "edit"
@@ -27,20 +27,20 @@ describe "As a Merchant" do
     it "can update an image to be blank and will show default image" do
       within "#item-#{@item.id}" do
         click_link "edit"
-      end 
+      end
 
       fill_in "Thumbnail", with: ""
       click_button "Update Item"
 
       @item.reload
-      
+
       expect(page.find('#no_img')['alt']).to match("No img")
     end
   end
 
   context "merchant updates item flash messages for each issue" do
-    context 'merchant sees a flash message for each error' do 
-      it 'sees an error for missing name, description' do 
+    context 'merchant sees a flash message for each error' do
+      it 'sees an error for missing name, description' do
         merchant = create(:user, role: 1)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
@@ -53,9 +53,9 @@ describe "As a Merchant" do
 
         expect(page).to have_content("Name can't be blank")
         expect(page).to have_content("Description can't be blank")
-      end 
+      end
 
-      it 'sees an error for missing price, inventory' do 
+      it 'sees an error for missing price, inventory' do
         merchant = create(:user, role: 1)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
 
@@ -65,12 +65,12 @@ describe "As a Merchant" do
         fill_in "Name",	with: "blah"
         fill_in "Description",	with: "blah blah"
         click_on "Create Item"
-      
+
         expect(page).to have_content("Price can't be blank")
         expect(page).to have_content("Inventory can't be blank")
-      end 
-    end 
-    
+      end
+    end
+
     it 'shows flash messages if required fields are blank on update' do
       merchant = create(:user, role: 1)
       item = create(:item, user: merchant, thumbnail: "plant_10")

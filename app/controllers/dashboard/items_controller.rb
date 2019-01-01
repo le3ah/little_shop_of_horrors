@@ -25,8 +25,7 @@ class Dashboard::ItemsController < Dashboard::BaseController
       flash[:success] = "Item added!"
       redirect_to dashboard_items_path
     else
-      flash[:error] = "Something went wrong!"
-      @errors = @item.errors.full_messages
+      flash[:error] = @item.errors.full_messages
       render :new
     end
   end

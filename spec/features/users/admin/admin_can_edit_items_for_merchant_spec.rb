@@ -41,6 +41,25 @@ describe 'As an admin when I visit a merchants items' do
 
         expect(item).to_not be_truthy
       end
+
+      it 'shows flash message if required fields are blank' do
+        admin = create(:user, role: 2)
+        merchant = create(:user, role: 1)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+        visit admin_merchant_items_path(merchant)
+
+        click_on 'add new item'
+
+        expect(current_path).to eq(new_admin_merchant_item_path(merchant))
+
+        fill_in "Price",	with: "11"
+        fill_in "Inventory",	with: "456"
+        click_on "Create Item"
+
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Description can't be blank")
+      end
     end
 
     context 'update functionality' do

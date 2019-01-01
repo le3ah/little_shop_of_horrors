@@ -69,6 +69,21 @@ class User < ApplicationRecord
       .order('sum_quantity DESC').limit(5).sum(:quantity)
     end
 
+    def total_sold
+      OrderItem.joins(:item, :order)
+      .where("status ='complete'")
+      .sum(:quantity)
+    end
+
+    def total_inventory
+      Item.where("user_id = #{self.id}")
+      .sum(:inventory)
+    end
+
+    def percentage_of_inventory
+      ((total_sold.to_f / total_inventory) * 100).round(2)
+    end
+
     def top_5
       top_5_id_quantity.keys.map do |id|
         Item.find(id)
@@ -82,6 +97,54 @@ class User < ApplicationRecord
       .group(:id)
     end
 
+    def top_shipment_states
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")
+      .select("users.state, SUM(order_items.quantity) as order_item_quantity")
+      .where("orders.status = 'complete'")
+      .where("items.user_id=#{self.id}")
+      .group("users.state")
+      .order("order_item_quantity desc")
+      .limit(3)
+    end
+
+    def top_shipment_city_states
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON order_items.item_id = items.id")
+      .select("users.city, users.state, SUM(order_items.quantity) as order_item_quantity")
+      .where("orders.status = 'complete'")
+      .where("items.user_id=#{self.id}")
+      .group("users.city, users.state")
+      .order("order_item_quantity desc")
+      .limit(3)
+    end
+
+    def most_user_orders
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
+      .select("users.*, count(orders.id) as customer_order_quantity")
+      .where("items.user_id=#{self.id}")
+      .where("order_items.fulfilled=true")
+      .group("users.id")
+      .order("customer_order_quantity desc")
+      .limit(1)
+    end
+
+    def most_items_ordered
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
+      .select("users.*, sum(order_items.quantity) as customer_order_quantity")
+      .where("items.user_id=#{self.id}")
+      .where("order_items.fulfilled=true")
+      .group("users.id")
+      .order("customer_order_quantity desc")
+      .limit(1)
+    end
+    def top_user_spenders
+      User.joins("INNER JOIN orders ON orders.user_id = users.id INNER JOIN order_items ON order_items.order_id = orders.id INNER JOIN items ON items.id=order_items.item_id")
+      .select("users.*, sum(order_items.quantity * order_items.price) as customer_spend_total")
+      .where("items.user_id=#{self.id}")
+      .where("order_items.fulfilled=true")
+      .group("users.id")
+      .order("customer_spend_total desc")
+      .limit(3)
+    end
     private
 
     def self.top_cities_or_states(city_or_state, amount)

@@ -40,5 +40,33 @@ describe 'As an admin when I visit a merchants items' do
 
       expect(item).to_not be_truthy
     end
+
+    it "sees a link to edit and can edit images" do
+      admin = create(:user, role: 2)
+      merchant = create(:user, role: 1)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      item = create(:item, user: merchant, thumbnail: "plant_10")
+      visit admin_merchant_items_path(merchant)
+
+      within "#item-#{item.id}" do
+        click_link "edit"
+      end
+
+      expect(current_path).to eq(edit_admin_merchant_item_path(merchant, item))
+
+      fill_in "Name", with: "Cool name"
+      fill_in "Description", with: "Cool plant"
+      fill_in "Price", with: "11"
+      fill_in "Thumbnail", with: "plant_29"
+
+      click_button "Update Item"
+
+      item.reload
+
+      expect(current_path).to eq(admin_merchant_items_path(merchant))
+      expect(page).to have_content("Cool name")
+      expect(page).to have_content("11")
+      expect(page.find('#plant_29')['alt']).to match("Plant 29")
+    end
   end
 end

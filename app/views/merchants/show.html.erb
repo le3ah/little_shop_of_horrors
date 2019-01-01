@@ -41,8 +41,43 @@
     </div>
     <% end %>
   </ul>
-
 </div>
 
+<h1>Sales Statistics</h1>
+<div id="total-sold">
+  <p>Total Items Sold: <%= @merchant.total_sold %></p>
+</div>
+<div id="percentage-inventory">
+  <p>You've Sold <%= @merchant.percentage_of_inventory %>% of Your Inventory.</p>
+</div>
+<div id="top-states">
+  <h3>Top 3 States Where I Shipped My Items</h3>
+  <% @merchant.top_shipment_states.each do |state| %>
+  <ul>
+    <li><%= state.state %></li>
+  </ul>
+  <% end %>
+</div>
+<div id="top-cities">
+  <h3>Top 3 Cities Where I Shipped My Items</h3>
+  <% @merchant.top_shipment_city_states.each do |citystate| %>
+  <ul>
+    <li><%= citystate.city %>, <%= citystate.state %></li>
+  </ul>
+  <% end %>
+</div>
+<h3>My Top Users</h3>
+<ul>
+  <li>User with the Most Orders: <%= @merchant.most_user_orders.name if @merchant.most_user_orders %></li>
+  <li>User Purchasing the Most Total Items: <%= @merchant.most_items_ordered.name if @merchant.most_items_ordered %></li>
+</ul>
+<div id="top-3-spenders">
+  <h3>Top 3 Spenders</h3>
+  <% @merchant.top_user_spenders.each do |spender| %>
+  <ul>
+    <li><%= spender.name %></li>
+  </ul>
+  <% end %>
+</div>
   <%= link_to "View My Items", dashboard_items_path %>
 </section>

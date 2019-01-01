@@ -1,11 +1,14 @@
 class Admin::MerchantsController < Admin::BaseController
   def index
-      @merchants = User.where('role = 1')
+    @merchants = User.where('role = 1')
   end
 
   def show
     @user = User.find(params[:id])
     redirect_to admin_user_path(params[:id]) if @user.default?
+    @merchant = @user
+    @top_5 = @merchant.top_5 if @merchant.orders
+    @pending_orders = @merchant.pending_orders if @merchant.orders
   end
 
   def toggle_status

@@ -1,3 +1,49 @@
-Merchant Page
+<section class="merchant-info">
+  <h1><%= @merchant.name %>'s Dashboard</h1>
+  <%= button_to "Downgrade to User", admin_toggle_role_path(id:params[:id]) %>
+  <div>
+    <table class="table table-bordered table-striped table-dark">
+      <thead>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Zip</th>
+      </thead>
 
-<%= button_to "Downgrade to User", admin_toggle_role_path(id:params[:id]) %>
+      <tbody>
+          <td><%= @merchant.email %></td>
+          <td><%= @merchant.address %></td>
+          <td><%= @merchant.city %></td>
+          <td><%= @merchant.state %></td>
+          <td><%= @merchant.zip %></td>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="top-5-items">
+    <h1>Top 5 Items</h1>
+    <ul>
+      <% @top_5.each do |item| %>
+      <li><%= item.name %></li>
+      <% end %>
+    </ul>
+  </div>
+
+<div id="pending-orders">
+  <h1>Pending Orders</h1>
+  <ul>
+    <% @pending_orders.each do |order| %>
+    <div id="pending-<%=order.id%>">
+      <li> <%= link_to "Order ID: #{order.id}", dashboard_order_path(order, merchant_id: @merchant.id) %> </li>
+      <li> Date Ordered: <%= order.created_at %></li>
+      <li> Quantity of My Items in Order: <%= order.quantity_of_my_items(@merchant) %></li>
+      <li> Total Value of My Items: $<%= order.value_of_my_items(@merchant) %></li>
+    </div>
+    <% end %>
+  </ul>
+
+</div>
+
+  <%= link_to "View My Items", dashboard_items_path %>
+</section>

@@ -31,6 +31,12 @@ class Cart
     end
   end
 
+  def grand_total
+    items.inject(0) do |total, item|
+      total += item.price * item.quantity
+    end
+  end
+
   def enough_inventory_for_more?(item_id)
     data[item_id.to_s] < Item.find(item_id).inventory
   end

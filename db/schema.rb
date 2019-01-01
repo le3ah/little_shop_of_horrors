@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20181218001734) do
     t.string "thumbnail"
     t.integer "price"
     t.integer "inventory"
-    t.boolean "enabled", default: false, null: false
+    t.boolean "enabled", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

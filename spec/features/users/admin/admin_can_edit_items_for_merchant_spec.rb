@@ -34,12 +34,31 @@ describe 'As an admin when I visit a merchants items' do
           expect(page).to have_button("delete")
           click_button "delete"
         end
-        
+
         expect(page).to have_content("Item successfully deleted!")
-        
+
         item = Item.find_by(name: "Testing")
 
         expect(item).to_not be_truthy
+      end
+
+      it 'shows flash message if required fields are blank' do
+        admin = create(:user, role: 2)
+        merchant = create(:user, role: 1)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+        visit admin_merchant_items_path(merchant)
+
+        click_on 'add new item'
+
+        expect(current_path).to eq(new_admin_merchant_item_path(merchant))
+
+        fill_in "Price",	with: "11"
+        fill_in "Inventory",	with: "456"
+        click_on "Create Item"
+
+        expect(page).to have_content("Name can't be blank")
+        expect(page).to have_content("Description can't be blank")
       end
     end
 
@@ -77,7 +96,7 @@ describe 'As an admin when I visit a merchants items' do
       before :each do
         @a = create(:user, role: 2)
         @m = create(:user, role: 1)
-        @i_1 = create(:item, user: @m, enabled: true)
+        @i_1 = create(:item, user: @m, enabled: false)
         @i_2 = create(:item, user: @m)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@a)
@@ -92,12 +111,12 @@ describe 'As an admin when I visit a merchants items' do
         expect(current_path).to eq(admin_merchant_items_path(@m))
         expect(page).to have_content("Item is available for sale!")
         expect(page).to have_button("Disable", count: 2)
-        
+
         first(:button, "Disable").click
         expect(page).to have_content("Item is no longer available for sale!")
         expect(page).to have_button("Disable", count: 1)
         expect(current_path).to eq(admin_merchant_items_path(@m))
       end
-    end 
+    end
   end
 end

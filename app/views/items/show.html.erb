@@ -9,9 +9,9 @@
       <li class="list-group-item"><p>Average Fulfillment Time: <%= @average_fulfillment_time %></p></li>
     </ul>
     <% begin %>
-      <%= link_to image_tag(@item.thumbnail, id: "#{@item.thumbnail}", class: "card-img-bottom"), item_path(@item), id: "item-image-#{@item.id}" %>
+      <%= link_to image_tag("#{@item.thumbnail}.jpg", id: "#{@item.thumbnail}", class: "card-img-bottom"), item_path(@item), id: "item-image-#{@item.id}" %>
     <% rescue %>
-      <%= link_to image_tag("no_img", id: "#{@item.thumbnail}", class: "card-img-bottom"), item_path(@item), id: "item-image-#{@item.id}" %>
+      <%= link_to image_tag("no_img.jpg", id: "#{@item.thumbnail}", class: "card-img-bottom"), item_path(@item), id: "item-image-#{@item.id}" %>
     <% end %>
 
     <% unless current_user && current_user.role == "admin" ||

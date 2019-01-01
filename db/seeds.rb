@@ -1,10 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
 require 'factory_bot_rails'
 
 include FactoryBot::Syntax::Methods
@@ -30,10 +26,10 @@ user_8 = create(:user, name: "Amanda", state: "IL", city: "Chicago")
 user_9 = create(:user, name: "Guy", state: "AL", city: "Pelham")
 user_10 = create(:user, name: "Rudy", state: "IN", city: "South Bend")
 
-merchant_1 = create(:user, role: 1, name: "Bill Murray")
-merchant_2 = create(:user, role: 1, name: "Steve Martin")
-merchant_3 = create(:user, role: 1, name: "Rick Moranis")
-merchant_4 = create(:user, role: 1, name: "Jack Nicholson")
+merchant_1 = create(:user, role: 1, name: "Bill Murray", email: "bill@bill.com", password: "bill")
+merchant_2 = create(:user, role: 1, name: "Steve Martin", email: "steve@steve.com", password: "steve")
+merchant_3 = create(:user, role: 1, name: "Rick Moranis", email: "rick@rick.com", password: "rick")
+merchant_4 = create(:user, role: 1, name: "Jack Nicholson", email: "jack@jack.com", password: "jack")
 
 item_1 = create(:item, thumbnail: "plant_1", user: merchant_1, name: "Nightmares", description: "Nightmares is a delightful plant for any home.  The leering eyes don’t just appear to follow you around the room, they actually do.", enabled: true)
 item_2 = create(:item, thumbnail: "plant_2", user: merchant_2, name: "Children's Fingers", description: "Don’t let the name fool you, Children’s Fingers is not a plant for a children.  This plant will draw blood at the slightest graze of a hand; however, the good news is blood is the perfect fertilizer to help this plant grow full and strong.", enabled: true)
@@ -173,3 +169,38 @@ create(:fulfilled_order_item, order: order_19, item: item_28, price: item_28.pri
 order_20 = create(:completed_order, user: user_4)
 create(:fulfilled_order_item, order: order_20, item: item_11, price: item_11.price, quantity: 6, created_at: 5.days.ago, updated_at: 2.days.ago)
 create(:fulfilled_order_item, order: order_20, item: item_28, price: item_28.price, quantity: 3, created_at: 8.days.ago, updated_at: 2.days.ago)
+
+order_21 = create(:completed_order, user: user_1)
+create(:fulfilled_order_item, order: order_21, item: item_17, price: item_17.price, quantity: 15, created_at: 5.days.ago, updated_at: 2.days.ago)
+create(:fulfilled_order_item, order: order_21, item: item_28, price: item_28.price, quantity: 12, created_at: 4.days.ago, updated_at: 2.days.ago)
+
+order_22 = create(:completed_order, user: user_7)
+create(:fulfilled_order_item, order: order_22, item: item_19, price: item_19.price, quantity: 14, created_at: 15.days.ago, updated_at: 12.days.ago)
+create(:fulfilled_order_item, order: order_22, item: item_21, price: item_21.price, quantity: 5, created_at: 5.days.ago, updated_at: 2.days.ago)
+
+order_23 = create(:completed_order, user: user_2)
+create(:fulfilled_order_item, order: order_23, item: item_14, price: item_14.price, quantity: 4, created_at: 6.days.ago, updated_at: 3.days.ago)
+create(:fulfilled_order_item, order: order_23, item: item_30, price: item_30.price, quantity: 5, created_at: 7.days.ago, updated_at: 3.days.ago)
+
+order_24 = create(:completed_order, user: user_3)
+create(:fulfilled_order_item, order: order_24, item: item_26, price: item_26.price, quantity: 14, created_at: 5.days.ago, updated_at: 2.days.ago)
+create(:fulfilled_order_item, order: order_24, item: item_22, price: item_22.price, quantity: 6, created_at: 4.days.ago, updated_at: 2.days.ago)
+
+order_25 = create(:completed_order, user: user_9)
+create(:fulfilled_order_item, order: order_25, item: item_12, price: item_12.price, quantity: 32, created_at: 15.days.ago, updated_at: 12.days.ago)
+
+order_26 = create(:completed_order, user: user_8)
+create(:fulfilled_order_item, order: order_26, item: item_17, price: item_17.price, quantity: 6, created_at: 8.days.ago, updated_at: 4.days.ago)
+create(:fulfilled_order_item, order: order_26, item: item_8, price: item_8.price, quantity: 13, created_at: 9.days.ago, updated_at: 3.days.ago)
+
+order_27 = create(:completed_order, user: user_2)
+create(:fulfilled_order_item, order: order_27, item: item_9, price: item_9.price, quantity: 3, created_at: 6.days.ago, updated_at: 4.days.ago)
+
+order_28 = create(:completed_order, user: user_10)
+create(:fulfilled_order_item, order: order_28, item: item_18, price: item_18.price, quantity: 1, created_at: 11.days.ago, updated_at: 7.days.ago)
+
+order_29 = create(:completed_order, user: user_6)
+create(:fulfilled_order_item, order: order_29, item: item_5, price: item_5.price, quantity: 6, created_at: 13.days.ago, updated_at: 6.days.ago)
+
+order_30 = create(:completed_order, user: user_7)
+create(:fulfilled_order_item, order: order_30, item: item_2, price: item_2.price, quantity: 25, created_at: 2.days.ago, updated_at: 6.hours.ago)

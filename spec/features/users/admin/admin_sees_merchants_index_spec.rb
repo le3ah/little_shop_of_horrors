@@ -96,7 +96,7 @@ RSpec.describe 'as an Admin' do
 
             expect(current_path).to eq("/admin/merchants/#{merchant.id}")
             expect(current_path).to eq(admin_merchant_path(merchant))
-            expect(page).to have_content("Merchant Page")
+            expect(page).to have_content("#{merchant.name}'s Dashboard")
         end
 
         it "default user can't visit admin_merchants_path" do

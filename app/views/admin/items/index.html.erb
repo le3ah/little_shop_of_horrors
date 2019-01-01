@@ -28,9 +28,9 @@
                 <% else %>
                     <td><%= button_to "Enable", dashboard_toggle_item_path(item_id: item.id) %></td>
                 <% end %>
-                <td><%= link_to 'edit', edit_dashboard_item_path(item) %></td>
+                <td><%= link_to 'edit', edit_admin_merchant_item_path(@merchant, item) %></td>
                 <% unless item.ordered? %>
-                    <td><%= button_to 'delete', admin_item_path(item), method: :delete %></td>
+                    <td><%= button_to 'delete', admin_merchant_item_path(@merchant, item), method: :delete %></td>
                 <% end %>
             </tr>
         <% end %>

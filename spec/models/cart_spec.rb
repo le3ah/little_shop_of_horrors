@@ -4,7 +4,7 @@ describe Cart do
   describe 'instance methods' do
     before(:each) do
       @user = create(:user)
-      @item = create(:item, user_id: @user.id, inventory: 3)
+      @item = create(:item, user_id: @user.id, inventory: 3, price: 10)
       @input_data = Hash.new(0)
       @input_data[@item.id.to_s] = 2
       @cart = Cart.new(@input_data)
@@ -24,9 +24,20 @@ describe Cart do
       @cart.add_item(@item)
       expect(@cart.items_quantity).to eq(5)
     end
-
+    
     it '#data returns a hash of the item id and quantity' do
       expect(@cart.data).to eq({@item.id.to_s => 2})
+    end
+    
+    it '#grand_total gives grand total of all items' do
+      item_2 = create(:item, user_id: @user.id, inventory: 3, price: 10)
+      item_3 = create(:item, user_id: @user.id, inventory: 3, price: 10)
+      @cart.add_item(item_2)
+      @cart.add_item(item_3)
+
+      total = @cart.grand_total
+
+      expect(total).to eq(40)
     end
 
     it '#add_item updates data when an item is added ' do

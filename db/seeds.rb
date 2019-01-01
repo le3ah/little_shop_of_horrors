@@ -142,7 +142,7 @@ create(:fulfilled_order_item, order: order_13, item: item_29, price: item_29.pri
 
 order_14 = create(:completed_order, user: user_6)
 create(:fulfilled_order_item, order: order_14, item: item_27, price: item_27.price, quantity: 10, created_at: 17.days.ago, updated_at: 2.days.ago)
-create(:fulfilled_order_item, order: order_14, item: item_28, price: item_28.price, quantity: 1, created_at: 17.days.ago, updated_at: 2.days.ago0)
+create(:fulfilled_order_item, order: order_14, item: item_28, price: item_28.price, quantity: 1, created_at: 17.days.ago, updated_at: 2.days.ago)
 create(:fulfilled_order_item, order: order_14, item: item_29, price: item_29.price, quantity: 1, created_at: 17.days.ago, updated_at: 2.days.ago)
 
 order_15 = create(:completed_order, user: user_4)

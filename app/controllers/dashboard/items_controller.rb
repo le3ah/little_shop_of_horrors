@@ -39,16 +39,14 @@ class Dashboard::ItemsController < Dashboard::BaseController
 
     update_item(@item, updated_item_params)
     flash[:success] = "You successfully edited that item!"
-    redirect_to dashboard_items_path if current_merchant?
-    redirect_to items_path if current_admin?
+    redirect_to dashboard_items_path
   end
 
   def destroy
     item = Item.find(params[:id])
     item.destroy
     flash[:success] = "item successfully deleted!"
-    redirect_to dashboard_items_path if current_merchant?
-    redirect_to items_path if current_admin?
+    redirect_to dashboard_items_path
   end
 
   def toggle_item

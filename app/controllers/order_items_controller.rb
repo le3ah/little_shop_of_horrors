@@ -6,10 +6,8 @@ class OrderItemsController < ApplicationController
     if order_item.item.enough_inventory?(order_item.quantity)
       fulfill_and_update(order_item)
       flash[:success] = "Order Item has been fulfilled!"
-    else
-      flash[:error] = "Not enough inventory to fulfill that item"
     end
-    
+
     redirect_to dashboard_order_path(order_item.order)
   end
 

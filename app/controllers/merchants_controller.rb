@@ -19,10 +19,6 @@ class MerchantsController < ApplicationController
     @pending_orders = @merchant.pending_orders if @merchant.orders
   end
 
-  def admin_or_merchant
-    current_user.role == "merchant" || current_user.role == "admin"
-  end
-
   def not_today_satan
     render_404 unless current_merchant?
   end

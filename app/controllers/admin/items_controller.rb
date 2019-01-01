@@ -35,6 +35,18 @@ class Admin::ItemsController < Admin::BaseController
     redirect_to admin_merchant_items_path(@item.user)
   end
 
+  def toggle_item
+    item = Item.find(params[:item_id])
+    item.toggle_enabled
+    item.reload
+
+    flash[:success] = item.enabled? ?
+      "Item is available for sale!" :
+      "Item is no longer available for sale!"
+
+    redirect_to admin_merchant_items_path(item.user)
+  end
+
   def destroy
     item = Item.find(params[:id])
     item.destroy

@@ -173,11 +173,11 @@ describe Item, type: :model do
 
         item.toggle_enabled
 
-        expect(item.enabled).to eq(true)
+        expect(item.enabled).to eq(false)
 
         item.toggle_enabled
 
-        expect(item.enabled).to eq(false)
+        expect(item.enabled).to eq(true)
       end
 
       it '#decrease_inventory' do

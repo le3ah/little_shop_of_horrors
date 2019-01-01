@@ -4,7 +4,7 @@ describe "Merchant Enable/Disable Item" do
   context 'when merchant visits dashboard_items page' do
     before :each do
       @m = create(:user, role: 1)
-      @i_1 = create(:item, user: @m, enabled: true)
+      @i_1 = create(:item, user: @m, enabled: false)
       @i_2 = create(:item, user: @m)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m)
@@ -29,7 +29,7 @@ describe "Merchant Enable/Disable Item" do
 
       @i_2.reload
       expect(@i_2.enabled).to be_truthy
-      
+
       first(:button, "Disable").click
       expect(page).to have_content("Item is no longer available for sale!")
       @i_1.reload

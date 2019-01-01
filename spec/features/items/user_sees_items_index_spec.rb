@@ -21,7 +21,8 @@ describe 'Items Index Page' do
         description: 'Juicy sauce',
         thumbnail: 'plant_2',
         price: 2,
-        inventory: 12
+        inventory: 12,
+        enabled: false
       )
 
       @i_3 = m_1.items.create(

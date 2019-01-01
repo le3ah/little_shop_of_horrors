@@ -38,7 +38,7 @@ class Dashboard::ItemsController < Dashboard::BaseController
   def update
     @item = Item.find(params[:id])
 
-    update_item(@item, params[:item])
+    update_item(@item, updated_item_params)
     flash[:success] = "You successfully edited that item!"
     redirect_to dashboard_items_path if current_merchant?
     redirect_to items_path if current_admin?
@@ -76,6 +76,10 @@ class Dashboard::ItemsController < Dashboard::BaseController
       params[:item][:thumbnail] = "no_img.jpg"
       params.require(:item).permit(:name, :description, :thumbnail, :price, :inventory)
     end
+  end
+
+  def updated_item_params
+    params.require(:item).permit(:name, :description, :price, :thumbnail, :inventory)
   end
 
   def update_item(item, params)

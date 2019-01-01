@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :merchants, only: [:index, :show] do
       resources :items, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+      post '/toggle-item', to: 'items#toggle_item'
     end
     resources :users, only: [:index, :show, :edit]
     resources :orders, only: [:destroy, :show]

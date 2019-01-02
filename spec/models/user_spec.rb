@@ -210,7 +210,7 @@ RSpec.describe User, type: :model do
       expect(merchant_1.pending_orders).to_not eq([order_fulfilled, order_pending_3])
     end
     it '#top_5' do
-
+      user = create(:user)
       merchant = create(:user, role: 1)
       item_1 = create(:item, user:merchant)
       item_2 = create(:item, user:merchant)
@@ -218,16 +218,15 @@ RSpec.describe User, type: :model do
       item_4 = create(:item, user:merchant)
       item_5 = create(:item, user:merchant)
       item_6 = create(:item, user:merchant)
-      order = create(:completed_order, user_id:merchant.id)
+      order = create(:completed_order, user_id: user.id)
       create(:fulfilled_order_item,  order:order, item: item_1, price: 1, quantity: 22)
       create(:fulfilled_order_item,  order:order, item: item_2, price: 1, quantity: 23)
       create(:fulfilled_order_item,  order:order, item: item_3, price: 1, quantity: 24)
       create(:fulfilled_order_item,  order:order, item: item_4, price: 1, quantity: 25)
       create(:fulfilled_order_item,  order:order, item: item_5, price: 1, quantity: 26)
       create(:fulfilled_order_item,  order:order, item: item_6, price: 1, quantity: 1)
-
       expect(merchant.top_5).to eq([item_5, item_4, item_3, item_2, item_1])
-      expect(merchant.top_5).to_not eq([item_6])
+      expect(merchant.top_5).not_to include([item_6])
     end
 
     it "#total_sold" do

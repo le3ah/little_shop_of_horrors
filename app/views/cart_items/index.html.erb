@@ -7,6 +7,10 @@
   <table class="table table-bordered table-striped table-dark">
     <thead>
       <th scope="col">Name</th>
+      <th scope="col">Thumbnail</th>
+      <th scope="col">Merchant</th>
+      <th scope="col">Price</th>
+      <th scope="col">Sub Total</th>
       <th scope="col">Quantity</th>
       <th scope="col">Increase/Decrease Quantity</th>
       <th scope="col">Remove Item</th>
@@ -16,8 +20,18 @@
     <% end %>
       <% @cart_items.each_with_index do |cart_item, index| %>
       <tbody>
-        <tr>
+        <tr id="cart_id_<%= cart_item.id %>">
           <td class="cart_item_<%= index %>"><%= cart_item.name %></td>
+          <td class="cart_thumbnail_<%= index %>">
+            <% begin %>
+              <%= image_tag "#{cart_item.thumbnail}.jpg", id: "cart_img_#{index}"  %>
+            <% rescue %>
+              <%= image_tag "no_img.jpg", id: "cart_img_#{index}"  %>
+            <% end %>
+          </td>
+          <td class="cart_user_<%= index %>"><%= cart_item.user.name %></td>
+          <td class="cart_price_<%= index %>"><%= cart_item.price %></td>
+          <td class="grand_total_<%= index %>"><%= cart_item.sub_total%></td>
           <td class="quantity_<%= index %>"><%= cart_item.quantity %></td>
           <td>
             <div class="btn-group">
@@ -30,6 +44,7 @@
       <% end %>
     <% end %>
   </table>
+  <p class="grand_total">Grand Total: $<%= @cart.grand_total %></p>
   <div class="btn-group">
     <% unless @cart_items.empty? %>
       <% if current_user %>

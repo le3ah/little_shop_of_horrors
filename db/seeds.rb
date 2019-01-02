@@ -123,7 +123,7 @@ create(:fulfilled_order_item, order: order_9, item: item_23, price: item_23.pric
 create(:fulfilled_order_item, order: order_9, item: item_24, price: item_24.price, quantity: 1, created_at: 13.days.ago, updated_at: 12.days.ago)
 
 order_10 = create(:order, user: user_8)
-create(:order_item, order: order_10, item: item_22, price: item_22.price, quantity: 1, created_at: 7.days.ago, updated_at: 2.days.ago)
+create(:order_item, order: order_10, item: item_22, price: item_22.price, quantity: 10000, created_at: 7.days.ago, updated_at: 2.days.ago)
 create(:fulfilled_order_item, order: order_10, item: item_23, price: item_23.price, quantity: 1, created_at: 17.days.ago, updated_at: 12.days.ago)
 create(:fulfilled_order_item, order: order_10, item: item_24, price: item_24.price, quantity: 1, created_at: 14.days.ago, updated_at: 2.days.ago)
 

@@ -15,12 +15,14 @@
             <tr id=<%="item-#{item.id}"%>>
                 <td><%= item.id%></td>
                 <td><%= item.name%></td>
-               <% item.thumbnail = "no_img" if item.thumbnail == ""%>
-                <% begin %>
-                  <td><%= image_tag("#{item.thumbnail}.jpg", id:("#{item.thumbnail}")) %></td>
-                <% rescue %>
-                  <td><%= image_tag("no_img.jpg", id:("no_img")) %></td>
-                <% end %>
+                <% item.thumbnail = "no_img" if item.thumbnail == ""%>
+                <td>
+                    <% begin %>
+                        <%= image_tag("#{item.thumbnail}.jpg", id:("#{item.thumbnail}")) %>
+                    <% rescue %>
+                        <%= image_tag("no_img.jpg", id:("no_img")) %>
+                    <% end %>
+                </td>
                 <td><%= item.price%></td>
                 <td><%= item.inventory%></td>
                 <% if item.enabled? %>

@@ -40,11 +40,11 @@ describe 'as a merchant'do
     end
     it "should see name of user with most orders from merchant" do
       visit dashboard_path
-      expect(page).to have_content("User with the Most Orders: #{@merchant_1.most_user_orders.name}")
+      expect(page).to have_content("User with the Most Orders: #{@merchant_1.most_user_orders.first.name}")
     end
     it "should see name of user purchasing most total items from merchant" do
       visit dashboard_path
-      expect(page).to have_content("User Purchasing the Most Total Items: #{@merchant_1.most_items_ordered.name}")
+      expect(page).to have_content("User Purchasing the Most Total Items: #{@merchant_1.most_items_ordered.first.name}")
     end
     it "should see top 3 users spending the most money on my items" do
       visit dashboard_path

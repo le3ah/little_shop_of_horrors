@@ -79,7 +79,7 @@ Some of the requirements surrounding this functionality are listed below in Visi
 We used RSpec for testing and kept track of our test coverage through SimpleCov
 
 ## Access
-We deployed our site via Heroku.  If you'd like to take a live look, please visit: https://dry-retreat-37348.herokuapp.com/
+We deployed our site via Heroku.  If you'd like to take a live look, please visit: https://little-horrors.herokuapp.com/
 
 ## Setup
 Do you see changes you'd like to make?  Please feel free to fork and clone our repository: https://github.com/stoic-plus/LittleShop

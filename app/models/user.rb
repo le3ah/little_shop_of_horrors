@@ -62,11 +62,12 @@ class User < ApplicationRecord
       save
     end
 
-    def top_5_id_quantity
-      OrderItem.joins(:order)
-      .where("status='complete' AND user_id=#{self.id}")
-      .select(:item_id, :quantity).group(:item_id)
-      .order('sum_quantity DESC').limit(5).sum(:quantity)
+    def top_5
+      Item.joins("INNER JOIN order_items ON order_items.item_id = items.id INNER JOIN orders ON order_items.order_id = orders.id")
+      .select("items.*, sum(order_items.quantity) as sum_quantity")
+      .group("items.id")
+      .order("sum_quantity desc")
+      .limit(5)
     end
 
     def total_sold
@@ -82,12 +83,6 @@ class User < ApplicationRecord
 
     def percentage_of_inventory
       ((total_sold.to_f / total_inventory) * 100).round(2)
-    end
-
-    def top_5
-      top_5_id_quantity.keys.map do |id|
-        Item.find(id)
-      end
     end
 
     def pending_orders

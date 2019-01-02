@@ -2,6 +2,7 @@ class CartItemsController < ApplicationController
   before_action :visitor_or_default?
 
   def index
+    @cart = create_cart
     @cart_items = create_cart.items
   end
 
